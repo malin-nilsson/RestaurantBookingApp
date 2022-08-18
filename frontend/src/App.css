@@ -1,6 +1,19 @@
 :root {
   --green: #162719;
   --beige: #f2e8cf;
-  --headingfont: "Playfair Display", serif;
-  --textfont: "Helvetica";
+  --headingfont: 'Playfair Display', serif;
+  --textfont: 'Helvetica', sans-serif;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  max-width: 1300px;
+  box-sizing: border-box;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  background-color: var(--green);
+  font-family: var(--textfont);
+  color: var(--beige);
 }
