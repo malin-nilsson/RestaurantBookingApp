@@ -1,1 +1,5 @@
-export interface IGuest {}
+export interface IGuest {
+  name: string;
+  email: string;
+  phone: number;
+}
