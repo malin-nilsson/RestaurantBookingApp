@@ -4,6 +4,6 @@ export interface IBooking {
   id: string;
   date: string;
   time: string;
-  guest: IGuest;
+  guest?: IGuest;
   amount: number;
 }
