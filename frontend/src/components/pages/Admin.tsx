@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from "react";
-import { BookingContext } from "../../context/BookingsContext";
-import { IBooking } from "../../models/IBooking";
-import { getBookings } from "../../services/getBookings";
+import { useContext, useEffect, useState } from 'react'
+import { BookingContext } from '../../context/BookingsContext'
+import { IBooking } from '../../models/IBooking'
+import { getBookings } from '../../services/getBookings'
 
-export function Admin() {
+export default function Admin() {
   //   const API = "https://localhost:4000/bookings";
 
-  const context = useContext(BookingContext);
-  const [bookings, setBookings] = useState<IBooking[]>([]);
+  const context = useContext(BookingContext)
+  const [bookings, setBookings] = useState<IBooking[]>([])
 
   //   useEffect(() => {
   //     let theBookings: IBooking[] = getBookings<IBooking>()
@@ -25,5 +25,5 @@ export function Admin() {
     <>
       <h1>ADMIN PAGE</h1>
     </>
-  );
+  )
 }

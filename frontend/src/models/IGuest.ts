@@ -1,5 +1,5 @@
 export interface IGuest {
-  name: string;
-  email: string;
-  phone: number;
+  name: string
+  email: string
+  phone: string
 }
