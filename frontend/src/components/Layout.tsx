@@ -1,9 +1,14 @@
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from 'react-router-dom'
+import Home from './pages/Home'
+import Navbar from './styled-components/Navbar/StyledNavbar'
 
 export default function Layout() {
   return (
     <>
-      <Outlet></Outlet>
+      <Navbar />
+      <main>
+        <Outlet></Outlet>
+      </main>
     </>
-  );
+  )
 }
