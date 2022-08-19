@@ -13,22 +13,22 @@ export default function Book() {
   const saveNewGuest = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (name || email || phone === '') {
+    if (name || email || phone) {
+      const newGuest: IGuest = {
+        name: name,
+        email: email,
+        phone: phone,
+      }
+      saveGuest(newGuest)
+      setError(false)
+      setName('')
+      setEmail('')
+      setPhone('')
+      setConfirmation(true)
+      setForm(false)
+    } else {
       setError(true)
     }
-
-    const newGuest: IGuest = {
-      name: name,
-      email: email,
-      phone: phone,
-    }
-    saveGuest(newGuest)
-    setError(false)
-    setName('')
-    setEmail('')
-    setPhone('')
-    setConfirmation(true)
-    setForm(false)
   }
 
   return (
