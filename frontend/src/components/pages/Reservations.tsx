@@ -4,6 +4,7 @@ import { IGuest } from '../../models/IGuest'
 import { StyledForm } from '../styled-components/Form/StyledForm'
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
 import { StyledMediumHeading } from '../styled-components/Headings/Headings'
+import { StyledButton } from '../styled-components/Button/StyledButton'
 
 export default function Book() {
   const [name, setName] = useState('')
@@ -69,7 +70,7 @@ export default function Book() {
                 value={phone}
               />
             </div>
-            <button>Confirm</button>
+            <StyledButton>Confirm booking</StyledButton>
 
             {error && <div>All fields must be filled out.</div>}
           </StyledForm>
