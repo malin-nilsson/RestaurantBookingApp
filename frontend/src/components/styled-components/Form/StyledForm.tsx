@@ -48,4 +48,14 @@ export const StyledForm = styled.form`
     background-position-x: 100%;
     background-position-y: 2px;
   }
+
+  .optional {
+    margin: 0px 8px;
+    font-weight: 100;
+    font-size: 1rem;
+  }
+
+  .error {
+    font-size: 1.2rem;
+  }
 `
