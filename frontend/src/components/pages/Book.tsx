@@ -4,7 +4,7 @@ import { useState } from "react";
 import { IBooking } from "../../models/IBooking";
 import { IGuest } from "../../models/IGuest";
 import axios from "axios";
-import { saveBooking } from "../../../services/saveBooking";
+import { saveBooking } from "../../services/saveBooking";
 
 export const Book = () => {
   const [booking, setBooking] = useState<IBooking>({
@@ -32,7 +32,6 @@ export const Book = () => {
   return (
     <>
       <form onSubmit={() => saveBooking()}>
-        <input type="date" min={Date.now()} name="bookingDate" />
         <select name="time" id="time">
           <option value="time1">18</option>
           <option value="time2">21</option>
