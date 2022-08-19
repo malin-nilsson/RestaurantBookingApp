@@ -17,3 +17,7 @@ body {
   font-family: var(--textfont);
   color: var(--beige);
 }
+
+main {
+  padding: 20px;
+}
