@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { BookingContext } from '../../context/BookingsContext'
 import { IBooking } from '../../models/IBooking'
-import { getBookings } from '../../services/getBookings'
 
 export default function Admin() {
   //   const API = "https://localhost:4000/bookings";
