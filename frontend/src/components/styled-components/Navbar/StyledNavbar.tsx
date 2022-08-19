@@ -71,12 +71,14 @@ const StyledNavbar = styled.nav`
   position: relative;
   z-index: 3;
   background-color: var(--green);
+  border-bottom: 1px solid var(--beige);
 
   @media ${devices.desktop} {
     flex-direction: row;
     position: fixed;
     width: 100%;
     background-color: unset;
+    border-bottom: unset;
   }
 
   ul {

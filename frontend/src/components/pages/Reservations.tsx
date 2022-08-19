@@ -1,6 +1,9 @@
 import { FormEvent, useState } from 'react'
 import { saveGuest } from '../../services/saveGuest'
 import { IGuest } from '../../models/IGuest'
+import { StyledForm } from '../styled-components/Form/StyledForm'
+import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
+import { StyledMediumHeading } from '../styled-components/Headings/Headings'
 
 export default function Book() {
   const [name, setName] = useState('')
@@ -33,43 +36,45 @@ export default function Book() {
 
   return (
     <div>
-      <h2>Guest information</h2>
-      {form && (
-        <form onSubmit={saveNewGuest}>
-          <div></div>
-          <label>Name</label>
-          <input
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
-            value={name}
-          />
+      <StyledFlexDiv>
+        <StyledMediumHeading>Guest information</StyledMediumHeading>
+        {form && (
+          <StyledForm onSubmit={saveNewGuest}>
+            <div className="form-field">
+              <label>Name *</label>
+              <input
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Name"
+                value={name}
+              />
+            </div>
 
-          <div>
-            <label>Email</label>
-            <input
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              value={email}
-            />
-          </div>
+            <div className="form-field">
+              <label>Email *</label>
+              <input
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                value={email}
+              />
+            </div>
 
-          <div>
-            <label>Phone</label>
-            <input
-              type="text"
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone"
-              value={phone}
-            />
-          </div>
+            <div className="form-field">
+              <label>Phone *</label>
+              <input
+                type="text"
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Phone"
+                value={phone}
+              />
+            </div>
+            <button>Confirm</button>
 
-          <button>Confirm</button>
-
-          {error && <div>All fields must be filled out.</div>}
-        </form>
-      )}
+            {error && <div>All fields must be filled out.</div>}
+          </StyledForm>
+        )}
+      </StyledFlexDiv>
 
       {confirmation && (
         <div>
