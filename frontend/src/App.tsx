@@ -1,11 +1,11 @@
-import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout";
-import Home from "./components/pages/Home";
-import Reservations from "./components/pages/Reservations";
-import Contact from "./components/pages/Contact";
-import Menu from "./components/pages/Menu";
-import NotFound from "./components/pages/NotFound";
+import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Layout from './components/Layout'
+import Home from './components/pages/Home'
+import Reservations from './components/pages/Reservations'
+import Contact from './components/pages/Contact'
+import Menu from './components/pages/Menu'
+import NotFound from './components/pages/NotFound'
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App
