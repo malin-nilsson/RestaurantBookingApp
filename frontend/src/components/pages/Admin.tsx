@@ -1,28 +1,26 @@
-import { useContext, useEffect, useState } from 'react'
-import { BookingContext } from '../../context/BookingsContext'
-import { IBooking } from '../../models/IBooking'
+import { useEffect, useState } from "react";
+import { IAdmin } from "../../models/IAdmin";
+import { getAdmin } from "../../services/adminService";
 
 export default function Admin() {
-  //   const API = "https://localhost:4000/bookings";
+  const [admin, setAdmin] = useState<IAdmin[]>([]);
 
-  const context = useContext(BookingContext)
-  const [bookings, setBookings] = useState<IBooking[]>([])
-
-  //   useEffect(() => {
-  //     let theBookings: IBooking[] = getBookings<IBooking>()
-  //     if (theBookings.length !== =){
-  //         setBookings(getBookings)
-  //     }
-  //   });
-
-  //   axios.get<IBooking[]>(API).then((res) => {
-  //     setBookings(res.data);
-  //     context.updateContext({ ...context, bookings: res.data });
-  //   });
+  useEffect(() => {
+    getAdmin()
+      .then((res) => {
+        console.log(res);
+        setAdmin(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   return (
     <>
-      <h1>ADMIN PAGE</h1>
+      {admin.map((admin) => {
+        return <h1 key={admin.username}>{admin.username}</h1>;
+      })}
     </>
-  )
+  );
 }
