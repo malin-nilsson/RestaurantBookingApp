@@ -57,7 +57,7 @@ export const StyledForm = styled.form`
 
   .error-generic {
     font-size: 1.3rem;
-    font-weight: 600;
+    font-weight: 500;
     border: 2px solid #a90000;
     padding: 8px;
     background-color: var(--beige);

@@ -17,7 +17,7 @@ import {
 } from '../styled-components/Headings/Headings'
 import { StyledButton } from '../styled-components/Button/StyledButton'
 import { StyledLoader } from '../styled-components/Loader/Loader'
-import { StyledParagraph } from '../styled-components/Text/Paragraph'
+import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
 
 export default function Book() {
   const [date, setDate] = useState('')
@@ -34,12 +34,7 @@ export default function Book() {
   const [confirmation, setConfirmation] = useState(false)
   const [notAvailable, setNotAvailable] = useState(false)
 
-  // const stopFirstLoader = () => {
-  //   setLoader(false)
-  //   setBookingForm(false)
-  // }
-
-  const stopSecondLoader = () => {
+  const stopLoader = () => {
     setLoader(false)
     setGuestForm(false)
     setConfirmation(true)
@@ -76,7 +71,7 @@ export default function Book() {
     if (name && email && phone) {
       setGuestForm(false)
       setLoader(true)
-      setTimeout(stopSecondLoader, 1000)
+      setTimeout(stopLoader, 1000)
 
       const newBooking: IReservation = {
         date: date,
@@ -106,7 +101,6 @@ export default function Book() {
     <div>
       <StyledFlexDiv>
         {loader && <StyledLoader></StyledLoader>}
-
         {bookingForm && (
           <>
             <StyledForm onSubmit={checkAvailability}>
