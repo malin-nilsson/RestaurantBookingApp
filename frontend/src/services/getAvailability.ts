@@ -21,18 +21,23 @@ export async function getAvailability(request: IBooking) {
       const sameDayAndTime = requestedDate.filter(
         (booking: IBooking) => booking.time === request.time,
       )
-      // Loop through the list of bookings with same date & time
-      for (let j = 0; j < sameDayAndTime.length; j++) {
-        // Get total amount of booked tables
-        const numOfTablesBooked = sameDayAndTime.length
-        // Get total amount of guests
-        const numOfGuests = sameDayAndTime.length * sameDayAndTime[j].amount
-        // If 15 tables are already booked, delcine booking request
-        if (numOfTablesBooked > 15) {
-          return false
-        } // If there are tables available, confirm booking
-        else {
-          return true
+      // If there are no bookings on requested time, confirm booking
+      if (sameDayAndTime.length < 1) {
+        return true
+      } else {
+        // Loop through the list of bookings with same date & time
+        for (let j = 0; j < sameDayAndTime.length; j++) {
+          // Get total amount of booked tables
+          const numOfTablesBooked = sameDayAndTime.length
+          // Get total amount of guests
+          const numOfGuests = sameDayAndTime.length * sameDayAndTime[j].amount
+          // If 15 tables are already booked, delcine booking request
+          if (numOfTablesBooked > 15) {
+            return false
+          } // If there are tables available, confirm booking
+          else {
+            return true
+          }
         }
       }
     }
