@@ -21,15 +21,24 @@ export default function Admin() {
 
   const getBookingsFromGuest = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    searchInput.trim()
+    searchInput.toLowerCase().trim()
+    setSearchInput('')
+    console.log(searchInput)
     setSearchInput('')
 
     const listOfBookings: IReservation[] = bookings.bookings.filter(
       (booking) =>
-        booking.guestName.toLowerCase() === searchInput.toLowerCase() ||
-        booking.guestEmail.toLowerCase() === searchInput.toLowerCase() ||
+        Object.values(booking.guestName)
+          .join('')
+          .toLowerCase()
+          .includes(searchInput.toLowerCase()) ||
+        Object.values(booking.guestEmail)
+          .join('')
+          .toLowerCase()
+          .includes(searchInput.toLowerCase()) ||
         booking._id === searchInput,
     )
+
     if (listOfBookings.length > 0) {
       setMessage('')
       setBookingsByGuest(listOfBookings)
