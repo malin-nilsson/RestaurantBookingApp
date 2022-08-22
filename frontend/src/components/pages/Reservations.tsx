@@ -157,6 +157,7 @@ export default function Book() {
                   type="text"
                   onChange={(e) => setMessage(e.target.value)}
                   value={message}
+                  maxLength={100}
                 />
               </div>
               <StyledButton>Find a table</StyledButton>
