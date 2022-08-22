@@ -7,7 +7,7 @@ export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   font-family: var(--headingfont);
-  gap: 15px;
+  gap: 10px;
 
   @media ${devices.tablet} {
     min-width: 350px;
@@ -19,9 +19,9 @@ export const StyledForm = styled.form`
     flex-direction: column;
   }
   label {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 500;
-    margin: 10px 0px;
+    margin: 8px 0px;
     text-transform: uppercase;
   }
 
@@ -55,7 +55,20 @@ export const StyledForm = styled.form`
     font-size: 1rem;
   }
 
-  .error {
-    font-size: 1.2rem;
+  .error-generic {
+    font-size: 1.3rem;
+    font-weight: 600;
+    border: 2px solid #a90000;
+    padding: 8px;
+    background-color: var(--beige);
+    color: #2d0606;
+  }
+
+  .error-input {
+    border: 1px solid #a90000;
+  }
+
+  .material-symbols-outlined.arrow {
+    cursor: pointer;
   }
 `

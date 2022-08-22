@@ -84,7 +84,7 @@ const StyledHero = styled.section`
 
     @media ${devices.desktop} {
       gap: 15px;
-      padding: 150px 0px 0px;
+      padding: 140px 0px 0px;
       width: unset;
     }
   }
