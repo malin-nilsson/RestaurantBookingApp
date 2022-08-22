@@ -181,12 +181,15 @@ export default function Book() {
                 </span>
                 Guest information
               </StyledMediumHeading>
-              <StyledParagraph>
+              <StyledParagraph padding="10px 5px 0px">
                 {`${date}`}
                 <span className="material-symbols-outlined">
                   restaurant_menu
                 </span>
                 {`${time}:00 pm`}
+              </StyledParagraph>
+              <StyledParagraph fontSize="1.6rem" padding="0px 0px 15px">
+                {amount === 1 ? amount + ' guest' : amount + ' guests'}
               </StyledParagraph>
 
               <div className="form-field">
