@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const utils = require("../utils/utils.js");
 
 const AdminModel = require("../models/adminModel");
+const ReservationModel = require("../models/reservationModel");
 
 const router = express.Router();
 
@@ -82,6 +83,28 @@ router.get("/bookings", utils.adminAuth, async (req, res) => {
 router.post("/api/log-out", (req, res) => {
   res.cookie("token", "", { maxAge: 0 });
   res.redirect("/");
+});
+
+// router.get("/bookings/create", utils.adminAuth, async (req, res) => {
+//   const admin = await AdminModel.findById();
+//   const { token } = req.cookies;
+//   if (token && jwt.verify(token, process.env.SECRET)) {
+//     res.send(200, { admin });
+//   } else {
+//     res.send(401, "Unauthorized");
+//   }
+// });
+
+router.get("/bookings/create", utils.adminAuth, async (req, res) => {
+  const bookings = await BookingModel.find().lean();
+
+  const { token } = req.cookies;
+
+  if (token && jwt.verify(token, process.env.SECRET)) {
+    res.send(200, { bookings });
+  } else {
+    res.send(401, "Unauthorized");
+  }
 });
 
 module.exports = router;
