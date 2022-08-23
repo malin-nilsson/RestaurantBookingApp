@@ -1,77 +1,77 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useState } from "react";
 // REACT ROUTER //
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 // SERVICES //
-import { getAvailability } from '../../services/getAvailability'
-import { limitPastDates } from '../../services/limitDate'
-import { saveBooking } from '../../services/saveBooking'
+import { getAvailability } from "../../services/getAvailability";
+import { limitPastDates } from "../../services/limitDate";
+import { saveBooking } from "../../services/saveBooking";
 // MODELS//
-import { IReservation } from '../../models/IReservation'
-import { IBooking } from '../../models/IBooking'
+import { IReservation } from "../../models/IReservation";
+import { IBooking } from "../../models/IBooking";
 // STYLED COMPONENTS //
-import { StyledForm } from '../styled-components/Form/StyledForm'
-import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
+import { StyledForm } from "../styled-components/Form/StyledForm";
+import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
 import {
   StyledMediumHeading,
   StyledSmallHeading,
-} from '../styled-components/Headings/Headings'
-import { StyledButton } from '../styled-components/Button/StyledButton'
-import { StyledLoader } from '../styled-components/Loader/Loader'
-import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
+} from "../styled-components/Headings/Headings";
+import { StyledButton } from "../styled-components/Button/StyledButton";
+import { StyledLoader } from "../styled-components/Loader/Loader";
+import { StyledParagraph } from "../styled-components/Text/StyledParagraph";
 
 export default function Book() {
-  const [date, setDate] = useState('')
-  const [time, setTime] = useState('')
-  const [amount, setAmount] = useState(0)
-  const [message, setMessage] = useState('')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [error, setError] = useState(false)
-  const [loader, setLoader] = useState<Boolean>(false)
-  const [guestForm, setGuestForm] = useState(false)
-  const [bookingForm, setBookingForm] = useState(true)
-  const [confirmation, setConfirmation] = useState(false)
-  const [notAvailable, setNotAvailable] = useState(false)
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [message, setMessage] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [error, setError] = useState(false);
+  const [loader, setLoader] = useState<Boolean>(false);
+  const [guestForm, setGuestForm] = useState(false);
+  const [bookingForm, setBookingForm] = useState(true);
+  const [confirmation, setConfirmation] = useState(false);
+  const [notAvailable, setNotAvailable] = useState(false);
 
   const stopLoader = () => {
-    setLoader(false)
-    setGuestForm(false)
-    setConfirmation(true)
-  }
+    setLoader(false);
+    setGuestForm(false);
+    setConfirmation(true);
+  };
 
   const checkAvailability = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (date && time && amount) {
       const newBookingRequest: IBooking = {
         date: date,
         time: time,
         amount: amount,
-      }
-      setError(false)
-      const isAvailable = getAvailability(newBookingRequest)
+      };
+      setError(false);
+      const isAvailable = getAvailability(newBookingRequest);
       isAvailable.then(function (result) {
         if (result === true) {
-          setBookingForm(false)
-          setGuestForm(true)
+          setBookingForm(false);
+          setGuestForm(true);
         } else {
-          setBookingForm(true)
-          setNotAvailable(true)
+          setBookingForm(true);
+          setNotAvailable(true);
         }
-      })
+      });
     } else {
-      setError(true)
+      setError(true);
     }
-  }
+  };
 
   const confirmBooking = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (name && email && phone) {
-      setGuestForm(false)
-      setLoader(true)
-      setTimeout(stopLoader, 1000)
+      setGuestForm(false);
+      setLoader(true);
+      setTimeout(stopLoader, 1000);
 
       const newBooking: IReservation = {
         date: date,
@@ -81,21 +81,21 @@ export default function Book() {
         guestName: name,
         guestEmail: email,
         guestPhone: phone,
-      }
-      saveBooking(newBooking)
-      setError(false)
-      setName('')
-      setEmail('')
-      setPhone('')
+      };
+      saveBooking(newBooking);
+      setError(false);
+      setName("");
+      setEmail("");
+      setPhone("");
     } else {
-      setError(true)
+      setError(true);
     }
-  }
+  };
 
   const toggleForms = () => {
-    setGuestForm(false)
-    setBookingForm(true)
-  }
+    setGuestForm(false);
+    setBookingForm(true);
+  };
 
   return (
     <div>
@@ -118,7 +118,7 @@ export default function Book() {
                   type="date"
                   min={limitPastDates()}
                   onChange={(e) => setDate(e.target.value)}
-                  className={error && !date ? 'error-input' : ''}
+                  className={error && !date ? "error-input" : ""}
                   value={date}
                 />
               </div>
@@ -127,11 +127,11 @@ export default function Book() {
                 <label>Time *</label>
                 <select
                   onChange={(e) => setTime(e.target.value)}
-                  className={error && !time ? 'error-input' : ''}
+                  className={error && !time ? "error-input" : ""}
                   placeholder="Time"
                   value={time}
                 >
-                  <option defaultValue={''}></option>
+                  <option defaultValue={""}></option>
                   <option value="18">18:00 PM</option>
                   <option value="21">21:00 PM</option>
                 </select>
@@ -144,7 +144,7 @@ export default function Book() {
                   min={1}
                   max={6}
                   onChange={(e) => setAmount(+e.target.value)}
-                  className={error && !amount ? 'error-input' : ''}
+                  className={error && !amount ? "error-input" : ""}
                   value={amount}
                 />
               </div>
@@ -189,7 +189,7 @@ export default function Book() {
                 {`${time}:00 pm`}
               </StyledParagraph>
               <StyledParagraph fontSize="1.6rem" padding="0px 0px 15px">
-                {amount === 1 ? amount + ' guest' : amount + ' guests'}
+                {amount === 1 ? amount + " guest" : amount + " guests"}
               </StyledParagraph>
 
               <div className="form-field">
@@ -197,7 +197,7 @@ export default function Book() {
                 <input
                   type="text"
                   onChange={(e) => setName(e.target.value)}
-                  className={error && !name ? 'error-input' : ''}
+                  className={error && !name ? "error-input" : ""}
                   placeholder="Name"
                   value={name}
                 />
@@ -208,7 +208,7 @@ export default function Book() {
                 <input
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
-                  className={error && !email ? 'error-input' : ''}
+                  className={error && !email ? "error-input" : ""}
                   placeholder="Email"
                   value={email}
                 />
@@ -219,7 +219,7 @@ export default function Book() {
                 <input
                   type="text"
                   onChange={(e) => setPhone(e.target.value)}
-                  className={error && !phone ? 'error-input' : ''}
+                  className={error && !phone ? "error-input" : ""}
                   placeholder="Phone"
                   value={phone}
                 />
@@ -240,11 +240,12 @@ export default function Book() {
           <StyledSmallHeading>
             Your reservation is confirmed.
           </StyledSmallHeading>
-          <StyledButton margin="40px 0px">
+          {/* <StyledButton margin="40px 0px"> */}
+          <StyledButton>
             <Link to="/">Back home</Link>
           </StyledButton>
         </StyledFlexDiv>
       )}
     </div>
-  )
+  );
 }

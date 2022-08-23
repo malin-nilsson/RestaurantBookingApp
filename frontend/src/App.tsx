@@ -7,7 +7,9 @@ import Contact from "./components/pages/Contact";
 import Menu from "./components/pages/Menu";
 import NotFound from "./components/pages/NotFound";
 import Admin from "./components/pages/Admin";
-import { CreateReservation } from "./components/pages/CreateReservation";
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
+import { useState } from "react";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="/reservations" element={<Reservations />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
