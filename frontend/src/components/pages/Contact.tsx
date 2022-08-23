@@ -1,13 +1,13 @@
-import { StyledMediumHeading } from "../styled-components/Headings/Headings";
-import { StyledAdressSpan } from "../styled-components/Text/StyledSpan";
-import { StyledContactWrapper } from "../styled-components/Wrappers/ContactWrapper";
-import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
-import { StyledNumberSpan } from "../styled-components/Text/StyledAdress";
-import { StyledEmail } from "../styled-components/Text/StyledEmail";
-import Facebook from "../../icons/facebook.svg";
-import Instagram from "../../icons/instagram.svg";
-import Twitter from "../../icons/twitter.svg";
-import { StyledIconWrapper } from "../styled-components/Wrappers/StyledIconWrapper";
+import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
+import { StyledAdressSpan } from '../styled-components/Text/StyledSpan'
+import { StyledContactWrapper } from '../styled-components/Wrappers/ContactWrapper'
+import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
+import { StyledNumberSpan } from '../styled-components/Text/StyledAdress'
+import { StyledEmail } from '../styled-components/Text/StyledEmail'
+import Facebook from '../../icons/facebook.svg'
+import Instagram from '../../icons/instagram.svg'
+import Twitter from '../../icons/twitter.svg'
+import { StyledIconWrapper } from '../styled-components/Wrappers/StyledIconWrapper'
 
 export default function Contact() {
   return (
@@ -28,5 +28,5 @@ export default function Contact() {
         </StyledContactWrapper>
       </StyledFlexDiv>
     </div>
-  );
+  )
 }
