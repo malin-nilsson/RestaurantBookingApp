@@ -38,6 +38,7 @@ export default function Admin() {
 
   const getBookingsFromGuest = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     setEditForm(false)
     setConfirmation(false)
     setShowBookings(true)
@@ -75,6 +76,11 @@ export default function Admin() {
       (booking) => booking._id === chosenBooking._id,
     )
     setSelectedBooking(bookingToEdit)
+    setNotAvailable(false)
+    setDate('')
+    setTime('')
+    setAmount(0)
+    setMessage('')
   }
 
   const handleEdit = async (
@@ -101,6 +107,7 @@ export default function Admin() {
           setEditForm(false)
           setConfirmation(true)
           window.scrollTo(0, 0)
+          setError(false)
           saveEditedBooking(newBookingRequest)
           bookings.updateBooking(newBookingRequest)
         } else {
