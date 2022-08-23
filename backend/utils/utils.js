@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-
 const bcrypt = require("bcrypt");
 
 const hashedPwd = (password) => {
@@ -7,7 +6,7 @@ const hashedPwd = (password) => {
   return hash;
 };
 
-const comparePassword = (password, hash) => {
+const comparePwd = (password, hash) => {
   const correct = bcrypt.compareSync(password, hash);
   return correct;
 };
@@ -27,8 +26,20 @@ const adminAuth = async (req, res, next) => {
   }
 };
 
+const validateUser = (name) => {
+  let valid = true;
+
+  valid = valid && name.username;
+  valid = valid && name.username.length > 3;
+  valid = valid && name.username.length < 20;
+  valid = valid && name.username.indexOf(" ") < 0;
+
+  return valid;
+};
+
 module.exports = {
   hashedPwd,
-  comparePassword,
+  comparePwd,
   adminAuth,
+  validateUser,
 };

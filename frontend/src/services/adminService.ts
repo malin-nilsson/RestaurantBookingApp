@@ -8,3 +8,10 @@ export async function getAdmin(): Promise<IAdmin[]> {
     await axios.get(API)
   ).data;
 }
+
+export async function saveAdmin(admin: IAdmin): Promise<IAdmin[]> {
+  const API = "http://localhost:4000/register";
+  console.log(admin);
+
+  return await axios.post(API, admin);
+}
