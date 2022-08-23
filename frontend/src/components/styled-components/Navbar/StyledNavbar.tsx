@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { devices } from '../breakpoints/Breakpoints'
+import { StyledLogo } from '../Headings/StyledHeadings'
 
 export default function Navbar() {
   const [isActive, setIsActive] = useState<Boolean>(false)
@@ -11,53 +12,61 @@ export default function Navbar() {
   }
 
   return (
-    <StyledNavbar className={isActive ? 'mobile-menu' : ''}>
-      <div className="mobile-menu-icon" onClick={toggleMobileMenu}>
-        {isActive ? (
-          <span className="material-symbols-outlined">close</span>
-        ) : (
-          <span className="material-symbols-outlined">menu</span>
-        )}
-      </div>
+    <>
+      <StyledLogo>
+        <Link to="/">
+          <img src="assets/logo.png"></img>
+        </Link>
+      </StyledLogo>
 
-      <ul
-        style={{
-          display: isActive && 'flex',
-          flexDirection: isActive && 'column',
-          gap: isActive && '15px',
-          marginTop: isActive && '20px',
-        }}
-        className={isActive ? 'mobile-menu' : ''}
-      >
-        <li className="hover-effect">
-          <NavLink
-            to="/reservations"
-            className={({ isActive }) => (isActive ? 'active-link' : '')}
-            onClick={() => (isActive ? toggleMobileMenu() : '')}
-          >
-            Reservations
-          </NavLink>
-        </li>
-        <li className="hover-effect">
-          <NavLink
-            to="/menu"
-            className={({ isActive }) => (isActive ? 'active-link' : '')}
-            onClick={() => (isActive ? toggleMobileMenu() : '')}
-          >
-            Menu
-          </NavLink>
-        </li>
-        <li className="hover-effect">
-          <NavLink
-            to="/contact"
-            className={({ isActive }) => (isActive ? 'active-link' : '')}
-            onClick={() => (isActive ? toggleMobileMenu() : '')}
-          >
-            Contact
-          </NavLink>
-        </li>
-      </ul>
-    </StyledNavbar>
+      <StyledNavbar className={isActive ? 'mobile-menu' : ''}>
+        <div className="mobile-menu-icon" onClick={toggleMobileMenu}>
+          {isActive ? (
+            <span className="material-symbols-outlined">close</span>
+          ) : (
+            <span className="material-symbols-outlined">menu</span>
+          )}
+        </div>
+
+        <ul
+          style={{
+            display: isActive && 'flex',
+            flexDirection: isActive && 'column',
+            gap: isActive && '15px',
+            marginTop: isActive && '20px',
+          }}
+          className={isActive ? 'mobile-menu' : ''}
+        >
+          <li className="hover-effect">
+            <NavLink
+              to="/reservations"
+              className={({ isActive }) => (isActive ? 'active-link' : '')}
+              onClick={() => (isActive ? toggleMobileMenu() : '')}
+            >
+              Reservations
+            </NavLink>
+          </li>
+          <li className="hover-effect">
+            <NavLink
+              to="/menu"
+              className={({ isActive }) => (isActive ? 'active-link' : '')}
+              onClick={() => (isActive ? toggleMobileMenu() : '')}
+            >
+              Menu
+            </NavLink>
+          </li>
+          <li className="hover-effect">
+            <NavLink
+              to="/contact"
+              className={({ isActive }) => (isActive ? 'active-link' : '')}
+              onClick={() => (isActive ? toggleMobileMenu() : '')}
+            >
+              Contact
+            </NavLink>
+          </li>
+        </ul>
+      </StyledNavbar>
+    </>
   )
 }
 
