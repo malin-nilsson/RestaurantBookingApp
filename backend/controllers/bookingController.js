@@ -36,4 +36,28 @@ const saveBooking = async (req, res) => {
   }
 }
 
-module.exports = { saveBooking, getBookings }
+// EDIT BOOKING
+const editBooking = async (req, res) => {
+  const id = req.params.id
+
+  try {
+    await Reservations.findByIdAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        date: req.body.date,
+        time: req.body.time,
+        amount: req.body.amount,
+        message: req.body.message,
+        guestName: req.body.guestName,
+        guestEmail: req.body.guestEmail,
+        guestPhone: req.body.guestPhone,
+      },
+    )
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+module.exports = { saveBooking, getBookings, editBooking }

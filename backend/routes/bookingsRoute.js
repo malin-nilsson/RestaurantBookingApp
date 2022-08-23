@@ -2,6 +2,7 @@ const express = require('express')
 const {
   saveBooking,
   getBookings,
+  editBooking,
 } = require('../controllers/bookingController.js')
 const router = express.Router()
 
@@ -9,5 +10,7 @@ const router = express.Router()
 router.get('/', getBookings)
 // SAVE BOOKING
 router.post('/', saveBooking)
+// EDIT BOOKING
+router.post('/:id', editBooking)
 
 module.exports = router

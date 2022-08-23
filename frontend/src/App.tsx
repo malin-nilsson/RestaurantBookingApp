@@ -30,6 +30,18 @@ function App() {
       })
   }, [bookings])
 
+  // Update Booking context
+  bookings.updateBooking = (r: IReservation) => {
+    const newBookingsList = [...bookings.bookings]
+
+    for (let i = 0; i < newBookingsList.length; i++) {
+      if (newBookingsList[i]._id === r._id) {
+        newBookingsList.splice(i, 1, r)
+      }
+    }
+    setBookings({ ...bookings, bookings: newBookingsList })
+  }
+
   return (
     <BookingContext.Provider value={bookings}>
       <BrowserRouter>
