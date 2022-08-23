@@ -51,9 +51,7 @@ export default function Register() {
             setConfirmPwd(e.target.value);
           }}
         />
-        <button type="submit" onClick={emptyForm}>
-          Register new user
-        </button>
+        <button type="submit">Register new user</button>
       </form>
     </>
   );
