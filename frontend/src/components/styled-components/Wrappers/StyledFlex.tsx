@@ -18,3 +18,14 @@ export const StyledFlexDiv = styled.div`
   gap: ${(props: IWrapperProps) => props.gap || '10px'};
   padding: ${(props: IWrapperProps) => props.padding || ''};
 `
+export const StyledHeadingWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 35%;
+
+  .arrow {
+    cursor: pointer;
+  }
+`

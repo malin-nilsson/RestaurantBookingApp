@@ -10,13 +10,16 @@ import { IReservation } from '../../models/IReservation'
 import { IBooking } from '../../models/IBooking'
 // STYLED COMPONENTS //
 import { StyledForm } from '../styled-components/Form/StyledForm'
-import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
+import {
+  StyledFlexDiv,
+  StyledHeadingWrapper,
+} from '../styled-components/Wrappers/StyledFlex'
 import {
   StyledMediumHeading,
   StyledSmallHeading,
-} from '../styled-components/Headings/Headings'
+} from '../styled-components/Headings/StyledHeadings'
 import { StyledButton } from '../styled-components/Button/StyledButton'
-import { StyledLoader } from '../styled-components/Loader/Loader'
+import { StyledLoader } from '../styled-components/Loader/StyledLoader'
 import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
 
 export default function Book() {
@@ -82,6 +85,7 @@ export default function Book() {
         guestEmail: email,
         guestPhone: phone,
       }
+      console.log(phone)
       saveBooking(newBooking)
       setError(false)
       setName('')
@@ -157,6 +161,7 @@ export default function Book() {
                   type="text"
                   onChange={(e) => setMessage(e.target.value)}
                   value={message}
+                  maxLength={100}
                 />
               </div>
               <StyledButton>Find a table</StyledButton>
@@ -171,16 +176,24 @@ export default function Book() {
 
         {guestForm && (
           <>
-            <StyledForm onSubmit={confirmBooking}>
-              <StyledMediumHeading>
+            <StyledHeadingWrapper>
+              <div>
                 <span
                   onClick={toggleForms}
                   className="material-symbols-outlined arrow"
                 >
                   arrow_back_ios
                 </span>
-                Guest information
-              </StyledMediumHeading>
+              </div>
+
+              <div>
+                <StyledMediumHeading>Guest information</StyledMediumHeading>
+              </div>
+
+              <div></div>
+            </StyledHeadingWrapper>
+
+            <StyledForm onSubmit={confirmBooking}>
               <StyledParagraph padding="10px 5px 0px">
                 {`${date}`}
                 <span className="material-symbols-outlined">
@@ -217,7 +230,7 @@ export default function Book() {
               <div className="form-field">
                 <label>Phone *</label>
                 <input
-                  type="text"
+                  type="tel"
                   onChange={(e) => setPhone(e.target.value)}
                   className={error && !phone ? 'error-input' : ''}
                   placeholder="Phone"
@@ -237,8 +250,11 @@ export default function Book() {
 
       {confirmation && (
         <StyledFlexDiv padding="50px 0px">
-          <StyledSmallHeading>
+          <StyledSmallHeading fontWeight="900" padding="0px 0px 15px">
             Your reservation is confirmed.
+          </StyledSmallHeading>
+          <StyledSmallHeading fontSize="1.7rem">
+            We look forward to seeing you soon.
           </StyledSmallHeading>
           <StyledButton margin="40px 0px">
             <Link to="/">Back home</Link>

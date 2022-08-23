@@ -14,5 +14,6 @@ export const StyledParagraph = styled.p`
   margin: 0;
   font-size: ${(props: ITextProps) => props.fontSize || '1.7rem'};
   font-weight: 100;
+  font-family: var(--headingfont);
   text-align: center;
 `
