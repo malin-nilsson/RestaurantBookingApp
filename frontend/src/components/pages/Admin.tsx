@@ -125,17 +125,20 @@ export default function Admin() {
   }
 
   const confirmDelete = (booking: IReservation) => {
-    alert('Are you sure you want to delete this reservation?')
-    const deletedBooking: ICancellation = {
-      date: booking.date,
-      time: booking.time,
-      amount: booking.amount,
-      name: booking.guestName,
+    if (window.confirm('Are you sure you want to delete this reservation?')) {
+      const deletedBooking: ICancellation = {
+        date: booking.date,
+        time: booking.time,
+        amount: booking.amount,
+        name: booking.guestName,
+      }
+      setShowBookings(false)
+      setDeleteConfirmation(true)
+      deleteBooking(booking)
+      setCancelledBooking(deletedBooking)
+    } else {
+      return
     }
-    setShowBookings(false)
-    setDeleteConfirmation(true)
-    deleteBooking(booking)
-    setCancelledBooking(deletedBooking)
   }
 
   return (
