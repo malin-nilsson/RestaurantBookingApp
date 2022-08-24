@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 interface IButtonProps {
-  margin?: string
+  margin?: string;
 }
 
 export const StyledButton = styled.button`
-  margin: ${(props: IButtonProps) => props.margin || '10px 0px'};
+  margin: ${(props: IButtonProps) => props.margin || "10px 0px"};
   background-color: var(--beige);
   border: none;
   padding: 16px;
@@ -24,4 +24,26 @@ export const StyledButton = styled.button`
     color: var(--green);
     text-decoration: none;
   }
-`
+`;
+
+export const StyledButtonGreen = styled.button`
+  margin: ${(props: IButtonProps) => props.margin || "10px 0px"};
+  background-color: var(--green);
+  border: none;
+  padding: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: var(--headingfont);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #45664d;
+  }
+
+  a {
+    color: var(--beige);
+    text-decoration: none;
+  }
+`;

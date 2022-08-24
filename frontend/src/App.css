@@ -9,7 +9,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  max-width: 1300px;
+  max-width: 2400px;
   box-sizing: border-box;
   font-size: 62.5%;
   scroll-behavior: smooth;
@@ -19,7 +19,7 @@ body {
 }
 
 main {
-  padding: 100px 20px;
+  /* padding: 100px 20px; */
 }
 
 .socialmedia {
