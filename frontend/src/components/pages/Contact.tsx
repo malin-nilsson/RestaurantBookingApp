@@ -4,9 +4,6 @@ import { StyledContactWrapper } from '../styled-components/Wrappers/ContactWrapp
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
 import { StyledNumberSpan } from '../styled-components/Text/StyledAdress'
 import { StyledEmail } from '../styled-components/Text/StyledEmail'
-import Facebook from '../../icons/facebook.svg'
-import Instagram from '../../icons/instagram.svg'
-import Twitter from '../../icons/twitter.svg'
 import { StyledIconWrapper } from '../styled-components/Wrappers/StyledIconWrapper'
 
 export default function Contact() {
@@ -21,9 +18,21 @@ export default function Contact() {
           <StyledNumberSpan>+46 8 123 456</StyledNumberSpan>
           <StyledEmail>contact@lamere.com</StyledEmail>
           <StyledIconWrapper>
-            <img src={Instagram} className="socialmedia" alt="" />
-            <img src={Facebook} className="socialmedia" alt="" />
-            <img src={Twitter} className="socialmedia" alt="" />
+            <img
+              src="assets/icons/instagram.svg"
+              className="socialmedia"
+              alt=""
+            />
+            <img
+              src="assets/icons/facebook.svg"
+              className="socialmedia"
+              alt=""
+            />
+            <img
+              src="assets/icons/twitter.svg"
+              className="socialmedia"
+              alt=""
+            />
           </StyledIconWrapper>
         </StyledContactWrapper>
       </StyledFlexDiv>

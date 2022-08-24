@@ -6,7 +6,6 @@ import Reservations from './components/pages/Reservations'
 import Contact from './components/pages/Contact'
 import Menu from './components/pages/Menu'
 import NotFound from './components/pages/NotFound'
-import Admin from './components/pages/Admin'
 import { useEffect, useState } from 'react'
 // Context
 import {
@@ -16,13 +15,15 @@ import {
 } from './context/BookingContext'
 import axios from 'axios'
 import { IReservation } from './models/IReservation'
+import { CreateAdminReservation } from './components/pages/AdminReservation'
+import Admin from './components/pages/Admin'
 
 function App() {
   const [bookings, setBookings] = useState<BookingInterface>(defaultValue)
 
   useEffect(() => {
     if (bookings.bookings.length !== 0) return
-
+    // Get all bookings and save them in Booking context
     axios
       .get<IReservation[]>('http://localhost:4000/bookings')
       .then((response) => {
@@ -49,6 +50,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/create" element={<CreateAdminReservation />} />
             <Route path="/reservations" element={<Reservations />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/contact" element={<Contact />} />

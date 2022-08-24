@@ -1,5 +1,5 @@
 import { error } from 'console'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { IBooking } from '../../models/IBooking'
 import { IReservation } from '../../models/IReservation'
 import { limitPastDates } from '../../services/limitDate'
@@ -12,12 +12,18 @@ import {
 import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
 import { FormEvent } from 'react'
 import { getAvailability } from '../../services/getAvailability'
-import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
+import {
+  StyledFlexDiv,
+  StyledHeadingWrapper,
+  StyledHeadingWrapperLarge,
+} from '../styled-components/Wrappers/StyledFlex'
 import { StyledLoader } from '../styled-components/Loader/StyledLoader'
 import { Link } from 'react-router-dom'
 import { StyledButton } from '../styled-components/Button/StyledButton'
+import { BookingContext } from '../../context/BookingContext'
 
-export const CreateReservation = () => {
+export const CreateAdminReservation = () => {
+  let bookings = useContext(BookingContext)
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
   const [amount, setAmount] = useState(0)
@@ -31,11 +37,23 @@ export const CreateReservation = () => {
   const [bookingForm, setBookingForm] = useState(true)
   const [confirmation, setConfirmation] = useState(false)
   const [notAvailable, setNotAvailable] = useState(false)
+  const [adminHeader, setAdminHeader] = useState(true)
+  const [specificBooking, setSpecificBooking] = useState<IReservation>({
+    _id: '',
+    date: '',
+    time: '',
+    amount: 0,
+    message: '',
+    guestName: '',
+    guestEmail: '',
+    guestPhone: '',
+  })
 
   const stopLoader = () => {
     setLoader(false)
     setGuestForm(false)
     setConfirmation(true)
+    setAdminHeader(true)
   }
 
   const checkAvailability = async (e: FormEvent<HTMLFormElement>) => {
@@ -68,6 +86,7 @@ export const CreateReservation = () => {
 
     if (name && email && phone) {
       setGuestForm(false)
+      setAdminHeader(false)
       setLoader(true)
       setTimeout(stopLoader, 1000)
 
@@ -80,6 +99,8 @@ export const CreateReservation = () => {
         guestEmail: email,
         guestPhone: phone,
       }
+      bookings.updateBooking(specificBooking)
+      setSpecificBooking(newBooking)
       saveBooking(newBooking)
       setError(false)
       setName('')
@@ -99,16 +120,44 @@ export const CreateReservation = () => {
     <div>
       <StyledFlexDiv>
         {loader && <StyledLoader></StyledLoader>}
+        {adminHeader && (
+          <StyledHeadingWrapperLarge>
+            <div>
+              <Link to="/admin">
+                <span
+                  onClick={toggleForms}
+                  className="material-symbols-outlined arrow"
+                >
+                  arrow_back_ios
+                </span>
+              </Link>
+            </div>
+
+            <div>
+              <StyledMediumHeading>Admin</StyledMediumHeading>
+            </div>
+
+            <div></div>
+          </StyledHeadingWrapperLarge>
+        )}
+
         {bookingForm && (
           <>
-            <StyledForm onSubmit={checkAvailability}>
-              <StyledMediumHeading>Create Reservation</StyledMediumHeading>
+            <StyledForm margin="20px 0px 0px" onSubmit={checkAvailability}>
+              <StyledMediumHeading fontSize="2rem">
+                Make a Reservation
+              </StyledMediumHeading>
               <div className="form-field">
                 {notAvailable && (
                   <div className="error-generic">
                     <StyledParagraph fontSize="1.5rem" padding="5px">
                       Uh oh, it looks like that seating is fully booked.
                     </StyledParagraph>
+                  </div>
+                )}
+                {error && (
+                  <div className="error-generic">
+                    Please fill out missing fields.
                   </div>
                 )}
                 <label>Date *</label>
@@ -155,88 +204,83 @@ export const CreateReservation = () => {
                   type="text"
                   onChange={(e) => setMessage(e.target.value)}
                   value={message}
+                  maxLength={100}
                 />
               </div>
               <StyledButton>Find a table</StyledButton>
-              {error && (
-                <div className="error-generic">
-                  Please fill out missing fields.
-                </div>
-              )}
             </StyledForm>
           </>
         )}
 
         {guestForm && (
-          <>
-            <StyledForm onSubmit={confirmBooking}>
-              <StyledMediumHeading>
-                <span
-                  onClick={toggleForms}
-                  className="material-symbols-outlined arrow"
-                >
-                  arrow_back_ios
-                </span>
-                Guest information
-              </StyledMediumHeading>
-              <StyledParagraph padding="10px 5px 0px">
-                {`${date}`}
-                <span className="material-symbols-outlined">
-                  restaurant_menu
-                </span>
-                {`${time}:00 pm`}
-              </StyledParagraph>
-              <StyledParagraph fontSize="1.6rem" padding="0px 0px 15px">
-                {amount === 1 ? amount + ' guest' : amount + ' guests'}
-              </StyledParagraph>
+          <StyledForm margin="30px 0px" onSubmit={confirmBooking}>
+            <StyledMediumHeading fontSize="2rem">
+              Guest information
+            </StyledMediumHeading>
 
-              <div className="form-field">
-                <label>Name *</label>
-                <input
-                  type="text"
-                  onChange={(e) => setName(e.target.value)}
-                  className={error && !name ? 'error-input' : ''}
-                  placeholder="Name"
-                  value={name}
-                />
+            <StyledParagraph padding="10px 5px 0px">
+              {`${date}`}
+              <span className="material-symbols-outlined">restaurant_menu</span>
+              {`${time}:00 pm`}
+            </StyledParagraph>
+            <StyledParagraph fontSize="1.6rem" padding="0px 0px 15px">
+              {amount === 1 ? amount + ' guest' : amount + ' guests'}
+            </StyledParagraph>
+            {error && (
+              <div className="error-generic">
+                All fields must be filled out.
               </div>
+            )}
+            <div className="form-field">
+              <label>Name *</label>
+              <input
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                className={error && !name ? 'error-input' : ''}
+                placeholder="Name"
+                value={name}
+              />
+            </div>
 
-              <div className="form-field">
-                <label>Email *</label>
-                <input
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={error && !email ? 'error-input' : ''}
-                  placeholder="Email"
-                  value={email}
-                />
-              </div>
+            <div className="form-field">
+              <label>Email *</label>
+              <input
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+                className={error && !email ? 'error-input' : ''}
+                placeholder="Email"
+                value={email}
+              />
+            </div>
 
-              <div className="form-field">
-                <label>Phone *</label>
-                <input
-                  type="text"
-                  onChange={(e) => setPhone(e.target.value)}
-                  className={error && !phone ? 'error-input' : ''}
-                  placeholder="Phone"
-                  value={phone}
-                />
-              </div>
-              <StyledButton>Confirm booking</StyledButton>
-              {error && (
-                <div className="error-generic">
-                  All fields must be filled out.
-                </div>
-              )}
-            </StyledForm>
-          </>
+            <div className="form-field">
+              <label>Phone *</label>
+              <input
+                type="tel"
+                onChange={(e) => setPhone(e.target.value)}
+                className={error && !phone ? 'error-input' : ''}
+                placeholder="Phone"
+                value={phone}
+              />
+            </div>
+            <StyledButton>Confirm booking</StyledButton>
+          </StyledForm>
         )}
       </StyledFlexDiv>
 
       {confirmation && (
         <StyledFlexDiv padding="50px 0px">
-          <StyledSmallHeading>
-            Your reservation is confirmed.
+          <StyledSmallHeading fontWeight="900" padding="0px 0px 15px">
+            The reservation is confirmed.
+          </StyledSmallHeading>
+          <StyledSmallHeading fontSize="1.5rem" padding="20px 0px">
+            <span>
+              {specificBooking.date} – {specificBooking.time}:00 pm –
+              {specificBooking.guestName} –
+              {specificBooking.amount === 1
+                ? specificBooking.amount + ' guest'
+                : specificBooking.amount + ' guests'}
+            </span>
           </StyledSmallHeading>
           <StyledButton margin="40px 0px">
             <Link to="/">Back home</Link>
