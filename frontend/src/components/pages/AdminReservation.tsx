@@ -112,13 +112,6 @@ export const CreateAdminReservation = () => {
     }
   }
 
-  const toggleForms = () => {
-    setGuestForm(false)
-    setBookingForm(true)
-    setNotAvailable(false)
-    window.scrollTo(0, 0)
-  }
-
   return (
     <div>
       <StyledFlexDiv>

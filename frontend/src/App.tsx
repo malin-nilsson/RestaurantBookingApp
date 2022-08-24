@@ -43,6 +43,18 @@ function App() {
     setBookings({ ...bookings, bookings: newBookingsList })
   }
 
+  // Delete from Booking context
+  bookings.deleteBooking = (r: IReservation) => {
+    const newBookingsList = [...bookings.bookings]
+
+    for (let i = 0; i < newBookingsList.length; i++) {
+      if (newBookingsList[i]._id === r._id) {
+        newBookingsList.splice(i, 1)
+      }
+    }
+    setBookings({ ...bookings, bookings: newBookingsList })
+  }
+
   return (
     <BookingContext.Provider value={bookings}>
       <BrowserRouter>

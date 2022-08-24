@@ -57,6 +57,7 @@ export default function Admin() {
     setEditForm(false)
     setBookingConfirmation(false)
     setShowBookings(true)
+    setDeleteConfirmation(false)
     searchInput.trim()
     setSearchInput('')
 
@@ -135,6 +136,7 @@ export default function Admin() {
       setShowBookings(false)
       setDeleteConfirmation(true)
       deleteBooking(booking)
+      bookings.deleteBooking(booking)
       setCancelledBooking(deletedBooking)
     } else {
       return
