@@ -1,41 +1,57 @@
 import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
-import { StyledAdressSpan } from '../styled-components/Text/StyledSpan'
-import { StyledContactWrapper } from '../styled-components/Wrappers/ContactWrapper'
+import { StyledContactWrapper } from '../styled-components/Wrappers/StyledContactWrapper'
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
-import { StyledNumberSpan } from '../styled-components/Text/StyledAdress'
-import { StyledEmail } from '../styled-components/Text/StyledEmail'
 import { StyledIconWrapper } from '../styled-components/Wrappers/StyledIconWrapper'
+import { StyledHeroImage } from '../styled-components/Hero/StyledHeroImage'
 
 export default function Contact() {
+  window.scrollTo(0, 0)
+
   return (
-    <div>
-      <StyledFlexDiv>
-        <StyledMediumHeading>Contact</StyledMediumHeading>
-        <StyledContactWrapper>
-          <StyledAdressSpan>Riddargatan 9</StyledAdressSpan>
-          <StyledAdressSpan>114 35</StyledAdressSpan>
-          <StyledAdressSpan>Stockholm</StyledAdressSpan>
-          <StyledNumberSpan>+46 8 123 456</StyledNumberSpan>
-          <StyledEmail>contact@lamere.com</StyledEmail>
-          <StyledIconWrapper>
-            <img
-              src="assets/icons/instagram.svg"
-              className="socialmedia"
-              alt=""
-            />
-            <img
-              src="assets/icons/facebook.svg"
-              className="socialmedia"
-              alt=""
-            />
-            <img
-              src="assets/icons/twitter.svg"
-              className="socialmedia"
-              alt=""
-            />
-          </StyledIconWrapper>
-        </StyledContactWrapper>
-      </StyledFlexDiv>
-    </div>
+    <StyledFlexDiv>
+      <StyledHeroImage>
+        <div className="hero-image-container">
+          <img src="assets/hero-image.jpg" alt="" />
+        </div>
+      </StyledHeroImage>
+
+      <StyledContactWrapper>
+        <StyledMediumHeading>Contact us</StyledMediumHeading>
+        <div className="contact-box">
+          <div>
+            <span>Riddargatan 9</span>
+            <span>114 35, Stockholm</span>
+            <span>Sweden</span>
+          </div>
+          <div>
+            <span>+46 8 123 456</span>
+            <span>info@lamere.com</span>
+          </div>
+        </div>
+        <StyledMediumHeading>Hours</StyledMediumHeading>
+
+        <div className="contact-box">
+          <div>
+            <span>Mon - Thurs</span>
+            <span>Fri - Sat</span>
+            <span>Sunday</span>
+          </div>
+          <div>
+            <span>11:30 - 23:30</span>
+            <span>11:30 - 01:00</span>
+            <span>11:30 - 23:00</span>
+          </div>
+        </div>
+        <StyledIconWrapper>
+          <img
+            src="assets/icons/instagram.svg"
+            className="socialmedia"
+            alt=""
+          />
+          <img src="assets/icons/facebook.svg" className="socialmedia" alt="" />
+          <img src="assets/icons/twitter.svg" className="socialmedia" alt="" />
+        </StyledIconWrapper>
+      </StyledContactWrapper>
+    </StyledFlexDiv>
   )
 }
