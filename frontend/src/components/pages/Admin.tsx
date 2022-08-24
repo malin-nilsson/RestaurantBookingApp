@@ -46,6 +46,11 @@ export default function Admin() {
         />
         <button type="submit">Log in</button>
       </form>
+      <>
+        {admin.map((admin) => {
+          return <h1 key={admin.username}>{admin.username}</h1>;
+        })}
+      </>
     </>
   );
 }
