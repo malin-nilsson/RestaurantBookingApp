@@ -60,4 +60,15 @@ const editBooking = async (req, res) => {
   }
 }
 
-module.exports = { saveBooking, getBookings, editBooking }
+// DELETE BOOKING
+const deleteBooking = async (req, res) => {
+  const id = req.params.id
+
+  try {
+    await Reservations.findById(id).deleteOne()
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+module.exports = { saveBooking, getBookings, editBooking, deleteBooking }

@@ -1,8 +1,10 @@
-import axios from "axios";
-import { IBooking } from "../models/IBooking";
+import axios from 'axios'
+import { IBooking } from '../models/IBooking'
+import { IReservation } from '../models/IReservation'
 
-export async function delBooking(id: string): Promise<IBooking[]> {
-  const API = "https://localhost:4000/bookings/" + id;
-
-  return await axios.delete(API);
+export async function deleteBooking(
+  booking: IReservation,
+): Promise<IReservation[]> {
+  const API = 'http://localhost:4000/bookings/' + booking._id
+  return await axios.delete(API)
 }

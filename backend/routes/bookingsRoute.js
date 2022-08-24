@@ -3,6 +3,7 @@ const {
   saveBooking,
   getBookings,
   editBooking,
+  deleteBooking,
 } = require('../controllers/bookingController.js')
 const router = express.Router()
 
@@ -12,5 +13,7 @@ router.get('/', getBookings)
 router.post('/', saveBooking)
 // EDIT BOOKING
 router.post('/:id', editBooking)
+// DELETE BOOKING
+router.delete('/:id', deleteBooking)
 
 module.exports = router

@@ -1,5 +1,3 @@
-import { time } from 'console'
-import { error } from 'cypress/types/jquery'
 import { FormEvent, useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BookingContext } from '../../context/BookingContext'
@@ -19,33 +17,50 @@ import {
 } from '../styled-components/Headings/StyledHeadings'
 import { StyledList } from '../styled-components/List/StyledList'
 import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
-import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
+import {
+  StyledFlexDiv,
+  StyledHeadingWrapper,
+} from '../styled-components/Wrappers/StyledFlex'
+import { deleteBooking } from '../../services/deleteBooking'
+import { ICancellation } from '../../models/ICancellation'
+import { StyledLinkWrapper } from '../styled-components/Wrappers/StyledLinkWrapper'
 
 export default function Admin() {
   let bookings = useContext(BookingContext)
   const [searchInput, setSearchInput] = useState('')
-  const [bookingsByGuest, setBookingsByGuest] = useState<IReservation[]>()
+  const [filteredBookings, setFilteredBookings] = useState<IReservation[]>()
   const [message, setMessage] = useState('')
   const [editForm, setEditForm] = useState(false)
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
   const [amount, setAmount] = useState(0)
   const [error, setError] = useState(false)
-  const [confirmation, setConfirmation] = useState(false)
+  const [bookingConfirmation, setBookingConfirmation] = useState(false)
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false)
+  const [cancelledBooking, setCancelledBooking] = useState<ICancellation>()
   const [notAvailable, setNotAvailable] = useState(false)
   const [selectedBooking, setSelectedBooking] = useState<IReservation[]>()
   const [showBookings, setShowBookings] = useState(true)
+  const [specificBooking, setSpecificBooking] = useState<IReservation>({
+    _id: '',
+    date: '',
+    time: '',
+    amount: 0,
+    message: '',
+    guestName: '',
+    guestEmail: '',
+    guestPhone: '',
+  })
 
-  const getBookingsFromGuest = async (e: FormEvent<HTMLFormElement>) => {
+  const searchBookings = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
     setEditForm(false)
-    setConfirmation(false)
+    setBookingConfirmation(false)
     setShowBookings(true)
     searchInput.trim()
     setSearchInput('')
 
-    const listOfBookings: IReservation[] = bookings.bookings.filter(
+    const filteredBookings: IReservation[] = bookings.bookings.filter(
       (booking) =>
         Object.values(booking.guestName)
           .join('')
@@ -58,22 +73,21 @@ export default function Admin() {
         booking._id === searchInput,
     )
 
-    if (listOfBookings.length > 0) {
+    if (filteredBookings.length > 0) {
       setMessage('')
-      setBookingsByGuest(listOfBookings)
+      setFilteredBookings(filteredBookings)
     } else {
-      setBookingsByGuest([])
+      setFilteredBookings([])
       setMessage("We couldn't find any reservations.")
     }
   }
 
-  const deleteBooking = () => {}
-
-  const showEditForm = (chosenBooking: IReservation) => {
+  const showEditForm = (clickedBooking: IReservation) => {
     setShowBookings(false)
     setEditForm(true)
+    setSpecificBooking(clickedBooking)
     const bookingToEdit = bookings.bookings.filter(
-      (booking) => booking._id === chosenBooking._id,
+      (booking) => booking._id === clickedBooking._id,
     )
     setSelectedBooking(bookingToEdit)
     setNotAvailable(false)
@@ -90,26 +104,16 @@ export default function Admin() {
     e.preventDefault()
 
     if (date && time && amount) {
-      const newBookingRequest: IReservation = {
-        _id: booking._id,
-        date: date,
-        time: time,
-        amount: amount,
-        message: message,
-        guestName: booking.guestName,
-        guestEmail: booking.guestEmail,
-        guestPhone: booking.guestPhone,
-      }
       setError(false)
-      const isAvailable = getAvailability(newBookingRequest)
+      const isAvailable = getAvailability(specificBooking)
       isAvailable.then(function (result) {
         if (result === true) {
           setEditForm(false)
-          setConfirmation(true)
+          setBookingConfirmation(true)
           window.scrollTo(0, 0)
           setError(false)
-          saveEditedBooking(newBookingRequest)
-          bookings.updateBooking(newBookingRequest)
+          saveEditedBooking(specificBooking)
+          bookings.updateBooking(specificBooking)
         } else {
           setEditForm(true)
           setNotAvailable(true)
@@ -120,11 +124,26 @@ export default function Admin() {
     }
   }
 
+  const confirmDelete = (booking: IReservation) => {
+    alert('Are you sure you want to delete this reservation?')
+    const deletedBooking: ICancellation = {
+      date: booking.date,
+      time: booking.time,
+      amount: booking.amount,
+      name: booking.guestName,
+    }
+    setShowBookings(false)
+    setDeleteConfirmation(true)
+    deleteBooking(booking)
+    setCancelledBooking(deletedBooking)
+  }
+
   return (
     <>
       <StyledFlexDiv>
-        <StyledMediumHeading padding="0px 0px 20px">Admin</StyledMediumHeading>
-        <StyledForm onSubmit={getBookingsFromGuest}>
+        <StyledMediumHeading>Admin</StyledMediumHeading>
+
+        <StyledForm border="none" onSubmit={searchBookings}>
           <input
             type="text"
             required={true}
@@ -134,19 +153,22 @@ export default function Admin() {
           />
           <StyledButton>Search reservations</StyledButton>
         </StyledForm>
+        <StyledLinkWrapper>
+          <Link to="/admin/create">Add new reservation</Link>
+        </StyledLinkWrapper>
       </StyledFlexDiv>
 
       <StyledFlexDiv padding="20px 0px 0px">
         <StyledParagraph>{message}</StyledParagraph>
 
-        {showBookings && bookingsByGuest && (
+        {showBookings && filteredBookings && (
           <StyledList>
-            {bookingsByGuest.map((booking: IReservation) => {
+            {filteredBookings.map((booking: IReservation) => {
               return (
                 <li key={booking._id}>
                   <div className="icons">
                     <span
-                      onClick={deleteBooking}
+                      onClick={() => confirmDelete(booking)}
                       className="material-symbols-outlined"
                     >
                       delete
@@ -201,92 +223,118 @@ export default function Admin() {
       </StyledFlexDiv>
 
       <StyledFlexDiv>
-        {editForm && selectedBooking && (
+        {editForm && specificBooking && (
           <>
-            {selectedBooking.map((booking) => {
-              return (
-                <StyledForm onSubmit={(e) => handleEdit(e, booking)}>
-                  <StyledMediumHeading>Edit Reservation</StyledMediumHeading>
-                  <StyledSmallHeading fontSize="1.4rem">
-                    {booking.guestName}, {booking.date}, Guests:{' '}
-                    {booking.amount}
-                  </StyledSmallHeading>
-                  <div className="form-field">
-                    {notAvailable && (
-                      <div className="error-generic">
-                        <StyledParagraph fontSize="1.5rem" padding="5px">
-                          Uh oh, it looks like that seating is fully booked.
-                        </StyledParagraph>
-                      </div>
-                    )}
-                    <label>Date *</label>
-                    <input
-                      type="date"
-                      min={limitPastDates()}
-                      onChange={(e) => setDate(e.target.value)}
-                      className={error && !date ? 'error-input' : ''}
-                      value={date}
-                    />
+            <StyledForm onSubmit={(e) => handleEdit(e, specificBooking)}>
+              <StyledMediumHeading fontSize="2rem">
+                Edit Reservation
+              </StyledMediumHeading>
+              <StyledSmallHeading fontSize="1.5rem" padding="10px">
+                <span>
+                  {specificBooking.guestName} – {specificBooking.date} –{' '}
+                  {specificBooking.time}:00 pm – Guests:{' '}
+                  {specificBooking.amount}
+                </span>
+              </StyledSmallHeading>
+              <div className="form-field">
+                {notAvailable && (
+                  <div className="error-generic">
+                    <StyledParagraph fontSize="1.5rem" padding="5px">
+                      Uh oh, it looks like that seating is fully booked.
+                    </StyledParagraph>
                   </div>
+                )}
+                {error && (
+                  <div className="error-generic">
+                    Please fill out missing fields.
+                  </div>
+                )}
+                <label>Date *</label>
+                <input
+                  type="date"
+                  min={limitPastDates()}
+                  onChange={(e) => setDate(e.target.value)}
+                  className={error && !date ? 'error-input' : ''}
+                  value={date}
+                />
+              </div>
 
-                  <div className="form-field">
-                    <label>Time *</label>
-                    <select
-                      onChange={(e) => setTime(e.target.value)}
-                      className={error && !time ? 'error-input' : ''}
-                      value={time}
-                    >
-                      <option defaultValue={''}></option>
-                      <option value="18">18:00 PM</option>
-                      <option value="21">21:00 PM</option>
-                    </select>
-                  </div>
+              <div className="form-field">
+                <label>Time *</label>
+                <select
+                  onChange={(e) => setTime(e.target.value)}
+                  className={error && !time ? 'error-input' : ''}
+                  value={time}
+                >
+                  <option defaultValue={''}></option>
+                  <option value="18">18:00 PM</option>
+                  <option value="21">21:00 PM</option>
+                </select>
+              </div>
 
-                  <div className="form-field">
-                    <label>Number of Guests *</label>
-                    <input
-                      type="number"
-                      min={1}
-                      max={6}
-                      onChange={(e) => setAmount(+e.target.value)}
-                      className={error && !amount ? 'error-input' : ''}
-                      value={amount}
-                    />
-                  </div>
+              <div className="form-field">
+                <label>Number of Guests *</label>
+                <input
+                  type="number"
+                  min={1}
+                  max={6}
+                  onChange={(e) => setAmount(+e.target.value)}
+                  className={error && !amount ? 'error-input' : ''}
+                  value={amount}
+                />
+              </div>
 
-                  <div className="form-field">
-                    <label>
-                      Message <span className="optional">(optional)</span>
-                    </label>
-                    <input
-                      type="text"
-                      onChange={(e) => setMessage(e.target.value)}
-                      value={message}
-                      maxLength={100}
-                      placeholder={booking.message}
-                    />
-                  </div>
-                  <StyledButton>Find a table</StyledButton>
-                  {error && (
-                    <div className="error-generic">
-                      Please fill out missing fields.
-                    </div>
-                  )}
-                </StyledForm>
-              )
-            })}
+              <div className="form-field">
+                <label>
+                  Message <span className="optional">(optional)</span>
+                </label>
+                <input
+                  type="text"
+                  onChange={(e) => setMessage(e.target.value)}
+                  value={message}
+                  maxLength={100}
+                  placeholder={specificBooking.message}
+                />
+              </div>
+              <StyledButton>Edit reservation</StyledButton>
+            </StyledForm>
           </>
         )}
       </StyledFlexDiv>
 
-      {confirmation && (
+      {bookingConfirmation && (
         <StyledFlexDiv padding="50px 0px">
           <StyledSmallHeading fontWeight="900" padding="0px 0px 15px">
             The reservation has been confirmed.
           </StyledSmallHeading>
-          <StyledParagraph>
-            Date: {date}, Time: {time} pm, Guests: {amount}
-          </StyledParagraph>
+          <StyledSmallHeading fontSize="1.5rem">
+            <span>
+              {specificBooking.date} – {specificBooking.time}:00 pm –{' '}
+              {specificBooking.guestName} – Guests: {specificBooking.amount}
+            </span>
+          </StyledSmallHeading>
+        </StyledFlexDiv>
+      )}
+
+      {deleteConfirmation && cancelledBooking && (
+        <StyledFlexDiv padding="50px 0px" direction="column">
+          <StyledSmallHeading
+            fontWeight="100"
+            padding="0px 0px 15px"
+            fontSize="2.3rem"
+            display="flex"
+            direction="column"
+            gap="20px"
+          >
+            This reservation has been cancelled.
+            <span>
+              {cancelledBooking.date} – {cancelledBooking.time}:00 pm –{' '}
+              {cancelledBooking.name} –{' '}
+              {cancelledBooking.amount === 1
+                ? cancelledBooking.amount + ' guest'
+                : cancelledBooking.amount + ' guests'}
+            </span>
+          </StyledSmallHeading>
         </StyledFlexDiv>
       )}
     </>
