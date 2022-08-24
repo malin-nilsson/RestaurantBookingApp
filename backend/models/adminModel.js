@@ -1,4 +1,8 @@
-const { Schema, Types, model } = require("mongoose");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const bcrypt = require("bcrypt");
+const validator = require("validator");
 
 const adminSchema = new Schema({
   username: { type: String, required: true },
@@ -7,33 +11,30 @@ const adminSchema = new Schema({
   secret: String,
 });
 
-const AdminModel = model("Admin", adminSchema);
+module.exports = mongoose.model("Admin", adminSchema);
 
-module.exports = AdminModel;
+// adminSchema.statics.login = async function (username, password) {
+//   if (!username || !password) {
+//     throw Error("All fields must be filled.");
+//   }
+//   const admin = await this.findOne({ username });
 
-//NEW CODE
+//   const match = await bcrypt.compare(password, admin.password);
 
-// const mongoose = require("mongoose");
-// const bcrypt = require("bcrypt");
-// const validator = require("validator");
+//   if (!match) {
+//     throw Error("Incorrect password");
+//   }
 
-// const Schema = mongoose.Schema;
+//   return admin;
+// };
 
-// const userSchema = new Schema({
-//   username: { type: String, required: true, unique: true },
-//   password: { type: String, required: true },
-// });
-
-// const UserModel = mongoose.model("User", userSchema);
-
-// //SIGN UP STATIC
-// userSchema.statics.signup = async (username, password) => {
+// adminSchema.statics.signup = async (username, password) => {
 //   //ADD CONFIRM PASSWORD
 //   if (!username || !password) {
 //     throw Error("All fields must be filled!");
 //   }
 
-//   //THROW IN LOGIC FOR OTHER VALIDATION
+//   //SET UP LOGIC FOR OTHER VALIDATION HERE
 
 //   const exists = await this.findOne({ username });
 
@@ -48,27 +49,3 @@ module.exports = AdminModel;
 
 //   return user;
 // };
-
-// //LOGIN STATIC
-// userSchema.statics.login = async function (username, password) {
-//   if (!username || !password) {
-//     throw Error("All fields must be filled!");
-//   }
-
-//   const user = await this.findOne({ username });
-
-//   if (!user) {
-//     throw Error("Incorrect username!");
-//   }
-
-//   //SET ERROR MESSAGES TO SAME AFTER DONE
-//   const match = await bcrypt.compare(password, user.password);
-
-//   if (!match) {
-//     throw Error("Incorrect password!");
-//   }
-
-//   return user;
-// };
-
-// module.exports = UserModel;

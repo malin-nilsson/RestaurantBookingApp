@@ -8,7 +8,6 @@ import Menu from "./components/pages/Menu";
 import NotFound from "./components/pages/NotFound";
 import Admin from "./components/pages/Admin";
 import Register from "./components/pages/Register";
-import NewTest from "./components/pages/NewTest";
 
 function App() {
   return (
@@ -22,7 +21,6 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/new" element={<NewTest />} />
         </Route>
       </Routes>
     </BrowserRouter>
