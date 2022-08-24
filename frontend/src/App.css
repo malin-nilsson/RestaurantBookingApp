@@ -1,15 +1,15 @@
 :root {
   --green: #162719;
   --beige: #f2e8cf;
-  --headingfont: 'Playfair Display', serif;
-  --textfont: 'Helvetica', sans-serif;
+  --headingfont: "Playfair Display", serif;
+  --textfont: "Helvetica", sans-serif;
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
-  max-width: 1600px;
+  max-width: 2400px;
   box-sizing: border-box;
   font-size: 62.5%;
   scroll-behavior: smooth;
@@ -19,5 +19,15 @@ body {
 }
 
 main {
-  padding: 100px 10px;
+  /* padding: 100px 20px; */
+}
+
+.socialmedia {
+  height: 100%;
+  cursor: pointer;
+  transition: scale 0.15s ease-in-out;
+}
+
+.socialmedia:hover {
+  scale: 1.15;
 }

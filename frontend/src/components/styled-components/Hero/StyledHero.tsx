@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { devices } from '../breakpoints/Breakpoints'
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { devices } from "../breakpoints/Breakpoints";
 
 export default function Hero() {
   return (
@@ -23,7 +23,7 @@ export default function Hero() {
         </div>
       </div>
     </StyledHero>
-  )
+  );
 }
 
 const StyledHero = styled.section`
@@ -40,7 +40,7 @@ const StyledHero = styled.section`
 
   .hero-container {
     height: 100%;
-    width: 100%;
+    /* width: 100vw; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -60,7 +60,7 @@ const StyledHero = styled.section`
     width: 100%;
     height: 100%;
     overflow: hidden;
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     right: 0;
   }
@@ -126,4 +126,4 @@ const StyledHero = styled.section`
       }
     }
   }
-`
+`;
