@@ -5,7 +5,7 @@ export const StyledContactWrapper = styled.div`
   width: 100%;
   height: auto;
   position: relative;
-  padding-top: 120px;
+  padding: 200px 10px 50px;
   display: flex;
   flex-direction: column;
   font-size: 1.4rem;
@@ -15,12 +15,12 @@ export const StyledContactWrapper = styled.div`
 
   @media ${devices.tablet} {
     font-size: 1.6rem;
-    padding-top: 350px;
+    padding: 450px 0px 100px;
     width: 50%;
   }
 
   @media ${devices.desktop} {
-    padding-top: 650px;
+    padding-top: 750px;
     width: 30%;
   }
 

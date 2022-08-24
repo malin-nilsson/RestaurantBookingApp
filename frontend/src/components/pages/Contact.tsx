@@ -11,7 +11,10 @@ export default function Contact() {
     <StyledFlexDiv>
       <StyledHeroImage>
         <div className="hero-image-container">
-          <img src="assets/hero-image.jpg" alt="" />
+          <img
+            src="assets/hero-image.jpg"
+            alt="Table setting in a warmly lit restaurant"
+          />
         </div>
       </StyledHeroImage>
 

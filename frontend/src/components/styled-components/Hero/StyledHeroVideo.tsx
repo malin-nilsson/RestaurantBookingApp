@@ -1,17 +1,16 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { devices } from "../breakpoints/Breakpoints";
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { devices } from '../breakpoints/Breakpoints'
 
 export default function Hero() {
   return (
-    <StyledHero>
+    <StyledHeroVideo>
       <div className="hero-container">
         <div className="video-container">
           <video poster="" autoPlay loop muted>
             <source src="assets/hero-video.mp4" className="video-bg" />
           </video>
         </div>
-
         <div className="hero-text">
           <div>
             <h1>La Mère</h1>
@@ -22,11 +21,11 @@ export default function Hero() {
           </div>
         </div>
       </div>
-    </StyledHero>
-  );
+    </StyledHeroVideo>
+  )
 }
 
-const StyledHero = styled.section`
+const StyledHeroVideo = styled.section`
   h1 {
     font-size: 5rem;
     font-weight: 100;
@@ -40,7 +39,6 @@ const StyledHero = styled.section`
 
   .hero-container {
     height: 100%;
-    /* width: 100vw; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -60,7 +58,6 @@ const StyledHero = styled.section`
     width: 100%;
     height: 100%;
     overflow: hidden;
-    /* position: absolute; */
     top: 0;
     right: 0;
   }
@@ -86,13 +83,14 @@ const StyledHero = styled.section`
     align-items: center;
     position: absolute;
     width: 100%;
+    padding: 90px 0px 0px;
 
     @media ${devices.tablet} {
-      padding: 90px 0px 0px;
+      padding: 150px 0px 0px;
     }
 
     @media ${devices.desktop} {
-      padding: 120px 0px 0px;
+      padding: 200px 0px 0px;
       width: unset;
     }
   }
@@ -126,4 +124,4 @@ const StyledHero = styled.section`
       }
     }
   }
-`;
+`

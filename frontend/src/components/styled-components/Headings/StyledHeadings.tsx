@@ -7,15 +7,17 @@ interface IHeadingProps {
   display?: string
   direction?: string
   gap?: string
+  margin?: string
+  textAlign?: string
 }
 
 export const StyledMediumHeading = styled.h2`
-  text-align: center;
+  text-align: ${(props: IHeadingProps) => props.textAlign || 'center'};
   font-size: ${(props: IHeadingProps) => props.fontSize || '3rem'};
   font-weight: 100;
   font-family: var(--headingfont);
   padding: ${(props: IHeadingProps) => props.padding || ''};
-  margin: 5px;
+  margin: ${(props: IHeadingProps) => props.margin || '5px'};
 `
 export const StyledSmallHeading = styled.h3`
   text-align: center;

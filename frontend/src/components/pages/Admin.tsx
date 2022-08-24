@@ -146,9 +146,9 @@ export default function Admin() {
   return (
     <>
       <StyledFlexDiv>
-        <StyledMediumHeading>Admin</StyledMediumHeading>
-
         <StyledForm border="none" onSubmit={searchBookings}>
+          <StyledMediumHeading margin="0px 0px 10px">Admin</StyledMediumHeading>
+
           <input
             type="text"
             required={true}
