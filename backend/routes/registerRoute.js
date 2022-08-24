@@ -1,11 +1,14 @@
 const express = require("express");
 
-const { saveAdmin, getAdmin } = require("../controllers/registerController");
+const {
+  getRegister,
+  postRegister,
+} = require("../controllers/registerController");
 
 const router = express.Router();
 
-router.get("/", getAdmin);
-router.post("/", saveAdmin);
+router.get("/", getRegister);
+router.post("/", postRegister);
 
 module.exports = router;
 

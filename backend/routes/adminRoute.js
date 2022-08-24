@@ -1,26 +1,23 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 
-const utils = require("../utils/utils.js");
-
-const AdminModel = require("../models/adminModel");
-const { saveAdmin } = require("../controllers/registerController.js");
+const { adminMain } = require("../controllers/adminController.js");
 
 const router = express.Router();
 
-// router.get("/:id", utils.adminAuth, async (req, res) => {
-//   const admin = await AdminModel.findById();
-//   const { token } = req.cookies;
-//   if (token && jwt.verify(token, process.env.SECRET)) {
-//     res.send(200, { admin });
-//   } else {
-//     res.send(401, "Unauthorized");
-//   }
-// });
+router.get("/", adminMain);
 
-router.get("/", (req, res) => {
-  res.send(200);
-});
+// router.get("/", (req, res) => {
+//   // router.get("/:id", utils.adminAuth, async (req, res) => {
+//   //   const admin = await AdminModel.findById();
+//   //   const { token } = req.cookies;
+//   //   if (token && jwt.verify(token, process.env.SECRET)) {
+//   //     res.send(200, { admin });
+//   //   } else {
+//   //     res.send(401, "Unauthorized");
+//   //   }
+//   // });
+//   res.send(200);
+// });
 
 // router.post("/", async (req, res) => {
 //   const { username, pwd, confirmPwd, type } = req.body;
@@ -74,9 +71,9 @@ router.get("/", (req, res) => {
 //   }
 // });
 
-router.post("/api/log-out", (req, res) => {
-  res.cookie("token", "", { maxAge: 0 });
-  res.redirect("/");
-});
+// router.post("/api/log-out", (req, res) => {
+//   res.cookie("token", "", { maxAge: 0 });
+//   res.redirect("/");
+// });
 
 module.exports = router;

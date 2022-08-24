@@ -18,11 +18,13 @@ export default function Register() {
     };
     saveAdmin(newAdmin);
   };
-  const emptyForm = () => {
-    setUsername("");
-    setPassword("");
-    setConfirmPwd("");
-  };
+
+  // const emptyForm = () => {
+  //   setUsername("");
+  //   setPassword("");
+  //   setConfirmPwd("");
+  // };
+
   return (
     <>
       <h1>REGISTER NEW USER</h1>

@@ -3,7 +3,7 @@ import { IAdmin } from "../../models/IAdmin";
 import { getAdmin } from "../../services/adminService";
 // import { CreateReservation } from "./CreateReservation";
 
-export default function Admin() {
+export default function NewTest() {
   const [admin, setAdmin] = useState<IAdmin[]>([]);
 
   useEffect(() => {

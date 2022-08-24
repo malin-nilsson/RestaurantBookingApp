@@ -1,12 +1,11 @@
 const AdminModel = require("../models/adminModel");
 const utils = require("../utils/utils");
 
-const getAdmin = async (req, res) => {
-  const admins = await AdminModel.find();
-  res.status(200).json(admins);
+const getRegister = async (req, res) => {
+  res.status(200);
 };
 
-const saveAdmin = async (req, res) => {
+const postRegister = async (req, res) => {
   const { username, password, confirmPassword, role, secret } = req.body;
 
   try {
@@ -21,4 +20,4 @@ const saveAdmin = async (req, res) => {
   }
 };
 
-module.exports = { getAdmin, saveAdmin };
+module.exports = { getRegister, postRegister };
