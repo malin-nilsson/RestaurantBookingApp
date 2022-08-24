@@ -23,6 +23,10 @@ export const StyledForm = styled.form`
     padding: 20px 40px;
   }
 
+  @media ${devices.desktop} {
+    margin-top: 40px;
+  }
+
   .form-field {
     display: flex;
     flex-direction: column;

@@ -1,9 +1,21 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const StyledIconWrapper = styled.div`
-  width: 50%;
+  width: 100%;
   display: flex;
-  gap: 15px;
-  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-top: 30px;
   height: 40px;
-`;
+
+  .socialmedia {
+    height: 100%;
+    cursor: pointer;
+    transition: scale 0.15s ease-in-out;
+  }
+
+  .socialmedia:hover {
+    scale: 1.15;
+  }
+`
