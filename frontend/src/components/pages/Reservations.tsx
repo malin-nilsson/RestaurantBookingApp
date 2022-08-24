@@ -67,6 +67,7 @@ export default function Book() {
       isAvailable.then(function (result) {
         if (result === true) {
           setBookingForm(false)
+          window.scrollTo(0, 0)
           setGuestForm(true)
         } else {
           setBookingForm(true)
@@ -107,8 +108,10 @@ export default function Book() {
   }
 
   const toggleForms = () => {
+    window.scrollTo(0, 0)
     setGuestForm(false)
     setBookingForm(true)
+    setNotAvailable(false)
   }
 
   return (

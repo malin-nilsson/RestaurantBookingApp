@@ -71,6 +71,7 @@ export const CreateAdminReservation = () => {
         if (result === true) {
           setBookingForm(false)
           setGuestForm(true)
+          window.scrollTo(0, 0)
         } else {
           setBookingForm(true)
           setNotAvailable(true)
@@ -114,6 +115,8 @@ export const CreateAdminReservation = () => {
   const toggleForms = () => {
     setGuestForm(false)
     setBookingForm(true)
+    setNotAvailable(false)
+    window.scrollTo(0, 0)
   }
 
   return (
@@ -124,10 +127,7 @@ export const CreateAdminReservation = () => {
           <StyledHeadingWrapperLarge>
             <div>
               <Link to="/admin">
-                <span
-                  onClick={toggleForms}
-                  className="material-symbols-outlined arrow"
-                >
+                <span className="material-symbols-outlined arrow">
                   arrow_back_ios
                 </span>
               </Link>
