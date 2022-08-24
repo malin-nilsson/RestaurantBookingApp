@@ -1,5 +1,6 @@
-const { Admin, AdminModel } = require("../models/adminModel");
-
+const AdminModel = require("../models/adminModel");
+const utils = require("../utils/utils");
+const jwt = require("jsonwebtoken");
 // CREATE TOKEN FOR MONGO ID i.e. _id
 const createToken = (_id) => {
   return jwt.sign({ _id: _id }, process.env.SECRET, { expiresIn: "1d" });
@@ -11,7 +12,7 @@ const getAdminMain = (req, res) => {
 };
 
 // GET /AMIN/REGISTER
-const getRegisterAdmin = async (req, res) => {
+const getRegisterAdmin = (req, res) => {
   res.sendStatus(200);
 };
 
@@ -40,22 +41,22 @@ const registerAdmin = async (req, res) => {
     // const admin = await Admin.signup(username, password);
     console.log(AdminModel);
 
-    const admin = await new AdminModel.create({
+    const admin = await AdminModel.create({
       username: username,
       password: utils.hashedPwd(password),
       role: role,
       secret: "",
     });
 
-    // const token = createToken(admin._id);
+    const token = createToken(admin._id);
 
-    res.sendStatus(200).json({ username });
+    res.status(200).json({ username, token });
   } catch (error) {
     console.log(error);
-    res.sendStatus(400).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 
-  // res.json({ msg: "Register Admin" });
+  //res.json({ msg: "Register Admin" });
 };
 
 module.exports = { getAdminMain, loginAdmin, getRegisterAdmin, registerAdmin };

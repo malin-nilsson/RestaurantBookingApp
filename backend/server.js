@@ -31,17 +31,17 @@ app.use((req, res, next) => {
 
   const { token } = req.cookies;
 
-  // if (token && jwt.verify(token, process.env.SECRET)) {
-  //   const tokenData = jwt.decode(token, process.env.SECRET);
-  //   res.locals.loginInfo =
-  //     tokenData.username + " " + tokenData.userId + " " + tokenData.role;
-  //   res.locals.loginUser = tokenData.username;
-  //   res.locals.loginId = tokenData.userId;
-  //   res.locals.isLoggedIn = true;
-  // } else {
-  //   res.locals.loginInfo = "not logged in";
-  //   res.locals.isLoggedIn = false;
-  // }
+  if (token && jwt.verify(token, process.env.SECRET)) {
+    const tokenData = jwt.decode(token, process.env.SECRET);
+    res.locals.loginInfo =
+      tokenData.username + " " + tokenData.userId + " " + tokenData.role;
+    res.locals.loginUser = tokenData.username;
+    res.locals.loginId = tokenData.userId;
+    res.locals.isLoggedIn = true;
+  } else {
+    res.locals.loginInfo = "not logged in";
+    res.locals.isLoggedIn = false;
+  }
   next();
 });
 
