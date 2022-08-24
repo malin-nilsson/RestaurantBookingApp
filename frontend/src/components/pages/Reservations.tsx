@@ -36,6 +36,16 @@ export default function Book() {
   const [bookingForm, setBookingForm] = useState(true)
   const [confirmation, setConfirmation] = useState(false)
   const [notAvailable, setNotAvailable] = useState(false)
+  const [specificBooking, setSpecificBooking] = useState<IReservation>({
+    _id: '',
+    date: '',
+    time: '',
+    amount: 0,
+    message: '',
+    guestName: '',
+    guestEmail: '',
+    guestPhone: '',
+  })
 
   const stopLoader = () => {
     setLoader(false)
@@ -85,7 +95,7 @@ export default function Book() {
         guestEmail: email,
         guestPhone: phone,
       }
-      console.log(phone)
+      setSpecificBooking(newBooking)
       saveBooking(newBooking)
       setError(false)
       setName('')
@@ -115,6 +125,11 @@ export default function Book() {
                     <StyledParagraph fontSize="1.5rem" padding="5px">
                       Uh oh, it looks like that seating is fully booked.
                     </StyledParagraph>
+                  </div>
+                )}
+                {error && (
+                  <div className="error-generic">
+                    Please fill out missing fields.
                   </div>
                 )}
                 <label>Date *</label>
@@ -165,35 +180,28 @@ export default function Book() {
                 />
               </div>
               <StyledButton>Find a table</StyledButton>
-              {error && (
-                <div className="error-generic">
-                  Please fill out missing fields.
-                </div>
-              )}
             </StyledForm>
           </>
         )}
 
         {guestForm && (
           <>
-            <StyledHeadingWrapper>
-              <div>
-                <span
-                  onClick={toggleForms}
-                  className="material-symbols-outlined arrow"
-                >
-                  arrow_back_ios
-                </span>
-              </div>
-
-              <div>
-                <StyledMediumHeading>Guest information</StyledMediumHeading>
-              </div>
-
-              <div></div>
-            </StyledHeadingWrapper>
-
             <StyledForm onSubmit={confirmBooking}>
+              <StyledHeadingWrapper>
+                <div>
+                  <span
+                    onClick={toggleForms}
+                    className="material-symbols-outlined arrow"
+                  >
+                    arrow_back_ios
+                  </span>
+                </div>
+                <div>
+                  <StyledMediumHeading>Guest information</StyledMediumHeading>
+                </div>
+
+                <div></div>
+              </StyledHeadingWrapper>
               <StyledParagraph padding="10px 5px 0px">
                 {`${date}`}
                 <span className="material-symbols-outlined">
@@ -204,7 +212,11 @@ export default function Book() {
               <StyledParagraph fontSize="1.6rem" padding="0px 0px 15px">
                 {amount === 1 ? amount + ' guest' : amount + ' guests'}
               </StyledParagraph>
-
+              {error && (
+                <div className="error-generic">
+                  All fields must be filled out.
+                </div>
+              )}
               <div className="form-field">
                 <label>Name *</label>
                 <input
@@ -238,11 +250,6 @@ export default function Book() {
                 />
               </div>
               <StyledButton>Confirm booking</StyledButton>
-              {error && (
-                <div className="error-generic">
-                  All fields must be filled out.
-                </div>
-              )}
             </StyledForm>
           </>
         )}
@@ -251,10 +258,15 @@ export default function Book() {
       {confirmation && (
         <StyledFlexDiv padding="50px 0px">
           <StyledSmallHeading fontWeight="900" padding="0px 0px 15px">
-            Your reservation is confirmed.
+            Your reservation is confirmed, {specificBooking.guestName}.
           </StyledSmallHeading>
           <StyledSmallHeading fontSize="1.7rem">
             We look forward to seeing you soon.
+          </StyledSmallHeading>
+          <StyledSmallHeading fontSize="1.7rem" padding="20px 0px">
+            <span>
+              {specificBooking.date}, {specificBooking.time}:00 pm
+            </span>
           </StyledSmallHeading>
           <StyledButton margin="40px 0px">
             <Link to="/">Back home</Link>
