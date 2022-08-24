@@ -25,8 +25,18 @@ const loginAdmin = async (req, res) => {
     if (!username || !password) {
       throw Error("All fields must be filled.");
     }
-    const admin = await AdminModel.findOne({ username });
 
+    AdminModel.findOne({ username }, (err, admin) => {
+      if (admin && utils.comparePwd(password, admin.password)) {
+        const adminData = { userId: admin._id, username, type: admin.type };
+        const accessToken = jwt.sign(userData, process.env.SECRET);
+        res.cookie("token", accessToken);
+
+        res.redirect("/");
+      } else {
+        res.render("", { error: "Failed to login!" });
+      }
+    });
     const match = await bcrypt.compare(password, admin.password);
 
     if (!match) {
@@ -34,12 +44,10 @@ const loginAdmin = async (req, res) => {
     }
     const token = createToken(admin._id);
 
-    res.status(200).json({ username });
+    res.status(200).json({ username, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-
-  res.json({ msg: "Login Admin" });
 };
 
 //REGISTER ADMIN
