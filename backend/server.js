@@ -12,19 +12,19 @@ const adminRoutes = require("./routes/adminRoute");
 // EXPRESS APP
 const app = express();
 
-const corsOpts = {
-  origin: "*",
-  credentials: true,
-  methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
-  allowedHeaders: ["Content-Type"],
-  exposedHeaders: ["Content-Type"],
-};
+// const corsOpts = {
+//   origin: "*",
+//   credentials: true,
+//   methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
+//   allowedHeaders: ["Content-Type"],
+//   exposedHeaders: ["Content-Type"],
+// };
 
 // MIDDLEWARE
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors(corsOpts));
+app.use(cors);
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -39,10 +39,16 @@ app.use((req, res, next) => {
     res.locals.loginId = tokenData.userId;
     res.locals.isLoggedIn = true;
   } else {
-    res.locals.loginInfo = "not logged in";
+    res.locals.loginInfo = "Not Logged In";
     res.locals.isLoggedIn = false;
   }
   next();
+});
+
+// LOG OUT
+app.get("/logout", (req, res) => {
+  res.cookie("token", "", { maxAge: 0 });
+  res.redirect("/");
 });
 
 // ROUTES
@@ -60,7 +66,7 @@ mongoose
   .then(() => {
     // LISTEN FOR REQUESTS
     app.listen(process.env.PORT, () => {
-      console.log("Connected to db & listening on port http://localhost:4000/");
+      console.log("Connected to DB & listening on port http://localhost:4000/");
     });
   })
   .catch((error) => {

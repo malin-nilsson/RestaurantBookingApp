@@ -23,3 +23,9 @@ export async function saveAdmin(admin: IAdmin): Promise<IAdmin[]> {
 
   return await axios.post(API, admin);
 }
+
+export async function loginAdmin(admin: IAdmin): Promise<IAdmin[]> {
+  const API = "http://localhost:4000";
+
+  return await axios.post(API, admin);
+}

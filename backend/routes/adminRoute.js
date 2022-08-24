@@ -4,6 +4,7 @@ const {
   getAdminMain,
   getRegisterAdmin,
   registerAdmin,
+  loginAdmin,
 } = require("../controllers/adminController.js");
 
 const router = express.Router();
@@ -13,6 +14,8 @@ router.get("/", getAdminMain);
 router.get("/register", getRegisterAdmin);
 
 router.post("/register", registerAdmin);
+
+router.post("/login", loginAdmin);
 
 // router.get("/:id", adminMain);
 

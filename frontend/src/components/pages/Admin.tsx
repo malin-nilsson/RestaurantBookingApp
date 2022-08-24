@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { IAdmin } from "../../models/IAdmin";
 import { getAdmin } from "../../services/adminService";
-// import { CreateReservation } from "./CreateReservation";
+import { loginAdmin } from "../../services/adminService";
 
 export default function Admin() {
   const [admin, setAdmin] = useState<IAdmin[]>([]);

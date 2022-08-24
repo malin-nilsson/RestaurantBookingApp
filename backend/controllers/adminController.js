@@ -1,6 +1,7 @@
 const AdminModel = require("../models/adminModel");
 const utils = require("../utils/utils");
 const jwt = require("jsonwebtoken");
+
 // CREATE TOKEN FOR MONGO ID i.e. _id
 const createToken = (_id) => {
   return jwt.sign({ _id: _id }, process.env.SECRET, { expiresIn: "1d" });
@@ -21,13 +22,21 @@ const loginAdmin = async (req, res) => {
   const [username, password] = req.body;
 
   try {
-    const admin = await Admin.login(username, password);
+    if (!username || !password) {
+      throw Error("All fields must be filled.");
+    }
+    const admin = await AdminModel.findOne({ username });
 
-    // const token = createToken(admin._id);
+    const match = await bcrypt.compare(password, admin.password);
 
-    res.sendStatus(200).json({ username });
+    if (!match) {
+      throw Error("Incorrect password");
+    }
+    const token = createToken(admin._id);
+
+    res.status(200).json({ username });
   } catch (error) {
-    res.sendStatus(400).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 
   res.json({ msg: "Login Admin" });
@@ -55,8 +64,6 @@ const registerAdmin = async (req, res) => {
     console.log(error);
     res.status(400).json({ error: error.message });
   }
-
-  //res.json({ msg: "Register Admin" });
 };
 
 module.exports = { getAdminMain, loginAdmin, getRegisterAdmin, registerAdmin };
