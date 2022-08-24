@@ -10,7 +10,7 @@ export async function getAdmin(): Promise<IAdmin[]> {
 }
 
 export async function saveAdmin(admin: IAdmin): Promise<IAdmin[]> {
-  const API = "http://localhost:4000/register";
+  const API = "http://localhost:4000/admin/register";
   console.log(admin);
 
   return await axios.post(API, admin);
