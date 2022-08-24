@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { devices } from '../breakpoints/Breakpoints'
-import { StyledLogo } from '../Headings/StyledHeadings'
+import { StyledPlantIcon } from '../Icon/StyledPlantIcon'
 
 export default function Navbar() {
   const [isActive, setIsActive] = useState<Boolean>(false)
@@ -13,11 +13,11 @@ export default function Navbar() {
 
   return (
     <>
-      <StyledLogo>
+      <StyledPlantIcon>
         <Link to="/">
-          <img src="assets/logo.png"></img>
+          <img src="/assets/logo.png"></img>
         </Link>
-      </StyledLogo>
+      </StyledPlantIcon>
 
       <StyledNavbar className={isActive ? 'mobile-menu' : ''}>
         <div className="mobile-menu-icon" onClick={toggleMobileMenu}>

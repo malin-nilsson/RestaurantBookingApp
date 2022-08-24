@@ -1,17 +1,26 @@
 import styled from 'styled-components'
 import { devices } from '../breakpoints/Breakpoints'
 
+interface IFormProps {
+  border?: string
+  padding?: string
+  margin?: string
+}
+
 export const StyledForm = styled.form`
-  min-width: 300px;
-  margin: 0 auto;
+  min-width: 320px;
+  margin: ${(props: IFormProps) => props.margin || '0 auto'};
   display: flex;
+  border: ${(props: IFormProps) => props.border || '1px solid var(--beige)'};
+  padding: 10px;
   flex-direction: column;
   font-family: var(--headingfont);
   gap: 10px;
 
   @media ${devices.tablet} {
-    min-width: 350px;
-    max-width: 500px;
+    min-width: 500px;
+    max-width: 550px;
+    padding: 20px 40px;
   }
 
   .form-field {
@@ -59,6 +68,7 @@ export const StyledForm = styled.form`
     font-size: 1.3rem;
     font-weight: 500;
     border: 2px solid #a90000;
+    margin: 5px 0px;
     padding: 8px;
     background-color: var(--beige);
     color: #2d0606;

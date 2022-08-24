@@ -1,8 +1,8 @@
 :root {
   --green: #162719;
   --beige: #f2e8cf;
-  --headingfont: "Playfair Display", serif;
-  --textfont: "Helvetica", sans-serif;
+  --headingfont: 'Playfair Display', serif;
+  --textfont: 'Helvetica', sans-serif;
 }
 
 html,
@@ -19,7 +19,7 @@ body {
 }
 
 main {
-  padding: 100px 20px;
+  padding: 100px 10px;
 }
 
 .socialmedia {
