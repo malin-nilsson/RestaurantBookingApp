@@ -6,7 +6,7 @@ export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // const [confirmPwd, setConfirmPwd] = useState("");
-  const [role, setRole] = useState("");
+  // const [role, setRole] = useState("");
 
   const createAdmin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -14,7 +14,7 @@ export default function Register() {
     const newAdmin: IAdmin = {
       username: username,
       password: password,
-      role: role,
+      // role: role,
     };
     saveAdmin(newAdmin);
   };

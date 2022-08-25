@@ -9,12 +9,12 @@ const createToken = (_id) => {
 
 // GET /ADMIN
 const getAdminMain = (req, res) => {
-  res.sendStatus(200);
+  res.status(200);
 };
 
 // GET /AMIN/REGISTER
 const getRegisterAdmin = (req, res) => {
-  res.sendStatus(200);
+  res.status(200);
 };
 
 //LOGIN ADMIN
@@ -52,7 +52,7 @@ const loginAdmin = async (req, res) => {
 
 //REGISTER ADMIN
 const registerAdmin = async (req, res) => {
-  const { username, password, role, secret } = req.body;
+  const { username, password, role, confirmPwd, secret } = req.body;
 
   try {
     // const admin = await Admin.signup(username, password);
@@ -68,6 +68,7 @@ const registerAdmin = async (req, res) => {
     // const token = createToken(admin._id);
     // add token to .json
     res.status(200).json({ username });
+    console.log(admins);
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error.message });
