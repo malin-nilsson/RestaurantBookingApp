@@ -8,4 +8,6 @@ const adminSchema = new Schema({
   secret: String,
 });
 
-module.exports = mongoose.model("Admins", bookingSchema);
+const AdminModel = mongoose.model("Admin", adminSchema);
+
+module.exports = AdminModel;
