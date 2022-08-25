@@ -1,17 +1,16 @@
-import styled from "styled-components";
-import { devices } from "../breakpoints/Breakpoints";
+import styled from 'styled-components'
+import { devices } from '../breakpoints/Breakpoints'
 
 interface IFormProps {
-  border?: string;
-  padding?: string;
-  margin?: string;
+  border?: string
+  padding?: string
+  margin?: string
 }
 
 export const StyledForm = styled.form`
   min-width: 320px;
-  margin: ${(props: IFormProps) => props.margin || "0 auto"};
+  margin: ${(props: IFormProps) => props.margin || '50px 0px'};
   display: flex;
-  border: ${(props: IFormProps) => props.border || "1px solid var(--beige)"};
   padding: 10px;
   flex-direction: column;
   font-family: var(--headingfont);
@@ -21,10 +20,11 @@ export const StyledForm = styled.form`
     min-width: 500px;
     max-width: 550px;
     padding: 20px 40px;
+    border: ${(props: IFormProps) => props.border || '1px solid var(--beige)'};
   }
 
   @media ${devices.desktop} {
-    margin-top: 100px;
+    margin: 100px 0px 50px;
   }
 
   .form-field {
@@ -85,4 +85,4 @@ export const StyledForm = styled.form`
   .material-symbols-outlined.arrow {
     cursor: pointer;
   }
-`;
+`

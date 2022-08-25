@@ -1,126 +1,127 @@
-import StyledHero from "../styled-components/Hero/StyledHero";
-import WineAndFood from "../../images/la_mere_wine_food.jpg";
-import { StyledMediumHeading } from "../styled-components/Headings/Headings";
+import StyledHeroVideo from "../styled-components/Hero/StyledHeroVideo";
 import styled from "styled-components";
-import {
-  StyledParagraph,
-  StyledParagraphGreen,
-} from "../styled-components/Text/StyledParagraph";
+import { StyledParagraph } from "../styled-components/Text/StyledParagraph";
 import { devices } from "../styled-components/breakpoints/Breakpoints";
-import {
-  StyledButton,
-  StyledButtonGreen,
-} from "../styled-components/Button/StyledButton";
-import { Link, NavLink } from "react-router-dom";
+import { StyledButtonGreen } from "../styled-components/Button/StyledButton";
+import { Link } from "react-router-dom";
+import { StyledMediumHeading } from "../styled-components/Headings/StyledHeadings";
 
 export default function Home() {
+  window.scrollTo(0, 0);
+
   return (
     <>
       <div>
-        <StyledHero />
+        <StyledHeroVideo />
       </div>
 
       <ContentWrapper>
         <div className="textWrapper">
-          <h1>A restaurant for all...</h1>
-          <StyledParagraph>
-            ..men om vi ska vara ärliga, framförallt för köttälskare. Om vi får
-            skryta, så har AG Sveriges bästa porterhouse, clubsteak, entrecôte
-            etc, handplockade och levererade av Scan. Självklart finns det
-            mycket annat på menyn, men det är detta som ligger oss närmast om
-            hjärtat. Vi hängmörar själva och i den stora kylen vid entrén hänger
-            styckena på rad.
+          <StyledMediumHeading
+            padding="0px 0px 10px"
+            fontSize="4.5rem"
+            textAlign="left"
+          >
+            A restaurant for all...
+          </StyledMediumHeading>
+          <StyledParagraph textAlign="left" padding="10px 0px">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
+            aspernatur nisi sunt eius dolorem libero fugiat, repellat officia
+            eos doloribus ducimus at laudantium soluta illo impedit architecto
+            consequuntur reprehenderit ipsum.
           </StyledParagraph>
-          <StyledParagraph>
-            Utbudet varierar eftersom vi helst använder närproducerade och
-            säsongsbetonade råvaror, till exempel vilt på vintern och lamm på
-            våren.
+          <StyledParagraph textAlign="left" padding="10px 0px">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum quo
+            aspernatur aliquid ullam eaque ratione.
           </StyledParagraph>
-          <StyledParagraph>
-            Lokalen var en gång Hallbergs silversmedsverkstad och eftersom AG är
-            den kemiska beteckningen för silver, fick det bli namnet. Jonas
-            Bohlin har skapat inredningen med mycket kakel, småländska
-            armaturer, läder från Tärnsjö och specialritade stolar.
+          <StyledParagraph textAlign="left" padding="10px 0px">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis vitae
+            harum amet sunt! Aliquam ex, nostrum ratione placeat similique
+            earum? Laudantium maiores cum delectus quo ex distinctio.
           </StyledParagraph>
         </div>
         <div className="imageWrapper">
-          <img src={WineAndFood} alt="food_and_wine" className="wineAndFood" />
+          <img
+            src="assets/wine-food.jpg"
+            alt="Glass of wine and a plate of food in restaurant setting"
+            className="wineAndFood"
+          />
         </div>
       </ContentWrapper>
-      <MainPageWrapper>
-        <h1>Book a table</h1>
-        <StyledParagraphGreen>
-          We are usually fully booked weeks ahead, you should probably make a
-          reservation now.
-        </StyledParagraphGreen>
-        <StyledButtonGreen>
-          <Link to="/reservations">To reservations</Link>
-          {/* <a href="http://localhost:3000/reservations">To reservations</a> */}
-        </StyledButtonGreen>
-      </MainPageWrapper>
+      <FooterWrapper>
+        <StyledMediumHeading>Book a table</StyledMediumHeading>
+        <StyledParagraph color="var(--green)" padding="0px 7px">
+          We are usually fully booked months in advance.
+        </StyledParagraph>
+        <StyledParagraph color="var(--green)" padding="0px 7px 20px">
+          You should probably make a reservation now.
+        </StyledParagraph>
+        <Link to="/reservations">
+          <StyledButtonGreen>To reservations</StyledButtonGreen>
+        </Link>
+      </FooterWrapper>
     </>
   );
 }
 
 const ContentWrapper = styled.div`
-  margin: 40px 0px 40px 0px;
-  padding: 40px 0px 40px 0px;
+  padding: 40px 0px 0px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
-  /* width: 100vw; */
   gap: 25px;
+
   @media ${devices.tablet} {
-    margin: 80px 0px 80px 0px;
-    padding: 80px 0px 80px 0px;
+    width: 100%;
+    padding: 60px 0px 0px;
+  }
+
+  @media ${devices.desktop} {
+    padding: 100px 30px 100px;
+    flex-direction: row;
   }
 
   .imageWrapper,
   .textWrapper {
-    /* flex-direction: column; */
-    width: 80%;
+    width: 100%;
+
     @media ${devices.tablet} {
-      width: 45%;
+      text-align: center;
     }
   }
 
   .textWrapper {
     display: flex;
     flex-direction: column;
+    padding: 0px 20px;
+
+    @media ${devices.tablet} {
+      padding: 0px 50px;
+      margin: 0 auto;
+    }
+
+    @media ${devices.desktop} {
+      padding: 0px 30px;
+    }
   }
 
-  h1 {
-    text-align: center;
-    font-size: 5rem;
-    font-weight: 100;
-    /* text-transform: uppercase; */
-    font-family: var(--headingfont);
-  }
   .wineAndFood {
     width: 100%;
   }
 `;
 
-const MainPageWrapper = styled.div`
-  /* margin: 40px 0px 40px 0px; */
-  /* width: 100vw; */
+const FooterWrapper = styled.div`
   padding: 40px 0px 40px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: var(--beige);
-  @media ${devices.tablet} {
-    /* margin: 80px 0px 80px 0px; */
-    padding: 80px 0px 80px 0px;
-  }
 
-  h1 {
-    /* width: 100vw; */
-    font-family: var(--headingfont);
-    text-align: center;
-    color: var(--green);
-    font-size: 5rem;
-    font-weight: 100;
+  a {
+    color: var(--beige);
+  }
+  @media ${devices.tablet} {
+    padding: 80px 0px 80px 0px;
   }
 `;
