@@ -1,12 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { IAdmin } from "../../models/IAdmin";
-import { saveAdmin } from "../../services/adminService";
+import { registerAdmin } from "../../services/adminService";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [confirmPwd, setConfirmPwd] = useState("");
-  // const [role, setRole] = useState("");
+  const [confirmPwd, setConfirmPwd] = useState("");
+  const [role, setRole] = useState("");
 
   const createAdmin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -14,9 +14,9 @@ export default function Register() {
     const newAdmin: IAdmin = {
       username: username,
       password: password,
-      // role: role,
+      role: role,
     };
-    saveAdmin(newAdmin);
+    registerAdmin(newAdmin);
   };
 
   return (
@@ -39,14 +39,14 @@ export default function Register() {
             setPassword(e.target.value);
           }}
         />
-        {/* <input
+        <input
           type="password"
           placeholder="Confirm Password"
           autoComplete="off"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             setConfirmPwd(e.target.value);
           }}
-        /> */}
+        />
         <button type="submit">Register new user</button>
       </form>
     </>
