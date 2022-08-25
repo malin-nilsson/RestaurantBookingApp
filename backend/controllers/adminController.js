@@ -65,9 +65,9 @@ const registerAdmin = async (req, res) => {
       secret: "",
     });
 
-    const token = createToken(admin._id);
-
-    res.status(200).json({ username, token });
+    // const token = createToken(admin._id);
+    // add token to .json
+    res.status(200).json({ username });
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error.message });
