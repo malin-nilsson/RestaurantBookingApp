@@ -58,17 +58,17 @@ const registerAdmin = async (req, res) => {
     // const admin = await Admin.signup(username, password);
     console.log(AdminModel);
 
-    const admins = await AdminModel.create({
+    const admin = await AdminModel.create({
       username: username,
       password: utils.hashedPwd(password),
       role: role,
       secret: "",
     });
 
-    // const token = createToken(admin._id);
+    const token = createToken(admin._id);
     // add token to .json
     res.status(200).json({ username });
-    console.log(admins);
+    console.log(admin);
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error.message });
