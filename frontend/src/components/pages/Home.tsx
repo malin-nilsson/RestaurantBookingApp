@@ -56,9 +56,9 @@ export default function Home() {
         <StyledParagraph color="var(--green)" padding="0px 7px 20px">
           You should probably make a reservation immediately.
         </StyledParagraph>
-        <StyledButtonGreen>
-          <Link to="/reservations">To reservations</Link>
-        </StyledButtonGreen>
+        <Link to="/reservations">
+          <StyledButtonGreen>To reservations</StyledButtonGreen>
+        </Link>
       </FooterWrapper>
     </>
   )
@@ -117,6 +117,10 @@ const FooterWrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: var(--beige);
+
+  a {
+    color: var(--beige);
+  }
   @media ${devices.tablet} {
     padding: 80px 0px 80px 0px;
   }
