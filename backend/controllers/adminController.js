@@ -8,13 +8,15 @@ const createToken = (_id) => {
 };
 
 // GET /ADMIN
-const getAdminMain = (req, res) => {
-  res.status(200);
+const getAdminMain = async (req, res) => {
+  const admins = await AdminModel.find();
+  res.status(200).json(admins);
 };
 
 // GET /AMIN/REGISTER
-const getRegisterAdmin = (req, res) => {
-  res.status(200);
+const getRegisterAdmin = async (req, res) => {
+  const admins = await AdminModel.find();
+  res.status(200).json(admins);
 };
 
 //LOGIN ADMIN
