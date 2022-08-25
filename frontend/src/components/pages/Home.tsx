@@ -11,7 +11,7 @@ import {
   StyledButton,
   StyledButtonGreen,
 } from "../styled-components/Button/StyledButton";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -54,7 +54,7 @@ export default function Home() {
           reservation now.
         </StyledParagraphGreen>
         <StyledButtonGreen>
-          <NavLink to="/reservations">To reservations</NavLink>
+          <Link to="/reservations">To reservations</Link>
           {/* <a href="http://localhost:3000/reservations">To reservations</a> */}
         </StyledButtonGreen>
       </MainPageWrapper>
