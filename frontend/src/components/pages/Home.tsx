@@ -49,7 +49,7 @@ export default function Home() {
         </div>
       </ContentWrapper>
       <FooterWrapper>
-        <StyledMediumHeading>Book a table</StyledMediumHeading>
+        {/* <StyledMediumHeading>Book a table</StyledMediumHeading> */}
         <StyledParagraph color="var(--green)" padding="0px 7px">
           We are usually fully booked months in advance.
         </StyledParagraph>
