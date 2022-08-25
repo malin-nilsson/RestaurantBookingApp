@@ -15,12 +15,12 @@ export const StyledContactWrapper = styled.div`
 
   @media ${devices.tablet} {
     font-size: 1.6rem;
-    padding: 450px 0px 100px;
+    padding: 420px 0px 100px;
     width: 50%;
   }
 
   @media ${devices.desktop} {
-    padding-top: 750px;
+    padding: 670px 0px 100px;
     width: 30%;
   }
 

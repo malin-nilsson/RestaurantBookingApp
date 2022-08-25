@@ -11,10 +11,10 @@ export const StyledHeroImage = styled.div`
     position: absolute;
     top: 0;
     right: 0;
-    padding-top: 90px;
+    padding-top: 80px;
 
     @media ${devices.desktop} {
-      padding-top: 80px;
+      padding: 0;
     }
 
     img {
