@@ -35,6 +35,7 @@ export default function Admin() {
   const [time, setTime] = useState('')
   const [amount, setAmount] = useState(0)
   const [error, setError] = useState(false)
+  const [adminHeader, setAdminHeader] = useState(true)
   const [bookingConfirmation, setBookingConfirmation] = useState(false)
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
   const [cancelledBooking, setCancelledBooking] = useState<ICancellation>()
@@ -86,6 +87,7 @@ export default function Admin() {
   const showEditForm = (clickedBooking: IReservation) => {
     setShowBookings(false)
     setEditForm(true)
+    setAdminHeader(false)
     setSpecificBooking(clickedBooking)
     const bookingToEdit = bookings.bookings.filter(
       (booking) => booking._id === clickedBooking._id,
@@ -145,25 +147,29 @@ export default function Admin() {
 
   return (
     <>
+      {adminHeader && (
+        <StyledFlexDiv>
+          <StyledForm border="none" onSubmit={searchBookings}>
+            <StyledMediumHeading margin="0px 0px 10px">
+              Admin
+            </StyledMediumHeading>
+
+            <input
+              type="text"
+              required={true}
+              onChange={(e) => setSearchInput(e.target.value)}
+              value={searchInput}
+              placeholder="Search by name, email or booking ID..."
+            />
+            <StyledButton>Search reservations</StyledButton>
+            <StyledLinkWrapper>
+              <Link to="/admin/create">Add new reservation</Link>
+            </StyledLinkWrapper>
+          </StyledForm>
+        </StyledFlexDiv>
+      )}
+
       <StyledFlexDiv>
-        <StyledForm border="none" onSubmit={searchBookings}>
-          <StyledMediumHeading margin="0px 0px 10px">Admin</StyledMediumHeading>
-
-          <input
-            type="text"
-            required={true}
-            onChange={(e) => setSearchInput(e.target.value)}
-            value={searchInput}
-            placeholder="Search by name, email or booking ID..."
-          />
-          <StyledButton>Search reservations</StyledButton>
-        </StyledForm>
-        <StyledLinkWrapper>
-          <Link to="/admin/create">Add new reservation</Link>
-        </StyledLinkWrapper>
-      </StyledFlexDiv>
-
-      <StyledFlexDiv padding="20px 0px 0px">
         <StyledParagraph>{message}</StyledParagraph>
 
         {showBookings && filteredBookings && (
@@ -231,15 +237,33 @@ export default function Admin() {
         {editForm && specificBooking && (
           <>
             <StyledForm onSubmit={(e) => handleEdit(e, specificBooking)}>
-              <StyledMediumHeading fontSize="2rem">
-                Edit Reservation
-              </StyledMediumHeading>
+              <StyledHeadingWrapper>
+                <div>
+                  <span
+                    onClick={() => {
+                      setAdminHeader(true)
+                      setEditForm(false)
+                    }}
+                    className="material-symbols-outlined arrow"
+                  >
+                    arrow_back_ios
+                  </span>
+                </div>
+
+                <div>
+                  <StyledMediumHeading>Edit reservation</StyledMediumHeading>
+                </div>
+
+                <div></div>
+              </StyledHeadingWrapper>
               <StyledSmallHeading fontSize="1.5rem" padding="10px">
-                <span>
-                  {specificBooking.guestName} – {specificBooking.date} –{' '}
-                  {specificBooking.time}:00 pm – Guests:{' '}
-                  {specificBooking.amount}
-                </span>
+                <div className="booking-details">
+                  <span>
+                    {specificBooking.guestName} – {specificBooking.date} –{' '}
+                    {specificBooking.time}:00 pm – Guests:{' '}
+                    {specificBooking.amount}
+                  </span>
+                </div>
               </StyledSmallHeading>
               <div className="form-field">
                 {notAvailable && (
@@ -308,7 +332,7 @@ export default function Admin() {
       </StyledFlexDiv>
 
       {bookingConfirmation && (
-        <StyledFlexDiv padding="50px 0px">
+        <StyledFlexDiv>
           <StyledSmallHeading fontWeight="900" padding="0px 0px 15px">
             The reservation has been confirmed.
           </StyledSmallHeading>

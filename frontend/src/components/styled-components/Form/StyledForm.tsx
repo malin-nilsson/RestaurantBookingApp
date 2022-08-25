@@ -11,7 +11,6 @@ export const StyledForm = styled.form`
   min-width: 320px;
   margin: ${(props: IFormProps) => props.margin || '50px 0px'};
   display: flex;
-  border: ${(props: IFormProps) => props.border || '1px solid var(--beige)'};
   padding: 10px;
   flex-direction: column;
   font-family: var(--headingfont);
@@ -21,10 +20,11 @@ export const StyledForm = styled.form`
     min-width: 500px;
     max-width: 550px;
     padding: 20px 40px;
+    border: ${(props: IFormProps) => props.border || '1px solid var(--beige)'};
   }
 
   @media ${devices.desktop} {
-    margin: 120px 0px;
+    margin: 100px 0px 50px;
   }
 
   .form-field {

@@ -112,31 +112,39 @@ export const CreateAdminReservation = () => {
     }
   }
 
+  const toggleForms = () => {
+    window.scrollTo(0, 0)
+    setBookingForm(true)
+    setError(false)
+    setGuestForm(false)
+    setNotAvailable(false)
+  }
+
   return (
     <div>
-      <StyledFlexDiv>
+      <StyledFlexDiv padding="50px 10px 30px">
         {loader && <StyledLoader></StyledLoader>}
-        {adminHeader && (
-          <StyledHeadingWrapperLarge>
-            <div>
-              <Link to="/admin">
-                <span className="material-symbols-outlined arrow">
-                  arrow_back_ios
-                </span>
-              </Link>
-            </div>
-
-            <div>
-              <StyledMediumHeading>Admin</StyledMediumHeading>
-            </div>
-
-            <div></div>
-          </StyledHeadingWrapperLarge>
-        )}
 
         {bookingForm && (
           <>
-            <StyledForm margin="20px 0px 0px" onSubmit={checkAvailability}>
+            <StyledForm onSubmit={checkAvailability}>
+              {adminHeader && (
+                <StyledHeadingWrapper>
+                  <div>
+                    <Link to="/admin">
+                      <span className="material-symbols-outlined arrow">
+                        arrow_back_ios
+                      </span>
+                    </Link>
+                  </div>
+
+                  <div>
+                    <StyledMediumHeading>Admin</StyledMediumHeading>
+                  </div>
+
+                  <div></div>
+                </StyledHeadingWrapper>
+              )}
               <StyledMediumHeading fontSize="2rem">
                 Make a Reservation
               </StyledMediumHeading>
@@ -207,6 +215,24 @@ export const CreateAdminReservation = () => {
 
         {guestForm && (
           <StyledForm margin="30px 0px" onSubmit={confirmBooking}>
+            {adminHeader && (
+              <StyledHeadingWrapper>
+                <div>
+                  <span
+                    onClick={toggleForms}
+                    className="material-symbols-outlined arrow"
+                  >
+                    arrow_back_ios
+                  </span>
+                </div>
+
+                <div>
+                  <StyledMediumHeading>Admin</StyledMediumHeading>
+                </div>
+
+                <div></div>
+              </StyledHeadingWrapper>
+            )}
             <StyledMediumHeading fontSize="2rem">
               Guest information
             </StyledMediumHeading>
@@ -262,7 +288,7 @@ export const CreateAdminReservation = () => {
       </StyledFlexDiv>
 
       {confirmation && (
-        <StyledFlexDiv padding="50px 0px">
+        <StyledFlexDiv>
           <StyledSmallHeading fontWeight="900" padding="0px 0px 15px">
             The reservation is confirmed.
           </StyledSmallHeading>
@@ -276,7 +302,7 @@ export const CreateAdminReservation = () => {
             </span>
           </StyledSmallHeading>
           <StyledButton margin="40px 0px">
-            <Link to="/">Back home</Link>
+            <Link to="/">Back to Admin page</Link>
           </StyledButton>
         </StyledFlexDiv>
       )}

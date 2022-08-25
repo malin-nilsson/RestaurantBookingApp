@@ -261,7 +261,7 @@ export default function Book() {
       </StyledFlexDiv>
 
       {confirmation && (
-        <StyledFlexDiv padding="100px 0px">
+        <StyledFlexDiv padding="130px 0px">
           <StyledSmallHeading fontWeight="900" padding="0px 0px 15px">
             Your reservation is confirmed, {specificBooking.guestName}.
           </StyledSmallHeading>

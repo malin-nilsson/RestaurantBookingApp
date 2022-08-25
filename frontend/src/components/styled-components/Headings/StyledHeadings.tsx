@@ -30,6 +30,10 @@ export const StyledSmallHeading = styled.h3`
   gap: ${(props: IHeadingProps) => props.gap || ''};
   margin: 0px;
 
+  .booking-details {
+    display: flex;
+    flex-wrap: wrap;
+  }
   span {
     background-color: var(--beige);
     color: var(--green);
