@@ -11,15 +11,12 @@ const router = express.Router();
 
 router.get("/", getAdminMain);
 
+router.post("/", loginAdmin);
+
 router.get("/register", getRegisterAdmin);
 
 router.post("/register", registerAdmin);
 
-router.post("/login", loginAdmin);
-
-// router.get("/:id", adminMain);
-
-// Sätt adminMain till /:id, skapa därefter / (dvs localhost:3000/admin som en login)
-// Skapa också en admin/register sida
+// /:id behöver läggas till, dvs. admin page där hen ser bokningarna
 
 module.exports = router;
