@@ -332,7 +332,7 @@ export default function Admin() {
       </StyledFlexDiv>
 
       {bookingConfirmation && (
-        <StyledFlexDiv>
+        <StyledFlexDiv padding="100px 0px 0px">
           <StyledSmallHeading fontWeight="900" padding="0px 0px 15px">
             The reservation has been confirmed.
           </StyledSmallHeading>
