@@ -204,63 +204,73 @@ export default function Admin() {
         <StyledParagraph>{noResultsMessage}</StyledParagraph>
 
         {showBookings && filteredBookings && (
-          <StyledList>
-            {filteredBookings.map((booking: IReservation) => {
-              return (
-                <li key={booking._id}>
-                  <div className="icons">
-                    <span
-                      onClick={() => confirmDelete(booking)}
-                      className="material-symbols-outlined"
-                    >
-                      delete
-                    </span>
-                    <span
-                      onClick={() => showEditForm(booking)}
-                      className="material-symbols-outlined"
-                    >
-                      edit
-                    </span>
-                  </div>
-                  <div className="booking">
-                    <span>
-                      <span className="title-bold">Booking ID: </span>
-                      <span>{booking._id}</span>
-                    </span>
-                    <span>
-                      <span className="title-bold">Date: </span>
-                      {booking.date} - {booking.time}:00 pm{' '}
-                    </span>
+          <>
+            <StyledParagraph textAlign="left" fontSize="1.7rem">
+              <span className="material-symbols-outlined">restaurant_menu</span>
 
-                    <span>
-                      <span className="title-bold">Number of guests: </span>
-                      {booking.amount}
-                    </span>
-                    <span>
-                      <span className="title-bold"> Guest: </span>
-                      {booking.guestName}
-                    </span>
-                  </div>
+              {filteredBookings.length === 1
+                ? filteredBookings.length + ' reservation found'
+                : filteredBookings.length + ' reservations found'}
+            </StyledParagraph>
 
-                  <div className="booking">
-                    <span>
-                      <span className="title-bold">Email: </span>
-                      {booking.guestEmail}
-                    </span>
-                    <span>
-                      <span className="title-bold">Phone: </span>
-                      {booking.guestPhone}
-                    </span>
-                  </div>
+            <StyledList>
+              {filteredBookings.map((booking: IReservation) => {
+                return (
+                  <li key={booking._id}>
+                    <div className="icons">
+                      <span
+                        onClick={() => confirmDelete(booking)}
+                        className="material-symbols-outlined"
+                      >
+                        delete
+                      </span>
+                      <span
+                        onClick={() => showEditForm(booking)}
+                        className="material-symbols-outlined"
+                      >
+                        edit
+                      </span>
+                    </div>
+                    <div className="booking">
+                      <span>
+                        <span className="title-bold">Booking ID: </span>
+                        <span>{booking._id}</span>
+                      </span>
+                      <span>
+                        <span className="title-bold">Date: </span>
+                        {booking.date} - {booking.time}:00 pm{' '}
+                      </span>
 
-                  <div className="booking">
-                    <span className="title-bold">Message: </span>
-                    <span>{booking.message}</span>
-                  </div>
-                </li>
-              )
-            })}
-          </StyledList>
+                      <span>
+                        <span className="title-bold">Number of guests: </span>
+                        {booking.amount}
+                      </span>
+                      <span>
+                        <span className="title-bold"> Guest: </span>
+                        {booking.guestName}
+                      </span>
+                    </div>
+
+                    <div className="booking">
+                      <span>
+                        <span className="title-bold">Email: </span>
+                        {booking.guestEmail}
+                      </span>
+                      <span>
+                        <span className="title-bold">Phone: </span>
+                        {booking.guestPhone}
+                      </span>
+                    </div>
+
+                    <div className="booking">
+                      <span className="title-bold">Message: </span>
+                      <span>{booking.message}</span>
+                    </div>
+                  </li>
+                )
+              })}
+            </StyledList>
+          </>
         )}
       </StyledFlexDiv>
 
@@ -401,8 +411,8 @@ export default function Admin() {
           >
             This reservation has been cancelled.
             <span>
-              {cancelledBooking.date} – {cancelledBooking.time}:00 pm –{' '}
-              {cancelledBooking.name} –{' '}
+              {cancelledBooking.date} – {cancelledBooking.time}:00 pm –
+              {cancelledBooking.name} –
               {cancelledBooking.amount === 1
                 ? cancelledBooking.amount + ' guest'
                 : cancelledBooking.amount + ' guests'}
