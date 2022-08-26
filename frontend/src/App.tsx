@@ -17,6 +17,7 @@ import axios from 'axios'
 import { IReservation } from './models/IReservation'
 import { CreateAdminReservation } from './components/pages/AdminReservation'
 import Admin from './components/pages/Admin'
+import GDPR from './components/pages/GDPR'
 
 function App() {
   const [bookings, setBookings] = useState<BookingInterface>(defaultValue)
@@ -30,6 +31,13 @@ function App() {
         setBookings({ ...bookings, bookings: response.data })
       })
   }, [bookings])
+
+  // Add booking to context
+  bookings.addBooking = (r: IReservation) => {
+    const newBookingsList = [...bookings.bookings]
+    newBookingsList.push(r)
+    setBookings({ ...bookings, bookings: newBookingsList })
+  }
 
   // Update Booking context
   bookings.updateBooking = (r: IReservation) => {
@@ -62,6 +70,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/gdpr" element={<GDPR />} />
             <Route path="/admin/create" element={<CreateAdminReservation />} />
             <Route path="/reservations" element={<Reservations />} />
             <Route path="/menu" element={<Menu />} />

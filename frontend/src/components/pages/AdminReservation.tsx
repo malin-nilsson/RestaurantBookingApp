@@ -1,4 +1,3 @@
-import { error } from 'console'
 import { useContext, useState } from 'react'
 import { IBooking } from '../../models/IBooking'
 import { IReservation } from '../../models/IReservation'
@@ -15,7 +14,6 @@ import { getAvailability } from '../../services/getAvailability'
 import {
   StyledFlexDiv,
   StyledHeadingWrapper,
-  StyledHeadingWrapperLarge,
 } from '../styled-components/Wrappers/StyledFlex'
 import { StyledLoader } from '../styled-components/Loader/StyledLoader'
 import { Link } from 'react-router-dom'
@@ -100,9 +98,9 @@ export const CreateAdminReservation = () => {
         guestEmail: email,
         guestPhone: phone,
       }
-      bookings.updateBooking(specificBooking)
       setSpecificBooking(newBooking)
       saveBooking(newBooking)
+      bookings.addBooking(newBooking)
       setError(false)
       setName('')
       setEmail('')
@@ -151,7 +149,11 @@ export const CreateAdminReservation = () => {
               <div className="form-field">
                 {notAvailable && (
                   <div className="error-generic">
-                    <StyledParagraph fontSize="1.5rem" padding="5px">
+                    <StyledParagraph
+                      fontSize="1.5rem"
+                      padding="5px"
+                      color="var(--green)"
+                    >
                       Uh oh, it looks like that seating is fully booked.
                     </StyledParagraph>
                   </div>
@@ -208,6 +210,7 @@ export const CreateAdminReservation = () => {
                   maxLength={100}
                 />
               </div>
+
               <StyledButton>Find a table</StyledButton>
             </StyledForm>
           </>
@@ -282,6 +285,12 @@ export const CreateAdminReservation = () => {
                 value={phone}
               />
             </div>
+            <div className="form-field gdpr">
+              <input type="checkbox" required />
+              <label>
+                I agree to the <Link to="/gdpr">terms and conditions</Link>
+              </label>
+            </div>
             <StyledButton>Confirm booking</StyledButton>
           </StyledForm>
         )}
@@ -301,9 +310,9 @@ export const CreateAdminReservation = () => {
                 : specificBooking.amount + ' guests'}
             </span>
           </StyledSmallHeading>
-          <StyledButton margin="40px 0px">
-            <Link to="/">Back to Admin page</Link>
-          </StyledButton>
+          <Link to="/admin">
+            <StyledButton margin="40px 0px">Back to Admin page</StyledButton>
+          </Link>
         </StyledFlexDiv>
       )}
     </div>

@@ -33,6 +33,8 @@ export const StyledSmallHeading = styled.h3`
   .booking-details {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
   span {
     background-color: var(--beige);

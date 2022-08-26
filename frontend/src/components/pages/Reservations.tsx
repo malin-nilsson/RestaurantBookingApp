@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 // REACT ROUTER //
 import { Link } from 'react-router-dom'
 // SERVICES //
@@ -21,8 +21,10 @@ import {
 import { StyledButton } from '../styled-components/Button/StyledButton'
 import { StyledLoader } from '../styled-components/Loader/StyledLoader'
 import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
+import { BookingContext } from '../../context/BookingContext'
 
 export default function Book() {
+  let bookings = useContext(BookingContext)
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
   const [amount, setAmount] = useState(0)
@@ -46,7 +48,6 @@ export default function Book() {
     guestEmail: '',
     guestPhone: '',
   })
-  window.scrollTo(0, 0)
 
   const stopLoader = () => {
     setLoader(false)
@@ -99,6 +100,7 @@ export default function Book() {
       }
       setSpecificBooking(newBooking)
       saveBooking(newBooking)
+      bookings.addBooking(newBooking)
       setError(false)
       setName('')
       setEmail('')
@@ -127,7 +129,11 @@ export default function Book() {
               <div className="form-field">
                 {notAvailable && (
                   <div className="error-generic">
-                    <StyledParagraph fontSize="1.5rem" padding="5px">
+                    <StyledParagraph
+                      fontSize="1.5rem"
+                      padding="5px"
+                      color="var(--green)"
+                    >
                       Uh oh, it looks like that seating is fully booked.
                     </StyledParagraph>
                   </div>
@@ -254,6 +260,12 @@ export default function Book() {
                   value={phone}
                 />
               </div>
+              <div className="form-field gdpr">
+                <input type="checkbox" required />
+                <label>
+                  I agree to the <Link to="/gdpr">terms and conditions</Link>
+                </label>
+              </div>
               <StyledButton>Confirm booking</StyledButton>
             </StyledForm>
           </>
@@ -273,9 +285,9 @@ export default function Book() {
               {specificBooking.date}, {specificBooking.time}:00 pm
             </span>
           </StyledSmallHeading>
-          <StyledButton margin="40px 0px">
-            <Link to="/">Back home</Link>
-          </StyledButton>
+          <Link to="/">
+            <StyledButton margin="40px 0px">Back home</StyledButton>
+          </Link>
         </StyledFlexDiv>
       )}
     </div>

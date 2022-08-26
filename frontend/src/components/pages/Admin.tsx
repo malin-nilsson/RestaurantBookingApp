@@ -24,6 +24,7 @@ import {
 import { deleteBooking } from '../../services/deleteBooking'
 import { ICancellation } from '../../models/ICancellation'
 import { StyledLinkWrapper } from '../styled-components/Wrappers/StyledLinkWrapper'
+import { StyledLoader } from '../styled-components/Loader/StyledLoader'
 
 export default function Admin() {
   let bookings = useContext(BookingContext)
@@ -40,7 +41,9 @@ export default function Admin() {
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
   const [cancelledBooking, setCancelledBooking] = useState<ICancellation>()
   const [notAvailable, setNotAvailable] = useState(false)
+  const [loader, setLoader] = useState<Boolean>(false)
   const [selectedBooking, setSelectedBooking] = useState<IReservation[]>()
+  const [noResultsMessage, setNoResultsMessage] = useState('')
   const [showBookings, setShowBookings] = useState(true)
   const [specificBooking, setSpecificBooking] = useState<IReservation>({
     _id: '',
@@ -52,6 +55,11 @@ export default function Admin() {
     guestEmail: '',
     guestPhone: '',
   })
+
+  const stopLoader = () => {
+    setLoader(false)
+    setShowBookings(true)
+  }
 
   const searchBookings = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -76,11 +84,14 @@ export default function Admin() {
     )
 
     if (filteredBookings.length > 0) {
-      setMessage('')
+      setNoResultsMessage('')
+      setLoader(true)
+      setTimeout(stopLoader, 1000)
       setFilteredBookings(filteredBookings)
+      setShowBookings(false)
     } else {
       setFilteredBookings([])
-      setMessage("We couldn't find any reservations.")
+      setNoResultsMessage("Sorry, we couldn't find any reservations.")
     }
   }
 
@@ -102,21 +113,34 @@ export default function Admin() {
 
   const handleEdit = async (
     e: FormEvent<HTMLFormElement>,
-    booking: IReservation,
+    reservation: IReservation,
   ) => {
     e.preventDefault()
 
     if (date && time && amount) {
       setError(false)
-      const isAvailable = getAvailability(specificBooking)
+
+      const editedBooking: IReservation = {
+        _id: reservation._id,
+        date: date,
+        time: time,
+        amount: amount,
+        message: message,
+        guestName: reservation.guestName,
+        guestEmail: reservation.guestEmail,
+        guestPhone: reservation.guestPhone,
+      }
+      setSpecificBooking(editedBooking)
+
+      const isAvailable = getAvailability(editedBooking)
       isAvailable.then(function (result) {
         if (result === true) {
+          saveEditedBooking(editedBooking)
+          bookings.updateBooking(editedBooking)
           setEditForm(false)
           setBookingConfirmation(true)
           window.scrollTo(0, 0)
           setError(false)
-          saveEditedBooking(specificBooking)
-          bookings.updateBooking(specificBooking)
         } else {
           setEditForm(true)
           setNotAvailable(true)
@@ -145,6 +169,12 @@ export default function Admin() {
     }
   }
 
+  const toggleForms = () => {
+    window.scrollTo(0, 0)
+    setAdminHeader(true)
+    setBookingConfirmation(false)
+  }
+
   return (
     <>
       {adminHeader && (
@@ -166,11 +196,12 @@ export default function Admin() {
               <Link to="/admin/create">Add new reservation</Link>
             </StyledLinkWrapper>
           </StyledForm>
+          {loader && <StyledLoader margin="0px auto"></StyledLoader>}
         </StyledFlexDiv>
       )}
 
       <StyledFlexDiv>
-        <StyledParagraph>{message}</StyledParagraph>
+        <StyledParagraph>{noResultsMessage}</StyledParagraph>
 
         {showBookings && filteredBookings && (
           <StyledList>
@@ -268,7 +299,11 @@ export default function Admin() {
               <div className="form-field">
                 {notAvailable && (
                   <div className="error-generic">
-                    <StyledParagraph fontSize="1.5rem" padding="5px">
+                    <StyledParagraph
+                      fontSize="1.5rem"
+                      padding="5px"
+                      color="var(--green)"
+                    >
                       Uh oh, it looks like that seating is fully booked.
                     </StyledParagraph>
                   </div>
@@ -322,8 +357,13 @@ export default function Admin() {
                   onChange={(e) => setMessage(e.target.value)}
                   value={message}
                   maxLength={100}
-                  placeholder={specificBooking.message}
                 />
+              </div>
+              <div className="form-field gdpr">
+                <input type="checkbox" required />
+                <label>
+                  I agree to the <Link to="/gdpr">terms and conditions</Link>
+                </label>
               </div>
               <StyledButton>Edit reservation</StyledButton>
             </StyledForm>
@@ -342,6 +382,10 @@ export default function Admin() {
               {specificBooking.guestName} – Guests: {specificBooking.amount}
             </span>
           </StyledSmallHeading>
+
+          <StyledButton onClick={toggleForms} margin="40px 0px">
+            Back to Admin page
+          </StyledButton>
         </StyledFlexDiv>
       )}
 

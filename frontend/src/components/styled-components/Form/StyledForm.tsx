@@ -62,6 +62,12 @@ export const StyledForm = styled.form`
     background-position-y: 2px;
   }
 
+  input[type='checkbox'] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+  }
+
   .optional {
     margin: 0px 8px;
     font-weight: 100;
@@ -84,5 +90,14 @@ export const StyledForm = styled.form`
 
   .material-symbols-outlined.arrow {
     cursor: pointer;
+  }
+
+  .gdpr {
+    flex-direction: row;
+    align-items: center;
+
+    a {
+      color: var(--beige);
+    }
   }
 `

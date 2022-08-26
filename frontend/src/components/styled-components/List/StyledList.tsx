@@ -7,9 +7,9 @@ export const StyledList = styled.ul`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  gap: 40px;
   max-width: 300px;
-  margin: 10px 0px 0px;
+  margin: 0px 0px 30px;
   padding: 0;
 
   @media ${devices.tablet} {
@@ -26,12 +26,18 @@ export const StyledList = styled.ul`
     list-style: none;
     font-size: 1.4rem;
     font-weight: 100;
-    border: 1px solid var(--beige);
+    border: 2px solid var(--beige);
     width: 100%;
     padding: 15px;
+    transition: scale 0.25s ease-in-out;
+    &:nth-child(odd) {
+      background-color: var(--beige);
+      color: var(--green);
+    }
 
     &:hover {
       cursor: default;
+      scale: 1.01;
     }
 
     .booking {
