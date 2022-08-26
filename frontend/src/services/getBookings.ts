@@ -1,10 +1,9 @@
-import axios from "axios";
+import axios from 'axios'
+import { IReservation } from '../models/IReservation'
 
-import { useContext, useEffect, useState } from "react";
-import { IBooking } from "../models/IBooking";
-
-export const BookingsList = () => {
-  const [bookings, setBookings] = useState<IBooking[]>([]);
-
-  const API = "https://localhost:4000/bookings";
-};
+export async function getBookings(
+  booking: IReservation,
+): Promise<IReservation[]> {
+  const API = 'http://localhost:4000/bookings'
+  return await axios.get(API)
+}

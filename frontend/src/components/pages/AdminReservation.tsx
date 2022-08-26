@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { IBooking } from '../../models/IBooking'
+import { IBookingRequest } from '../../models/IBookingRequest'
 import { IReservation } from '../../models/IReservation'
 import { limitPastDates } from '../../services/limitDate'
 import { saveBooking } from '../../services/saveBooking'
@@ -58,7 +58,7 @@ export const CreateAdminReservation = () => {
     e.preventDefault()
 
     if (date && time && amount) {
-      const newBookingRequest: IBooking = {
+      const newBookingRequest: IBookingRequest = {
         date: date,
         time: time,
         amount: amount,
@@ -66,7 +66,7 @@ export const CreateAdminReservation = () => {
       setError(false)
       const isAvailable = getAvailability(newBookingRequest)
       isAvailable.then(function (result) {
-        if (result === true) {
+        if (result.valueOf() === true) {
           setBookingForm(false)
           setGuestForm(true)
           window.scrollTo(0, 0)

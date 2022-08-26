@@ -4,10 +4,13 @@ const {
   getBookings,
   editBooking,
   deleteBooking,
+  searchAvailability,
 } = require('../controllers/bookingController.js')
 const router = express.Router()
 
-//GET BOOKING
+// SEARCH BOOKINGS
+router.post('/search', searchAvailability)
+// GET BOOKING
 router.get('/', getBookings)
 // SAVE BOOKING
 router.post('/', saveBooking)

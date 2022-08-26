@@ -7,7 +7,7 @@ import { limitPastDates } from '../../services/limitDate'
 import { saveBooking } from '../../services/saveBooking'
 // MODELS//
 import { IReservation } from '../../models/IReservation'
-import { IBooking } from '../../models/IBooking'
+import { IBookingRequest } from '../../models/IBookingRequest'
 // STYLED COMPONENTS //
 import { StyledForm } from '../styled-components/Form/StyledForm'
 import {
@@ -59,7 +59,7 @@ export default function Book() {
     e.preventDefault()
 
     if (date && time && amount) {
-      const newBookingRequest: IBooking = {
+      const newBookingRequest: IBookingRequest = {
         date: date,
         time: time,
         amount: amount,
@@ -67,7 +67,7 @@ export default function Book() {
       setError(false)
       const isAvailable = getAvailability(newBookingRequest)
       isAvailable.then(function (result) {
-        if (result === true) {
+        if (result.valueOf() === true) {
           setBookingForm(false)
           window.scrollTo(0, 0)
           setGuestForm(true)

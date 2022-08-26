@@ -2,12 +2,10 @@ import { FormEvent, useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BookingContext } from '../../context/BookingContext'
 import { IAdmin } from '../../models/IAdmin'
-import { IBooking } from '../../models/IBooking'
 import { IReservation } from '../../models/IReservation'
 import { getAdmin } from '../../services/adminService'
 import { saveEditedBooking } from '../../services/saveEditedBooking'
 import { getAvailability } from '../../services/getAvailability'
-import { BookingsList } from '../../services/getBookings'
 import { limitPastDates } from '../../services/limitDate'
 import { StyledButton } from '../styled-components/Button/StyledButton'
 import { StyledForm } from '../styled-components/Form/StyledForm'
@@ -96,6 +94,7 @@ export default function Admin() {
   }
 
   const showEditForm = (clickedBooking: IReservation) => {
+    window.scrollTo(0, 0)
     setShowBookings(false)
     setEditForm(true)
     setAdminHeader(false)
@@ -134,7 +133,7 @@ export default function Admin() {
 
       const isAvailable = getAvailability(editedBooking)
       isAvailable.then(function (result) {
-        if (result === true) {
+        if (result.valueOf() === true) {
           saveEditedBooking(editedBooking)
           bookings.updateBooking(editedBooking)
           setEditForm(false)

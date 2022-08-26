@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { IBooking } from '../models/IBooking'
 import { IReservation } from '../models/IReservation'
 
 export async function deleteBooking(

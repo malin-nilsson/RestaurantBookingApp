@@ -1,5 +1,4 @@
 import { createContext } from 'react'
-import { IBooking } from '../models/IBooking'
 import { IReservation } from '../models/IReservation'
 
 export interface BookingInterface {

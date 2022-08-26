@@ -1,4 +1,4 @@
-const Booking = require('../models/bookingModel')
+const BookingRequest = require('../models/bookingRequestModel')
 const Reservations = require('../models/reservationModel')
 
 // GET ALL BOOKINGS
@@ -71,4 +71,63 @@ const deleteBooking = async (req, res) => {
   }
 }
 
-module.exports = { saveBooking, getBookings, editBooking, deleteBooking }
+// GET AVAILABILITY
+const searchAvailability = async (req, res) => {
+  const { date, time, amount } = req.body
+
+  const newBookingRequest = await BookingRequest.create({
+    date: date,
+    time: time,
+    amount: amount,
+  })
+  const allBookings = await Reservations.find().lean()
+
+  try {
+    // Get all existing reservations from requested day
+    const requestedDate = allBookings.filter(
+      (booking) => booking.date === newBookingRequest.date,
+    )
+    // If there are no bookings on requested date, confirm booking
+    if (requestedDate.length < 1) {
+      res.status(200).send(true)
+    } else {
+      /* If there are bookings on requested date,
+    check if there are reservations at the same time */
+      for (let i = 0; i < requestedDate.length; i++) {
+        // List of bookings on the same date and same time
+        const sameDayAndTime = requestedDate.filter(
+          (booking) => booking.time === newBookingRequest.time,
+        )
+        // If there are no bookings on requested time, confirm booking
+        if (sameDayAndTime.length < 1) {
+          res.status(200).send(true)
+        } else {
+          // Loop through the list of bookings with same date & time
+          for (let j = 0; j < sameDayAndTime.length; j++) {
+            // Get total amount of booked tables
+            const numOfTablesBooked = sameDayAndTime.length
+            // Get total amount of guests
+            const numOfGuests = sameDayAndTime.length * sameDayAndTime[j].amount
+            // If 15 tables are already booked, delcine booking request
+            if (numOfTablesBooked > 15) {
+              res.status(200).send(false)
+            } // If there are tables available, confirm booking
+            else {
+              res.status(200).send(true)
+            }
+          }
+        }
+      }
+    }
+  } catch (error) {
+    res.status(400)
+  }
+}
+
+module.exports = {
+  saveBooking,
+  getBookings,
+  editBooking,
+  deleteBooking,
+  searchAvailability,
+}

@@ -1,6 +1,4 @@
-import { IGuest } from './IGuest'
-
-export interface IBooking {
+export interface IBookingRequest {
   id?: string
   date: string
   time: string
