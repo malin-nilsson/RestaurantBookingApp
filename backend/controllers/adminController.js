@@ -1,7 +1,7 @@
 const AdminModel = require("../models/adminModel");
 const utils = require("../utils/utils");
 const jwt = require("jsonwebtoken");
-
+const bcrypt = require("bcrypt");
 // CREATE TOKEN FOR MONGO ID i.e. _id
 const createToken = (_id) => {
   return jwt.sign({ _id: _id }, process.env.SECRET, { expiresIn: "1d" });
