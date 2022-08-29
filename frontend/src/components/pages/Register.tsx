@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { IAdmin } from "../../models/IAdmin";
-import { saveAdmin } from "../../services/adminService";
+import { registerAdmin } from "../../services/adminService";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -16,19 +16,26 @@ export default function Register() {
       password: password,
       role: role,
     };
-    saveAdmin(newAdmin);
+    registerAdmin(newAdmin);
   };
-  const emptyForm = () => {
-    setUsername("");
-    setPassword("");
-    setConfirmPwd("");
-  };
+
+  // const [formData, setFormData] = useState({
+  //   username: "",
+  //   password: "",
+  //   confirmPassword: "",
+  //   role: "",
+  // })
+
+  // const {username, password, confirmPassword, role} = formData
+
   return (
     <>
       <h1>REGISTER NEW USER</h1>
       <form onSubmit={createAdmin}>
         <input
           type="text"
+          // name="username"
+          // value={username}
           autoComplete="off"
           placeholder="Username"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +44,8 @@ export default function Register() {
         />
         <input
           type="password"
+          // name="password"
+          // value={password}
           placeholder="Password"
           autoComplete="off"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +54,8 @@ export default function Register() {
         />
         <input
           type="password"
+          // name="confirmPassword"
+          // value={confirmPassword}
           placeholder="Confirm Password"
           autoComplete="off"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {

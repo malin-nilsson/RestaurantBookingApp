@@ -1,82 +1,23 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
-
-const utils = require("../utils/utils.js");
-
-const AdminModel = require("../models/adminModel");
-const { saveAdmin } = require("../controllers/registerController.js");
-
 const router = express.Router();
+const { protect } = require("../middleware/authMiddleware");
 
-// router.get("/:id", utils.adminAuth, async (req, res) => {
-//   const admin = await AdminModel.findById();
-//   const { token } = req.cookies;
-//   if (token && jwt.verify(token, process.env.SECRET)) {
-//     res.send(200, { admin });
-//   } else {
-//     res.send(401, "Unauthorized");
-//   }
-// });
+const {
+  getAdminMain,
+  getRegisterAdmin,
+  registerAdmin,
+  loginAdmin,
+  getMe,
+} = require("../controllers/adminController.js");
 
-router.get("/", (req, res) => {
-  res.send(200);
-});
+router.get("/", getAdminMain);
 
-// router.post("/", async (req, res) => {
-//   const { username, pwd, confirmPwd, type } = req.body;
-//   AdminModel.findOne({ username }, async (err, admin) => {
-//     if (admin) {
-//       res.render("", {
-//         error: "Username not available!",
-//       });
-//     } else if (pwd.length <= 4) {
-//       res.render("", {
-//         error: "Password must be at least 4 characters long",
-//       });
-//     } else if (pwd !== confirmPwd) {
-//       res.render("", { error: "Passwords does not match!" });
-//     } else {
-//       const newAdmin = new AdminModel({
-//         username,
-//         password: utils.hashedPwd(pwd),
-//         type,
-//       });
-//       await saveAdmin(newAdmin);
-//     }
-//   });
-// });
+router.post("/", loginAdmin);
 
-// router.post("/", async (req, res) => {
-//   const { username, password } = req.body;
+router.get("/register", getRegisterAdmin);
 
-//   AdminModel.findOne({ username }, (err, admin) => {
-//     if (admin && utils.comparePassword(password, admin.password)) {
-//       const adminData = { userId: admin._id, username, type: admin.type };
-//       const accessToken = jwt.sign(userData, process.env.SECRET);
-//       res.cookie("token", accessToken);
+router.post("/register", registerAdmin);
 
-//       res.redirect("/");
-//     } else {
-//       res.render("", { error: "Failed to login!" });
-//     }
-//   });
-// });
-
-// router.get("/bookings", utils.adminAuth, async (req, res) => {
-//   const bookings = await BookingModel.find().lean();
-
-//   const { token } = req.cookies;
-
-//   if (token && jwt.verify(token, process.env.SECRET)) {
-//     res.send(200, { bookings });
-//   } else {
-//     res.send(401, "Unauthorized");
-//   }
-// });
-
-router.post("/api/log-out", (req, res) => {
-  res.cookie("token", "", { maxAge: 0 });
-  res.redirect("/");
-});
+// router.get("/admin/start", protect, getMe);
 
 module.exports = router;

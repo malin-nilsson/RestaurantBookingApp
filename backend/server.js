@@ -9,7 +9,6 @@ const cookieParser = require("cookie-parser");
 const bookingRoutes = require("./routes/bookingsRoute");
 const guestRoutes = require("./routes/guestRoute");
 const adminRoutes = require("./routes/adminRoute");
-const registerRoutes = require("./routes/registerRoute");
 
 // EXPRESS APP
 const app = express();
@@ -47,7 +46,6 @@ app.get("/", (req, res) => {
 app.use("/bookings", bookingRoutes);
 app.use("/guest", guestRoutes);
 app.use("/admin", adminRoutes);
-app.use("/register", registerRoutes);
 
 // CONNECT TO DB
 mongoose
