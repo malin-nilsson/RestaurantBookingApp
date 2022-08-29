@@ -8,10 +8,9 @@ export const StyledHeroImage = styled.div`
   flex-direction: column;
 
   .hero-image-container {
-    position: absolute;
+    position: relative;
     top: 0;
     right: 0;
-    padding-top: 80px;
 
     @media ${devices.desktop} {
       padding: 0;
