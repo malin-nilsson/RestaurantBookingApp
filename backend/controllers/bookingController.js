@@ -1,4 +1,3 @@
-const BookingRequest = require('../models/bookingRequestModel')
 const Reservations = require('../models/reservationModel')
 
 // GET ALL BOOKINGS
@@ -78,19 +77,11 @@ const deleteBooking = async (req, res) => {
 const searchAvailability = async (req, res) => {
   const { date, time, amount, tables } = req.body
 
-  const newBookingRequest = await BookingRequest.create({
-    date: date,
-    time: time,
-    amount: amount,
-    tables: tables,
-  })
   const allBookings = await Reservations.find().lean()
 
   try {
     // Get all existing reservations from requested day
-    const requestedDate = allBookings.filter(
-      (booking) => booking.date === newBookingRequest.date,
-    )
+    const requestedDate = allBookings.filter((booking) => booking.date === date)
     // If there are no bookings on requested date, confirm booking
     if (requestedDate.length < 1) {
       res.status(200).send(true)
@@ -100,7 +91,7 @@ const searchAvailability = async (req, res) => {
       for (let i = 0; i < requestedDate.length; i++) {
         // List of bookings on the same date and same time
         const sameDayAndTime = requestedDate.filter(
-          (booking) => booking.time === newBookingRequest.time,
+          (booking) => booking.time === time,
         )
         // If there are no bookings on requested time, confirm booking
         if (sameDayAndTime.length < 1) {
@@ -113,7 +104,7 @@ const searchAvailability = async (req, res) => {
               return a + b.tables
             }, 0)
             // If 15 tables are already booked, delcine booking request
-            if (bookedTables + newBookingRequest.tables > 15) {
+            if (bookedTables + tables > 15) {
               res.status(200).send(false)
             } // If there are tables available, confirm booking
             else {
