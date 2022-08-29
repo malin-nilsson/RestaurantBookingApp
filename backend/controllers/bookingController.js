@@ -13,6 +13,7 @@ const saveBooking = async (req, res) => {
     date,
     time,
     amount,
+    tables,
     message,
     guestName,
     guestEmail,
@@ -25,6 +26,7 @@ const saveBooking = async (req, res) => {
       date: date,
       time: time,
       amount: amount,
+      tables: tables,
       message: message,
       guestName: guestName,
       guestEmail: guestEmail,
@@ -49,6 +51,7 @@ const editBooking = async (req, res) => {
         date: req.body.date,
         time: req.body.time,
         amount: req.body.amount,
+        tables: req.body.tables,
         message: req.body.message,
         guestName: req.body.guestName,
         guestEmail: req.body.guestEmail,
@@ -73,12 +76,13 @@ const deleteBooking = async (req, res) => {
 
 // GET AVAILABILITY
 const searchAvailability = async (req, res) => {
-  const { date, time, amount } = req.body
+  const { date, time, amount, tables } = req.body
 
   const newBookingRequest = await BookingRequest.create({
     date: date,
     time: time,
     amount: amount,
+    tables: tables,
   })
   const allBookings = await Reservations.find().lean()
 
@@ -102,14 +106,14 @@ const searchAvailability = async (req, res) => {
         if (sameDayAndTime.length < 1) {
           res.status(200).send(true)
         } else {
-          // Loop through the list of bookings with same date & time
+          // Get list of bookings with same date & time
           for (let j = 0; j < sameDayAndTime.length; j++) {
-            // Get total amount of booked tables
-            const numOfTablesBooked = sameDayAndTime.length
-            // Get total amount of guests
-            const numOfGuests = sameDayAndTime.length * sameDayAndTime[j].amount
+            // Get total amount of booked tables on same date & time
+            const bookedTables = sameDayAndTime.reduce(function (a, b) {
+              return a + b.tables
+            }, 0)
             // If 15 tables are already booked, delcine booking request
-            if (numOfTablesBooked > 15) {
+            if (bookedTables + newBookingRequest.tables > 15) {
               res.status(200).send(false)
             } // If there are tables available, confirm booking
             else {

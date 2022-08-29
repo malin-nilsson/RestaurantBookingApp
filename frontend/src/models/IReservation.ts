@@ -3,6 +3,7 @@ export interface IReservation {
   date: string
   time: string
   amount: number
+  tables: number
   message?: string
   guestName: string
   guestEmail: string
