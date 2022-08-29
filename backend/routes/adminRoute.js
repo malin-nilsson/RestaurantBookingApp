@@ -7,7 +7,7 @@ const {
   getRegisterAdmin,
   registerAdmin,
   loginAdmin,
-  // getAdminStart,
+  getAdminStart,
 } = require("../controllers/adminController.js");
 
 router.get("/", getAdminMain);
@@ -18,6 +18,6 @@ router.get("/register", getRegisterAdmin);
 
 router.post("/register", registerAdmin);
 
-// router.get("/start", getAdminStart);
+router.get("/start", protect, getAdminStart);
 
 module.exports = router;

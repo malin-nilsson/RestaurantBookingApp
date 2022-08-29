@@ -14,6 +14,7 @@ import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
 export default function Admin() {
   const navigate = useNavigate();
   const shouldRedirect = true;
+
   // const [adminData, setAdminData] = useState<IAdminContext>({
   //   admin: [],
   //   updateContext: updateContext,
@@ -41,20 +42,6 @@ export default function Admin() {
       navigate("/admin/start");
     }
   };
-
-  // useEffect(() => {
-  //   // if (shouldRedirect) {
-  //   //   navigate("/admin/start");
-  //   // }
-  //   // getAdmin()
-  //   //   .then((res) => {
-  //   //     console.log(res);
-  //   //     setAdmin(res);
-  //   //   })
-  //   //   .catch((e) => {
-  //   //     console.log(e);
-  //   //   });
-  // }, []);
 
   return (
     <>

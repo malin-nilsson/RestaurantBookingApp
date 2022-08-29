@@ -7,7 +7,6 @@ const adminSchema = new Schema(
     password: { type: String },
     role: { type: String, required: false },
     secret: String,
-    token: { type: String, required: false },
   },
   {
     timestamps: true,

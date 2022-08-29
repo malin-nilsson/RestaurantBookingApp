@@ -8,6 +8,29 @@ const createToken = (_id) => {
   return jwt.sign({ _id: _id }, process.env.SECRET, { expiresIn: "30d" });
 };
 
+const decryptJwt = async (token) => {
+  const jwtVerify = promisify(jwt.verify);
+  return await jwtVerify(token, JWT_SECRET);
+};
+
+const sendToken = (user, statusCode, req, res) => {
+  const token = signJwt(user._id);
+  const options = {
+    expires: new Date(Date.now() + JWT_EXPIRATION_NUM),
+    secure: NODE_ENV === "production" ? true : false,
+    httpOnly: NODE_ENV === "production" ? true : false,
+  };
+  res.cookie("jwt", token, options);
+
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    status: "success",
+    token,
+    user,
+  });
+};
+
 // GET /ADMIN
 const getAdminMain = async (req, res) => {
   const admins = await AdminModel.find();
@@ -21,7 +44,7 @@ const getRegisterAdmin = async (req, res) => {
 };
 
 // LOGIN ADMIN
-const loginAdmin = async (req, res) => {
+const loginAdmin = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
   const admin = await AdminModel.findOne({ username });
@@ -33,11 +56,12 @@ const loginAdmin = async (req, res) => {
       role: "",
       token: createToken(admin._id),
     });
+    console.log(admin);
   } else {
     res.status(400);
     throw new Error("Invalid credentials");
   }
-};
+});
 
 // AUTH LOGIN
 
@@ -68,19 +92,16 @@ const registerAdmin = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  const admin = await AdminModel.create({
+  const admin = AdminModel.create({
     username,
     password: hashedPassword,
     role,
   });
 
   if (admin) {
-    res.status(201).json({
-      _id: admin.id,
-      username: admin.username,
-      role: "",
-      token: createToken(admin._id),
-    });
+    const adminData = { username: admin._id };
+    sendToken(admin, 201, req, res);
+    console.log(accessToken);
   } else {
     res.status(400);
     throw new Error("Invalid admin data");
