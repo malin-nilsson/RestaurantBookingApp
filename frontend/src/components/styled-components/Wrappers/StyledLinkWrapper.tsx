@@ -1,18 +1,29 @@
 import styled from 'styled-components'
+import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
 
 export const StyledLinkWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 35px;
+  gap: 10px;
 
-  a {
+  @media ${devices.tablet} {
+    flex-direction: row;
+    gap: 35px;
+  }
+
+  a,
+  span {
     color: var(--beige);
     font-weight: 100;
     font-size: 1.5rem;
     font-family: var(--headingfont);
     text-transform: uppercase;
     text-decoration: none;
-    border-bottom: 1px solid var(--beige);
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `

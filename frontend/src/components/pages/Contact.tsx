@@ -19,7 +19,9 @@ export default function Contact() {
       </StyledHeroImage>
 
       <StyledContactWrapper>
-        <StyledMediumHeading>Contact us</StyledMediumHeading>
+        <StyledFlexDiv>
+          <StyledMediumHeading>Contact us</StyledMediumHeading>
+        </StyledFlexDiv>
         <div className="contact-box">
           <div>
             <span>Riddargatan 9</span>
@@ -31,8 +33,9 @@ export default function Contact() {
             <span>info@lamere.com</span>
           </div>
         </div>
-        <StyledMediumHeading>Hours</StyledMediumHeading>
-
+        <StyledFlexDiv>
+          <StyledMediumHeading>Hours</StyledMediumHeading>
+        </StyledFlexDiv>
         <div className="contact-box">
           <div>
             <span>Mon - Thurs</span>

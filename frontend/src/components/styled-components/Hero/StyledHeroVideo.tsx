@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { devices } from '../breakpoints/Breakpoints'
+import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
 
 export default function Hero() {
   return (

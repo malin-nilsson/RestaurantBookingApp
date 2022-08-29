@@ -17,13 +17,3 @@ body {
   font-family: var(--textfont);
   color: var(--beige);
 }
-
-.socialmedia {
-  height: 100%;
-  cursor: pointer;
-  transition: scale 0.15s ease-in-out;
-}
-
-.socialmedia:hover {
-  scale: 1.15;
-}

@@ -1,13 +1,13 @@
-import StyledHeroVideo from "../styled-components/Hero/StyledHeroVideo";
-import styled from "styled-components";
-import { StyledParagraph } from "../styled-components/Text/StyledParagraph";
-import { devices } from "../styled-components/breakpoints/Breakpoints";
-import { StyledButtonGreen } from "../styled-components/Button/StyledButton";
-import { Link } from "react-router-dom";
-import { StyledMediumHeading } from "../styled-components/Headings/StyledHeadings";
+import StyledHeroVideo from '../styled-components/Hero/StyledHeroVideo'
+import styled from 'styled-components'
+import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
+import { devices } from '../styling-breakpoints/breakpoints/Breakpoints'
+import { StyledButtonGreen } from '../styled-components/Buttons/StyledButtons'
+import { Link } from 'react-router-dom'
+import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
 
 export default function Home() {
-  window.scrollTo(0, 0);
+  window.scrollTo(0, 0)
 
   return (
     <>
@@ -15,11 +15,11 @@ export default function Home() {
         <StyledHeroVideo />
       </div>
 
-      <ContentWrapper>
+      <HomeContentWrapper>
         <div className="textWrapper">
           <StyledMediumHeading
             padding="0px 0px 10px"
-            fontSize="4.5rem"
+            fontSize="4.7rem"
             textAlign="left"
           >
             A restaurant for all...
@@ -47,9 +47,8 @@ export default function Home() {
             className="wineAndFood"
           />
         </div>
-      </ContentWrapper>
+      </HomeContentWrapper>
       <FooterWrapper>
-        {/* <StyledMediumHeading>Book a table</StyledMediumHeading> */}
         <StyledParagraph color="var(--green)" padding="0px 7px">
           We are usually fully booked months in advance.
         </StyledParagraph>
@@ -61,10 +60,10 @@ export default function Home() {
         </Link>
       </FooterWrapper>
     </>
-  );
+  )
 }
 
-const ContentWrapper = styled.div`
+const HomeContentWrapper = styled.div`
   padding: 40px 0px 0px;
   display: flex;
   flex-direction: column;
@@ -101,14 +100,14 @@ const ContentWrapper = styled.div`
     }
 
     @media ${devices.desktop} {
-      padding: 0px 30px;
+      padding: 0px 50px 0px 30px;
     }
   }
 
   .wineAndFood {
     width: 100%;
   }
-`;
+`
 
 const FooterWrapper = styled.div`
   padding: 40px 0px 40px 0px;
@@ -124,4 +123,4 @@ const FooterWrapper = styled.div`
   @media ${devices.tablet} {
     padding: 80px 0px 80px 0px;
   }
-`;
+`

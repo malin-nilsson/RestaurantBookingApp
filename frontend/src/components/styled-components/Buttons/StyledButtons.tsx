@@ -31,6 +31,15 @@ export const StyledButton = styled.button`
     color: var(--green);
     text-decoration: none;
   }
+
+  .material-symbols-outlined {
+    font-size: 2.5rem;
+  }
+`
+
+export const StyledAdminButton = styled(StyledButton)`
+  padding: 20px 15px;
+  font-size: 1.6rem;
 `
 
 export const StyledButtonGreen = styled(StyledButton)`

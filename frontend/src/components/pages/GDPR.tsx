@@ -1,6 +1,5 @@
-import React from 'react'
 import styled from 'styled-components'
-import { devices } from '../styled-components/breakpoints/Breakpoints'
+import { devices } from '../styling-breakpoints/breakpoints/Breakpoints'
 import {
   StyledMediumHeading,
   StyledSmallHeading,

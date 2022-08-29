@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { devices } from '../breakpoints/Breakpoints'
+import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
 
 export const StyledList = styled.ul`
   min-width: 300px;

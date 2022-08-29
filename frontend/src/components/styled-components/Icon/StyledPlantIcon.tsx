@@ -1,8 +1,12 @@
 import styled from 'styled-components'
-import { devices } from '../breakpoints/Breakpoints'
+import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
+
+interface IPlantProps {
+  position?: string
+}
 
 export const StyledPlantIcon = styled.div`
-  position: absolute;
+  position: ${(props: IPlantProps) => props.position || 'absolute'};
   margin: 15px 20px;
   z-index: 100;
   font-size: 1.8rem;
@@ -12,7 +16,6 @@ export const StyledPlantIcon = styled.div`
   cursor: pointer;
 
   @media ${devices.desktop} {
-    position: fixed;
   }
 
   img {

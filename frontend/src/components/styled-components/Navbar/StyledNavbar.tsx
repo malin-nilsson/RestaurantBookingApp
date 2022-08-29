@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { devices } from '../breakpoints/Breakpoints'
+import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
 import { StyledPlantIcon } from '../Icon/StyledPlantIcon'
 
 export default function Navbar() {
@@ -105,10 +105,11 @@ const StyledNavbar = styled.nav`
       color: var(--beige);
       text-decoration: none;
       font-size: 3rem;
-      font-weight: 100;
+      font-weight: 500;
 
       @media ${devices.desktop} {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+        letter-spacing: 0.2rem;
       }
     }
   }

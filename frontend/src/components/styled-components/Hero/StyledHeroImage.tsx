@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { devices } from '../breakpoints/Breakpoints'
+import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
 
 export const StyledHeroImage = styled.div`
   height: 100%;

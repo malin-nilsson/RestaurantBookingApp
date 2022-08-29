@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { devices } from '../breakpoints/Breakpoints'
+import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
 
 interface IWrapperProps {
   justify?: string
@@ -8,6 +8,8 @@ interface IWrapperProps {
   gap?: string
   padding?: string
   width?: string
+  margin?: string
+  bgColor?: string
 }
 
 export const StyledFlexDiv = styled.div`
@@ -19,6 +21,31 @@ export const StyledFlexDiv = styled.div`
   align-items: ${(props: IWrapperProps) => props.align || 'center'};
   gap: ${(props: IWrapperProps) => props.gap || '10px'};
   padding: ${(props: IWrapperProps) => props.padding || ''};
+
+  section {
+    margin-top: 50px;
+
+    @media ${devices.tablet} {
+      margin-top: 40px;
+    }
+
+    @media ${devices.desktop} {
+      margin-top: 80px;
+    }
+  }
+
+  .create-booking-wrapper {
+    margin-top: 100px;
+  }
+
+  .search-forms {
+    display: flex;
+    flex-direction: column;
+
+    @media ${devices.desktop} {
+      flex-direction: row;
+    }
+  }
 `
 export const StyledHeadingWrapper = styled.div`
   display: flex;
@@ -33,18 +60,13 @@ export const StyledHeadingWrapper = styled.div`
   }
 
   @media ${devices.desktop} {
-    width: 100%;
+    width: ${(props: IWrapperProps) => props.width || ''};
+    margin: ${(props: IWrapperProps) => props.margin || ''};
   }
 
   .arrow,
   a {
     cursor: pointer;
     color: var(--beige);
-  }
-`
-
-export const StyledHeadingWrapperLarge = styled(StyledHeadingWrapper)`
-  @media ${devices.desktop} {
-    width: 45%;
   }
 `

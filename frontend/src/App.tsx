@@ -1,6 +1,5 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Layout from './components/Layout'
 import Home from './components/pages/Home'
 import Reservations from './components/pages/Reservations'
 import Contact from './components/pages/Contact'
@@ -15,9 +14,10 @@ import {
 } from './context/BookingContext'
 import axios from 'axios'
 import { IReservation } from './models/IReservation'
-import { CreateAdminReservation } from './components/pages/AdminReservation'
 import Admin from './components/pages/Admin'
 import GDPR from './components/pages/GDPR'
+import LayoutWithNav from './components/LayoutWithNav'
+import LayoutWithoutNav from './components/LayoutWithoutNav'
 
 function App() {
   const [bookings, setBookings] = useState<BookingInterface>(defaultValue)
@@ -67,15 +67,16 @@ function App() {
     <BookingContext.Provider value={bookings}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<LayoutWithNav />}>
             <Route index element={<Home />} />
-            <Route path="/admin" element={<Admin />} />
             <Route path="/gdpr" element={<GDPR />} />
-            <Route path="/admin/create" element={<CreateAdminReservation />} />
             <Route path="/reservations" element={<Reservations />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
+          </Route>
+          <Route path="/" element={<LayoutWithoutNav />}>
+            <Route path="/admin" element={<Admin />} />
           </Route>
         </Routes>
       </BrowserRouter>

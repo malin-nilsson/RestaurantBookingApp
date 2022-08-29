@@ -1,17 +1,19 @@
 import styled from 'styled-components'
-import { devices } from '../breakpoints/Breakpoints'
+import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
 
 interface IFormProps {
   border?: string
   padding?: string
   margin?: string
+  bgColor?: string
+  color?: string
 }
 
-export const StyledForm = styled.form`
-  min-width: 320px;
-  margin: ${(props: IFormProps) => props.margin || '50px 0px'};
+export const StyledTransparentForm = styled.form`
+  max-width: 320px;
+  margin: ${(props: IFormProps) => props.margin || '10px 0px'};
   display: flex;
-  padding: 10px;
+  padding: 15px;
   flex-direction: column;
   font-family: var(--headingfont);
   gap: 10px;
@@ -24,7 +26,8 @@ export const StyledForm = styled.form`
   }
 
   @media ${devices.desktop} {
-    margin: 100px 0px 50px;
+    margin: 10px 0px;
+    padding: ${(props: IFormProps) => props.padding || '25px'};
   }
 
   .form-field {
@@ -50,6 +53,51 @@ export const StyledForm = styled.form`
       outline: none;
       border: 1px solid #fff6ea;
     }
+  }
+
+  input.search-input {
+    width: 100%;
+  }
+
+  .guest-amount-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+
+    button {
+      border: none;
+      background-color: var(--beige);
+      color: var(--green);
+      padding: 10px;
+      transition: scale 0.2s ease-in-out;
+
+      &:hover {
+        cursor: pointer;
+        scale: 1.07;
+      }
+    }
+
+    .guest-amount-btns {
+      display: flex;
+      gap: 15px;
+    }
+  }
+
+  /* Remove input:number appearance */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    border: none;
+    font-size: 2rem;
+    -moz-appearance: textfield;
+    padding: 10px;
+    width: 10%;
+    text-align: center;
   }
 
   select {
@@ -99,5 +147,14 @@ export const StyledForm = styled.form`
     a {
       color: var(--beige);
     }
+  }
+
+  .search-box {
+    display: flex;
+    gap: 2px;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: stretch;
   }
 `
