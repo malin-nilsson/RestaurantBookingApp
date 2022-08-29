@@ -2,9 +2,14 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const hashedPwd = (password) => {
+  // const salt = await bcrypt.genSalt();
+  // this.password = await bcrypt.hash(this.password);
   const hash = bcrypt.hashSync(password, 8);
   return hash;
 };
+
+// const regexPassword =
+//   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/;
 
 const comparePwd = (password, hash) => {
   const correct = bcrypt.compareSync(password, hash);
@@ -42,4 +47,5 @@ module.exports = {
   comparePwd,
   adminAuth,
   validateUser,
+  // regexPassword,
 };
