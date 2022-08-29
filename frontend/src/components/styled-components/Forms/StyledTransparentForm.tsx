@@ -100,6 +100,10 @@ export const StyledTransparentForm = styled.form`
     text-align: center;
   }
 
+  option {
+    color: var(--green);
+  }
+
   select {
     -webkit-appearance: none;
     -moz-appearance: none;
