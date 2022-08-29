@@ -1,8 +1,8 @@
 :root {
   --green: #162719;
   --beige: #f2e8cf;
-  --headingfont: 'Playfair Display', serif;
-  --textfont: 'Helvetica', sans-serif;
+  --headingfont: "Playfair Display", serif;
+  --textfont: "Helvetica", sans-serif;
 }
 
 html,
@@ -16,4 +16,8 @@ body {
   background-color: var(--green);
   font-family: var(--textfont);
   color: var(--beige);
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
