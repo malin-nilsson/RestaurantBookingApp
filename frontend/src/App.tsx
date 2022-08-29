@@ -76,7 +76,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/" element={<LayoutWithoutNav />}>
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/start" element={<Admin />} />
           </Route>
         </Routes>
       </BrowserRouter>
