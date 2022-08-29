@@ -32,7 +32,7 @@ function App() {
       .then((response) => {
         setBookings({ ...bookings, bookings: response.data });
       });
-  }, [bookings]);
+  }, []);
 
   // Add booking to context
   bookings.addBooking = (r: IReservation) => {

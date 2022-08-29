@@ -3,18 +3,25 @@ import { IAdmin } from "../../models/IAdmin";
 import { getAdmin } from "../../services/adminService";
 import { loginAdmin } from "../../services/adminService";
 import { AdminContext, IAdminContext } from "../../context/AdminContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import { StyledGreenForm } from "../styled-components/Forms/StyledGreenForm";
+import {
+  StyledAdminButton,
+  StyledButton,
+} from "../styled-components/Buttons/StyledButtons";
+import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
 
 export default function Admin() {
   const navigate = useNavigate();
-  const [adminData, setAdminData] = useState<IAdminContext>({
-    admin: [],
-    updateContext: updateContext,
-  });
+  const shouldRedirect = true;
+  // const [adminData, setAdminData] = useState<IAdminContext>({
+  //   admin: [],
+  //   updateContext: updateContext,
+  // });
 
-  function updateContext(updatedContext: IAdminContext): void {
-    setAdminData({ ...updatedContext });
-  }
+  // function updateContext(updatedContext: IAdminContext): void {
+  //   setAdminData({ ...updatedContext });
+  // }
 
   const [admin, setAdmin] = useState<IAdmin[]>([]);
   const [username, setUsername] = useState("");
@@ -30,47 +37,53 @@ export default function Admin() {
     };
     loginAdmin(adminCred);
     console.log(adminCred);
+    if (shouldRedirect) {
+      navigate("/admin/start");
+    }
   };
 
-  useEffect(() => {
-    getAdmin()
-      .then((res) => {
-        console.log(res);
-        setAdmin(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // if (shouldRedirect) {
+  //   //   navigate("/admin/start");
+  //   // }
+  //   // getAdmin()
+  //   //   .then((res) => {
+  //   //     console.log(res);
+  //   //     setAdmin(res);
+  //   //   })
+  //   //   .catch((e) => {
+  //   //     console.log(e);
+  //   //   });
+  // }, []);
 
   return (
     <>
-      <h1>LOG IN ADMIN</h1>
-
-      <form onSubmit={loginSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          autoComplete="off"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setUsername(e.target.value);
-          }}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          autoComplete="off"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <button type="submit">Log in</button>
-      </form>
-      <>
-        {admin.map((admin) => {
-          return <h1 key={admin.username}>{admin.username}</h1>;
-        })}
-      </>
+      <StyledFlexDiv>
+        <StyledGreenForm onSubmit={loginSubmit}>
+          <input
+            type="text"
+            placeholder="Username"
+            autoComplete="off"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setUsername(e.target.value);
+            }}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            autoComplete="off"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <StyledAdminButton type="submit">Log In</StyledAdminButton>
+        </StyledGreenForm>
+        <>
+          {admin.map((admin) => {
+            return <h1 key={admin.username}>{admin.username}</h1>;
+          })}
+        </>
+      </StyledFlexDiv>
     </>
   );
 }

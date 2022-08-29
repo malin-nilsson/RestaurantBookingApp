@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react'
-import AdminMain from '../admin-components/AdminMain'
-import { StyledLoader } from '../styled-components/Loader/StyledLoader'
+import { useState, useEffect } from "react";
+import AdminMain from "../admin-components/AdminMain";
+import { StyledLoader } from "../styled-components/Loader/StyledLoader";
 
 export default function Admin() {
-  const [loading, setLoading] = useState<Boolean>(true)
+  const [loading, setLoading] = useState<Boolean>(true);
 
   // Loader
   useEffect(() => {
     if (loading) {
       setTimeout(() => {
-        setLoading(false)
-      }, 700)
+        setLoading(false);
+      }, 700);
     }
-  }, [loading])
+  }, [loading]);
 
   return (
     <>{loading ? <StyledLoader> </StyledLoader> : <AdminMain></AdminMain>}</>
-  )
+  );
 }

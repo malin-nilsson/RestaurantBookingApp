@@ -41,12 +41,12 @@ const loginAdmin = async (req, res) => {
 
 // AUTH LOGIN
 
-const setAdminContext = async () => {
-  return await axios.get("/admin").then((res) => {
-    setAdmin(res.data.currentUser);
-    router.push("/admin/me");
-  });
-};
+// const setAdminContext = async () => {
+//   return await axios.get("/admin").then((res) => {
+//     setAdmin(res.data.currentUser);
+//     router.push("/admin/me");
+//   });
+// };
 
 // REGISTER ADMIN
 const registerAdmin = async (req, res) => {
@@ -88,7 +88,7 @@ const registerAdmin = async (req, res) => {
 };
 
 // GET ADMIN/START i.e. _id
-const getMe = asyncHandler(async (req, res) => {
+const getAdminStart = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Admin data display" });
 });
 
@@ -97,5 +97,5 @@ module.exports = {
   loginAdmin,
   getRegisterAdmin,
   registerAdmin,
-  getMe,
+  getAdminStart,
 };
