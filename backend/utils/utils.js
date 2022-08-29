@@ -8,8 +8,8 @@ const hashedPwd = (password) => {
   return hash;
 };
 
-const regexPassword =
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/;
+// const regexPassword =
+//   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/;
 
 const comparePwd = (password, hash) => {
   const correct = bcrypt.compareSync(password, hash);
@@ -47,5 +47,5 @@ module.exports = {
   comparePwd,
   adminAuth,
   validateUser,
-  regexPassword,
+  // regexPassword,
 };

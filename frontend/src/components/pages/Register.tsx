@@ -19,12 +19,23 @@ export default function Register() {
     registerAdmin(newAdmin);
   };
 
+  // const [formData, setFormData] = useState({
+  //   username: "",
+  //   password: "",
+  //   confirmPassword: "",
+  //   role: "",
+  // })
+
+  // const {username, password, confirmPassword, role} = formData
+
   return (
     <>
       <h1>REGISTER NEW USER</h1>
       <form onSubmit={createAdmin}>
         <input
           type="text"
+          // name="username"
+          // value={username}
           autoComplete="off"
           placeholder="Username"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +44,8 @@ export default function Register() {
         />
         <input
           type="password"
+          // name="password"
+          // value={password}
           placeholder="Password"
           autoComplete="off"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -41,6 +54,8 @@ export default function Register() {
         />
         <input
           type="password"
+          // name="confirmPassword"
+          // value={confirmPassword}
           placeholder="Confirm Password"
           autoComplete="off"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {

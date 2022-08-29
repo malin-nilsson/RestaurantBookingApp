@@ -1,10 +1,11 @@
 const AdminModel = require("../models/adminModel");
-const utils = require("../utils/utils");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const asyncHandler = require("express-async-handler");
+
 // CREATE TOKEN FOR MONGO ID i.e. _id
 const createToken = (_id) => {
-  return jwt.sign({ _id: _id }, process.env.SECRET, { expiresIn: "1d" });
+  return jwt.sign({ _id: _id }, process.env.SECRET, { expiresIn: "30d" });
 };
 
 // GET /ADMIN
@@ -19,52 +20,82 @@ const getRegisterAdmin = async (req, res) => {
   res.status(200).json(admins);
 };
 
-//LOGIN ADMIN
+// LOGIN ADMIN
 const loginAdmin = async (req, res) => {
-  // const [username, password] = req.body;
-  // try {
-  //   if (!username || !password) {
-  //     throw Error("All fields must be filled.");
-  //   }
-  //   AdminModel.findOne({ username }, (err, admin) => {
-  //     if (admin && utils.comparePwd(password, admin.password)) {
-  //       const adminData = { userId: admin._id, username, type: admin.type };
-  //       const accessToken = jwt.sign(userData, process.env.SECRET);
-  //       res.cookie("token", accessToken);
-  //       res.redirect("/");
-  //     } else {
-  //       res.render("", { error: "Failed to login!" });
-  //     }
-  //   });
-  //   const match = await bcrypt.compare(password, admin.password);
-  //   if (!match) {
-  //     throw Error("Incorrect password");
-  //   }
-  //   const token = createToken(admin._id);
-  //   res.status(200).json({ username, token });
-  // } catch (error) {
-  //   res.status(400).json({ error: error.message });
-  // }
-};
+  const { username, password } = req.body;
 
-//REGISTER ADMIN
-const registerAdmin = async (req, res) => {
-  const { username, password, confirmPwd, role, secret } = req.body;
+  const admin = await AdminModel.findOne({ username });
 
-  try {
-    const newAdmin = await AdminModel.create({
-      username: username,
-      password: utils.hashedPwd(password),
-      role: role,
+  if (admin && (await bcrypt.compare(password, admin.password))) {
+    res.json({
+      _id: admin.id,
+      username: admin.username,
+      role: "",
+      token: createToken(admin._id),
     });
-    // const token = createToken(admin._id);
-    // add token to .json
-    res.status(200).json(username);
-    console.log("Skit");
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ error: error.message });
+  } else {
+    res.status(400);
+    throw new Error("Invalid credentials");
   }
 };
 
-module.exports = { getAdminMain, loginAdmin, getRegisterAdmin, registerAdmin };
+// AUTH LOGIN
+
+const setAdminContext = async () => {
+  return await axios.get("/admin").then((res) => {
+    setAdmin(res.data.currentUser);
+    router.push("/admin/me");
+  });
+};
+
+// REGISTER ADMIN
+const registerAdmin = async (req, res) => {
+  const { username, password, confirmPassword, role } = req.body;
+
+  if (!username || !password) {
+    //ADD COMPARE PASSWORD ABOVE || comparePassword make middleware/utils
+    res.status(400);
+    throw new Error("All fields must be filled");
+  }
+
+  const adminExist = await AdminModel.findOne({ username });
+
+  if (adminExist) {
+    res.status(400);
+    throw new Error("User already exist");
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  const admin = await AdminModel.create({
+    username,
+    password: hashedPassword,
+    role,
+  });
+
+  if (admin) {
+    res.status(201).json({
+      _id: admin.id,
+      username: admin.username,
+      role: "",
+      token: createToken(admin._id),
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid admin data");
+  }
+};
+
+// GET ADMIN/ME i.e. _id
+const getMe = asyncHandler(async (req, res) => {
+  res.status(200).json({ message: "Admin data display" });
+});
+
+module.exports = {
+  getAdminMain,
+  loginAdmin,
+  getRegisterAdmin,
+  registerAdmin,
+  getMe,
+};

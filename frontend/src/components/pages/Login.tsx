@@ -1,15 +1,35 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { IAdmin } from "../../models/IAdmin";
 import { getAdmin } from "../../services/adminService";
 import { loginAdmin } from "../../services/adminService";
+import { AdminContext, IAdminContext } from "../../context/AdminContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Admin() {
+  const navigate = useNavigate();
+  const [adminData, setAdminData] = useState<IAdminContext>({
+    admin: [],
+    updateContext: updateContext,
+  });
+
+  function updateContext(updatedContext: IAdminContext): void {
+    setAdminData({ ...updatedContext });
+  }
+
   const [admin, setAdmin] = useState<IAdmin[]>([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const loginSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const adminCred: IAdmin = {
+      username: username,
+      password: password,
+      role: "",
+    };
+    loginAdmin(adminCred);
+    console.log(adminCred);
   };
 
   useEffect(() => {
