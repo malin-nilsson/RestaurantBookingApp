@@ -18,7 +18,6 @@ router.get("/register", getRegisterAdmin);
 
 router.post("/register", registerAdmin);
 
-// router.get("/me", protect, getMe); // CHANGE TO /main or /loggedIn etc.
-// // /:id behöver läggas till, dvs. admin page där hen ser bokningarna
+// router.get("/admin/start", protect, getMe);
 
 module.exports = router;

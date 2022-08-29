@@ -18,6 +18,8 @@ import Admin from "./components/pages/Admin";
 import GDPR from "./components/pages/GDPR";
 import LayoutWithNav from "./components/LayoutWithNav";
 import LayoutWithoutNav from "./components/LayoutWithoutNav";
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
 
 function App() {
   const [bookings, setBookings] = useState<BookingInterface>(defaultValue);
@@ -76,7 +78,9 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/" element={<LayoutWithoutNav />}>
+            <Route path="/admin" element={<Login />} />
             <Route path="/admin/start" element={<Admin />} />
+            <Route path="/admin/register" element={<Register />} />
           </Route>
         </Routes>
       </BrowserRouter>
