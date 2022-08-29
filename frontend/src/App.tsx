@@ -25,14 +25,13 @@ function App() {
   const [bookings, setBookings] = useState<BookingInterface>(defaultValue)
 
   useEffect(() => {
-    if (bookings.bookings.length !== 0) return
     // Get all bookings and save them in Booking context
     axios
       .get<IReservation[]>('http://localhost:4000/bookings')
       .then((response) => {
         setBookings({ ...bookings, bookings: response.data })
       })
-  }, [bookings])
+  }, [bookings.bookings.length])
 
   // Add booking to context
   bookings.addBooking = (r: IReservation) => {
