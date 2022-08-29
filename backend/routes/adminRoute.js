@@ -18,6 +18,6 @@ router.get("/register", getRegisterAdmin);
 
 router.post("/register", registerAdmin);
 
-// router.get("/admin/start", protect, getMe);
+router.get("/admin/start", protect, getMe);
 
 module.exports = router;

@@ -87,7 +87,7 @@ const registerAdmin = async (req, res) => {
   }
 };
 
-// GET ADMIN/ME i.e. _id
+// GET ADMIN/START i.e. _id
 const getMe = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Admin data display" });
 });

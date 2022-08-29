@@ -9,6 +9,15 @@ export async function getAdmin(): Promise<IAdmin[]> {
   ).data;
 }
 
+// MAKE ROUTE PROTECT FOR /ADMIN/START
+// export async function getAdmin(): Promise<IAdmin[]> {
+//   const API = "http://localhost:4000/admin";
+
+//   return await (
+//     await axios.get(API)
+//   ).data;
+// }
+
 export async function getRegister(): Promise<IAdmin[]> {
   const API = "http://localhost:4000/admin/register";
 
