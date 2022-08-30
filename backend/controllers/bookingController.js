@@ -69,7 +69,7 @@ const deleteBooking = async (req, res) => {
 const sendConfirmation = async (req, res) => {
   let { email } = req.body;
   const getId = await Reservations.findOne({ guestEmail: email });
-  const id = getId._id;
+  const id = getId.id;
 
   const transport = nodemailer.createTransport({
     secure: false,
@@ -90,7 +90,7 @@ const sendConfirmation = async (req, res) => {
     to: email,
     subject: "Your reservation at La Mère has been confirmed",
     html:
-      '<p>Click <a href="http://localhost:3000/bookings/' +
+      '<p>Click <a href="http://localhost:3000/booking_cancelation/' +
       id +
       '">here</a> to reset your password</p>',
   });

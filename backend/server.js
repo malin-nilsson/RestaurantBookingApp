@@ -79,11 +79,21 @@ app.use("/register", registerRoutes);
 //   });
 // });
 
-app.get("/testar", async (req, res) => {
-  const bookings = await Reservations.findOne({
-    guestEmail: "greger@hotmail.com",
-  });
-  res.send(bookings._id);
+// app.get("/booking_cancelation/:id", async (req, res) => {
+//   const bookings = await Reservations.findOne({
+//     guestEmail: "greger@hotmail.com",
+//   });
+//   res.send(bookings._id);
+// });
+
+app.get("/booking_cancelation/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await Reservations.findById(id).deleteOne();
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+  res.redirect("http://localhost:3000");
 });
 
 // CONNECT TO DB
