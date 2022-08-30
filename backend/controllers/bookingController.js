@@ -1,23 +1,17 @@
-const Booking = require('../models/bookingModel')
-const Reservations = require('../models/reservationModel')
+const Booking = require("../models/bookingModel");
+const Reservations = require("../models/reservationModel");
+const nodemailer = require("nodemailer");
 
 // GET ALL BOOKINGS
 const getBookings = async (req, res) => {
-  const bookings = await Reservations.find()
-  res.status(200).json(bookings)
-}
+  const bookings = await Reservations.find();
+  res.status(200).json(bookings);
+};
 
 // SAVE BOOKING
 const saveBooking = async (req, res) => {
-  const {
-    date,
-    time,
-    amount,
-    message,
-    guestName,
-    guestEmail,
-    guestPhone,
-  } = req.body
+  const { date, time, amount, message, guestName, guestEmail, guestPhone } =
+    req.body;
 
   // Add doc to db
   try {
@@ -29,16 +23,16 @@ const saveBooking = async (req, res) => {
       guestName: guestName,
       guestEmail: guestEmail,
       guestPhone: guestPhone,
-    })
-    res.status(200).json(newBooking)
+    });
+    res.status(200).json(newBooking);
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
 // EDIT BOOKING
 const editBooking = async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
 
   try {
     await Reservations.findByIdAndUpdate(
@@ -53,22 +47,63 @@ const editBooking = async (req, res) => {
         guestName: req.body.guestName,
         guestEmail: req.body.guestEmail,
         guestPhone: req.body.guestPhone,
-      },
-    )
+      }
+    );
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
 // DELETE BOOKING
 const deleteBooking = async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
 
   try {
-    await Reservations.findById(id).deleteOne()
+    await Reservations.findById(id).deleteOne();
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
-module.exports = { saveBooking, getBookings, editBooking, deleteBooking }
+// SEND CONFIRMATION MAIL //
+const sendConfirmation = async (req, res) => {
+  let { email } = req.body;
+  const getId = await Reservations.findOne({ guestEmail: email });
+  const id = getId._id;
+
+  const transport = nodemailer.createTransport({
+    secure: false,
+    host: process.env.MAIL_HOST,
+    port: process.env.MAIL_PORT,
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
+    },
+
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  await transport.sendMail({
+    from: process.env.MAIL_FROM,
+    to: email,
+    subject: "Your reservation at La Mère has been confirmed",
+    html:
+      '<p>Click <a href="http://localhost:4000/bookings/' +
+      id +
+      '">here</a> to reset your password</p>',
+  });
+};
+
+// const userCancel = async (req, res) => {
+//   res.redirect("/cancel_reservation");
+// };
+
+module.exports = {
+  saveBooking,
+  getBookings,
+  editBooking,
+  deleteBooking,
+  sendConfirmation,
+};

@@ -5,11 +5,15 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+// const nodemailer = require("nodemailer");
+const bodyParser = require("body-parser");
 
 const bookingRoutes = require("./routes/bookingsRoute");
 const guestRoutes = require("./routes/guestRoute");
 const adminRoutes = require("./routes/adminRoute");
 const registerRoutes = require("./routes/registerRoute");
+
+const Reservations = require("./models/reservationModel");
 
 // EXPRESS APP
 const app = express();
@@ -19,6 +23,8 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -48,6 +54,37 @@ app.use("/bookings", bookingRoutes);
 app.use("/guest", guestRoutes);
 app.use("/admin", adminRoutes);
 app.use("/register", registerRoutes);
+
+// app.post("/send_mail", async (req, res) => {
+//   let { email } = req.body;
+//   const transport = nodemailer.createTransport({
+//     secure: false,
+//     host: process.env.MAIL_HOST,
+//     port: process.env.MAIL_PORT,
+//     auth: {
+//       user: process.env.MAIL_USER,
+//       pass: process.env.MAIL_PASS,
+//     },
+
+//     tls: {
+//       rejectUnauthorized: false,
+//     },
+//   });
+
+//   await transport.sendMail({
+//     from: process.env.MAIL_FROM,
+//     to: email,
+//     subject: "test email",
+//     html: "Din reservation är bekräftad",
+//   });
+// });
+
+app.get("/testar", async (req, res) => {
+  const bookings = await Reservations.findOne({
+    guestEmail: "greger@hotmail.com",
+  });
+  res.send(bookings._id);
+});
 
 // CONNECT TO DB
 mongoose

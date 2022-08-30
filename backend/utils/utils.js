@@ -37,33 +37,6 @@ const validateUser = (name) => {
   return valid;
 };
 
-const nodemailer = require("nodemailer");
-
-export async function confirmationMail() {
-  let testAccount = await nodemailer.createTestAccount();
-
-  let transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false,
-    auth: {
-      user: testAccount.user,
-      pass: testAccount.pass,
-    },
-  });
-
-  let info = await transporter.sendMail({
-    from: '"La Mere" <info@lamere.com>',
-    to: "mikel@roffe.se",
-    subject: "Your reservation at La Mere",
-    text: "Thank you for making a reservation, you have a table for",
-  });
-
-  console.log("Message sent: %s", info.messageId);
-}
-
-confirmationMail().catch(console.error);
-
 module.exports = {
   hashedPwd,
   comparePwd,

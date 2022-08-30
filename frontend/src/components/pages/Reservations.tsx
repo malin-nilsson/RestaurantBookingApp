@@ -21,9 +21,13 @@ import {
 import { StyledButton } from "../styled-components/Button/StyledButton";
 import { StyledLoader } from "../styled-components/Loader/StyledLoader";
 import { StyledParagraph } from "../styled-components/Text/StyledParagraph";
+import axios from "axios";
 // import { confirmationMail } from "../../services/confirmationMail";
 
 export default function Book() {
+  // const [sent, setSent] = useState(false);
+  // const [text, setText] = useState("");
+  // const [mailadress, setMailadress] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [amount, setAmount] = useState(0);
@@ -55,6 +59,16 @@ export default function Book() {
     setConfirmation(true);
   };
 
+  // const handleSend = async () => {
+  //   setSent(true);
+  //   try {
+  //     await axios.post("http://localhost:4000/send_mail", { text, mailadress });
+  //     console.log("hello");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const checkAvailability = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -81,7 +95,7 @@ export default function Book() {
     }
   };
 
-  const confirmBooking = (e: FormEvent<HTMLFormElement>) => {
+  const confirmBooking = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (name && email && phone) {
@@ -106,6 +120,14 @@ export default function Book() {
       setPhone("");
     } else {
       setError(true);
+    }
+    try {
+      await axios.post("http://localhost:4000/bookings/confirmation_mail", {
+        email,
+      });
+      console.log("hello");
+    } catch (error) {
+      console.log(error);
     }
   };
 
