@@ -90,15 +90,15 @@ const sendConfirmation = async (req, res) => {
     to: email,
     subject: "Your reservation at La Mère has been confirmed",
     html:
-      '<p>Click <a href="http://localhost:4000/bookings/' +
+      '<p>Click <a href="http://localhost:3000/bookings/' +
       id +
       '">here</a> to reset your password</p>',
   });
 };
 
-// const userCancel = async (req, res) => {
-//   res.redirect("/cancel_reservation");
-// };
+const userCancel = async (req, res) => {
+  res.send(200);
+};
 
 module.exports = {
   saveBooking,
@@ -106,4 +106,5 @@ module.exports = {
   editBooking,
   deleteBooking,
   sendConfirmation,
+  userCancel,
 };
