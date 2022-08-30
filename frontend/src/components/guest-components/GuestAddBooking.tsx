@@ -198,10 +198,9 @@ export default function GuestAddBooking() {
                 <select
                   onChange={(e) => setTime(e.target.value)}
                   className={error && !time ? 'error-input' : ''}
-                  placeholder="Time"
                   value={time}
                 >
-                  <option defaultValue={''}></option>
+                  <option defaultValue={''}>Choose a seating</option>
                   <option value="18">18:00 PM</option>
                   <option value="21">21:00 PM</option>
                 </select>
@@ -282,35 +281,41 @@ export default function GuestAddBooking() {
               )}
               <div className="form-field">
                 <label>Name *</label>
-                <input
-                  type="text"
-                  onChange={(e) => setName(e.target.value)}
-                  className={error && !name ? 'error-input' : ''}
-                  placeholder="Name"
-                  value={name}
-                />
+                <div className="input-container">
+                  <input
+                    type="text"
+                    onChange={(e) => setName(e.target.value)}
+                    className={error && !name ? 'error-input' : ''}
+                    value={name}
+                  />
+                  <span className="material-symbols-outlined">person</span>
+                </div>
               </div>
 
               <div className="form-field">
                 <label>Email *</label>
-                <input
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={error && !email ? 'error-input' : ''}
-                  placeholder="Email"
-                  value={email}
-                />
+                <div className="input-container">
+                  <input
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    className={error && !email ? 'error-input' : ''}
+                    value={email}
+                  />
+                  <span className="material-symbols-outlined">mail</span>
+                </div>
               </div>
 
               <div className="form-field">
                 <label>Phone *</label>
-                <input
-                  type="tel"
-                  onChange={(e) => setPhone(e.target.value)}
-                  className={error && !phone ? 'error-input' : ''}
-                  placeholder="Phone"
-                  value={phone}
-                />
+                <div className="input-container">
+                  <input
+                    type="tel"
+                    onChange={(e) => setPhone(e.target.value)}
+                    className={error && !phone ? 'error-input' : ''}
+                    value={phone}
+                  />
+                  <span className="material-symbols-outlined">call</span>
+                </div>
               </div>
               <div className="form-field">
                 <label>

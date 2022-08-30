@@ -69,7 +69,6 @@ export default function AdminEditBooking(props: AdminEditProps) {
           bookings.updateBooking(editedBooking)
           props.showBookingConfirmation()
           props.setEditForm(false)
-
           window.scrollTo(0, 0)
           setError(false)
         } else {
@@ -110,7 +109,7 @@ export default function AdminEditBooking(props: AdminEditProps) {
           <div className="booking-details">
             <span>
               {props.specificBooking.guestName} – {props.specificBooking.date} –{' '}
-              {props.specificBooking.time}:00 pm – Guests:
+              {props.specificBooking.time}:00 pm – Guests:{' '}
               {props.specificBooking.amount}
             </span>
           </div>
@@ -150,7 +149,7 @@ export default function AdminEditBooking(props: AdminEditProps) {
             className={error && !time ? 'error-input' : ''}
             value={time}
           >
-            <option defaultValue={''}></option>
+            <option defaultValue={''}>Choose a seating</option>
             <option value="18">18:00 PM</option>
             <option value="21">21:00 PM</option>
           </select>
@@ -206,12 +205,6 @@ export default function AdminEditBooking(props: AdminEditProps) {
         </div>
         <StyledButton>Edit reservation</StyledButton>
       </StyledTransparentForm>
-      {bookingConfirmation && (
-        <AdminConfirmation
-          specificBooking={props.specificBooking}
-          message="The reservation has been updated."
-        ></AdminConfirmation>
-      )}
     </div>
   )
 }

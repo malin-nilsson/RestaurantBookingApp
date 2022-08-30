@@ -118,10 +118,10 @@ export default function AdminMain() {
   }
 
   const showAddForm = () => {
-    setSearch(false)
     setAddForm(true)
-    setDeleteConfirmation(false)
     setBookingConfirmation(false)
+    setSearch(false)
+    setDeleteConfirmation(false)
     setEditForm(false)
     setShowBookings(false)
     setNoResultsMessage('')
@@ -244,7 +244,12 @@ export default function AdminMain() {
 
       <StyledFlexDiv>
         <StyledParagraph padding="0px">{noResultsMessage}</StyledParagraph>
-        {addForm && <AdminAddBooking></AdminAddBooking>}
+        {addForm && (
+          <AdminAddBooking
+            setSpecificBooking={setSpecificBooking}
+            showBookingConfirmation={showBookingConfirmation}
+          ></AdminAddBooking>
+        )}
         {showBookings && filteredBookings && (
           <AdminShowBookings
             reservations={filteredBookings}
@@ -266,7 +271,7 @@ export default function AdminMain() {
         )}
         {bookingConfirmation && (
           <AdminConfirmation
-            message="The has been reservation confirmed."
+            message="The reservation has been confirmed."
             specificBooking={specificBooking}
           ></AdminConfirmation>
         )}

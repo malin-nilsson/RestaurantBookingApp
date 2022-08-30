@@ -17,9 +17,13 @@ import {
   StyledFlexDiv,
   StyledHeadingWrapper,
 } from '../styled-components/Wrappers/StyledFlex'
-import AdminConfirmation from './AdminConfirmation'
 
-export default function AdminAddBooking() {
+interface AdminAddProps {
+  setSpecificBooking(booking: IReservation): void
+  showBookingConfirmation(): void
+}
+
+export default function AdminAddBooking(props: AdminAddProps) {
   let bookings = useContext(BookingContext)
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
@@ -50,12 +54,11 @@ export default function AdminAddBooking() {
   const showConfirmation = () => {
     setLoader(false)
     setGuestForm(false)
-    setConfirmation(true)
+    props.showBookingConfirmation()
   }
 
   const showGuestForm = () => {
     setLoader(false)
-    setBookingForm(false)
     setGuestForm(true)
   }
 
@@ -81,6 +84,7 @@ export default function AdminAddBooking() {
       setBookingForm(false)
       setError(false)
       setLoader(true)
+
       const isAvailable = getAvailability(newBookingRequest)
       isAvailable.then(function (result) {
         if (result.valueOf() === true) {
@@ -99,7 +103,6 @@ export default function AdminAddBooking() {
 
     if (name && email && phone) {
       setGuestForm(false)
-
       setLoader(true)
       setTimeout(showConfirmation, 1000)
 
@@ -117,6 +120,7 @@ export default function AdminAddBooking() {
         guestEmail: email,
         guestPhone: phone,
       }
+      props.setSpecificBooking(newBooking)
       setSpecificBooking(newBooking)
       saveBooking(newBooking)
       bookings.addBooking(newBooking)
@@ -184,7 +188,7 @@ export default function AdminAddBooking() {
                   placeholder="Time"
                   value={time}
                 >
-                  <option defaultValue={''}></option>
+                  <option defaultValue={''}>Choose a seating</option>
                   <option value="18">18:00 PM</option>
                   <option value="21">21:00 PM</option>
                 </select>
@@ -318,15 +322,6 @@ export default function AdminAddBooking() {
           </>
         )}
       </StyledFlexDiv>
-
-      {confirmation && (
-        <StyledConfirmationWrapper width="100%">
-          <AdminConfirmation
-            specificBooking={specificBooking}
-            message="The reservation has been confirmed."
-          ></AdminConfirmation>
-        </StyledConfirmationWrapper>
-      )}
     </div>
   )
 }

@@ -10,7 +10,7 @@ export default function Admin() {
     if (loading) {
       setTimeout(() => {
         setLoading(false)
-      }, 700)
+      }, 1000)
     }
   }, [loading])
 

@@ -15,4 +15,21 @@ export const StyledGreenForm = styled(StyledTransparentForm)`
     min-width: 550px;
     max-width: 650px;
   }
+
+  .input-container {
+    position: relative;
+
+    input {
+      width: 100%;
+      padding: 10px 8px 10px 40px;
+    }
+
+    .material-symbols-outlined {
+      font-size: 1.9rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 13px;
+    }
+  }
 `

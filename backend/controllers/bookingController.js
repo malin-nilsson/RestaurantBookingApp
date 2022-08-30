@@ -57,6 +57,7 @@ const editBooking = async (req, res) => {
         guestPhone: req.body.guestPhone,
       },
     )
+    res.status(200).json
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
