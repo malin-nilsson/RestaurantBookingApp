@@ -1,76 +1,78 @@
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { IAdmin } from "../../models/IAdmin";
-import { getAdmin } from "../../services/adminService";
 import { loginAdmin } from "../../services/adminService";
-import { AdminContext, IAdminContext } from "../../context/AdminContext";
 import { useNavigate } from "react-router-dom";
+import { StyledGreenForm } from "../styled-components/Forms/StyledGreenForm";
+import { StyledAdminButton } from "../styled-components/Buttons/StyledButtons";
+import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
+import { useCookies } from "react-cookie";
+import axios from "axios";
+import { StyledSmallHeading } from "../styled-components/Headings/StyledHeadings";
 
-export default function Admin() {
+export default function Login() {
+  const [cookies] = useCookies(["jwt"]);
   const navigate = useNavigate();
-  const [adminData, setAdminData] = useState<IAdminContext>({
-    admin: [],
-    updateContext: updateContext,
-  });
-
-  function updateContext(updatedContext: IAdminContext): void {
-    setAdminData({ ...updatedContext });
-  }
-
-  const [admin, setAdmin] = useState<IAdmin[]>([]);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const loginSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const adminCred: IAdmin = {
-      username: username,
-      password: password,
-      role: "",
-    };
-    loginAdmin(adminCred);
-    console.log(adminCred);
-  };
 
   useEffect(() => {
-    getAdmin()
-      .then((res) => {
-        console.log(res);
-        setAdmin(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+    if (cookies["jwt"]) {
+      navigate("/admin/start");
+    }
+  }, [cookies, navigate]);
+
+  const [values, setValues] = useState({ email: "", password: "" });
+  const generateError = (error: string) => {
+    console.log(error);
+  };
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        "http://localhost:4000/admin",
+        {
+          ...values,
+        },
+        { withCredentials: true }
+      );
+      if (data) {
+        if (data.errors) {
+          const { email, password } = data.errors;
+          if (email) generateError(email);
+          else if (password) generateError(password);
+        } else {
+          navigate("/admin/start");
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
-      <h1>LOG IN ADMIN</h1>
-
-      <form onSubmit={loginSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          autoComplete="off"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setUsername(e.target.value);
-          }}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          autoComplete="off"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <button type="submit">Log in</button>
-      </form>
-      <>
-        {admin.map((admin) => {
-          return <h1 key={admin.username}>{admin.username}</h1>;
-        })}
-      </>
+      <StyledFlexDiv padding="10rem">
+        <StyledSmallHeading padding="1rem">LOG IN</StyledSmallHeading>
+        <StyledGreenForm onSubmit={(e) => handleSubmit(e)}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            autoComplete="off"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setValues({ ...values, [e.target.name]: e.target.value });
+            }}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            autoComplete="off"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setValues({ ...values, [e.target.name]: e.target.value });
+            }}
+          />
+          <StyledAdminButton type="submit">Log In</StyledAdminButton>
+        </StyledGreenForm>
+      </StyledFlexDiv>
     </>
   );
 }

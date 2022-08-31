@@ -1,69 +1,93 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import { IAdmin } from "../../models/IAdmin";
-import { registerAdmin } from "../../services/adminService";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { StyledGreenForm } from "../styled-components/Forms/StyledGreenForm";
+import { StyledAdminButton } from "../styled-components/Buttons/StyledButtons";
+import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { StyledSmallHeading } from "../styled-components/Headings/StyledHeadings";
 
 export default function Register() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPwd, setConfirmPwd] = useState("");
-  const [role, setRole] = useState("");
+  const [cookies] = useCookies(["jwt"]);
+  const navigate = useNavigate();
 
-  const createAdmin = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (cookies["jwt"]) {
+      navigate("/");
+    }
+  }, [cookies, navigate]);
 
-    const newAdmin: IAdmin = {
-      username: username,
-      password: password,
-      role: role,
-    };
-    registerAdmin(newAdmin);
+  const [values, setValues] = useState({ email: "", password: "" });
+  const generateError = (error: string) => {
+    console.log(error);
   };
 
-  // const [formData, setFormData] = useState({
-  //   username: "",
-  //   password: "",
-  //   confirmPassword: "",
-  //   role: "",
-  // })
-
-  // const {username, password, confirmPassword, role} = formData
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        "http://localhost:4000/admin/register",
+        {
+          ...values,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      if (data) {
+        if (data.errors) {
+          const { email, password } = data.errors;
+          if (email) generateError(email);
+          else if (password) generateError(password);
+        } else {
+          navigate("/admin");
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
-      <h1>REGISTER NEW USER</h1>
-      <form onSubmit={createAdmin}>
-        <input
-          type="text"
-          // name="username"
-          // value={username}
-          autoComplete="off"
-          placeholder="Username"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setUsername(e.target.value);
+      <StyledFlexDiv padding="10rem">
+        <StyledSmallHeading padding="1rem">
+          REGISTER NEW USER
+        </StyledSmallHeading>
+        <StyledGreenForm
+          onSubmit={(e) => {
+            handleSubmit(e);
           }}
-        />
-        <input
-          type="password"
-          // name="password"
-          // value={password}
-          placeholder="Password"
-          autoComplete="off"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <input
-          type="password"
-          // name="confirmPassword"
-          // value={confirmPassword}
-          placeholder="Confirm Password"
-          autoComplete="off"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setConfirmPwd(e.target.value);
-          }}
-        />
-        <button type="submit">Register new user</button>
-      </form>
+        >
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            autoComplete="off"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setValues({ ...values, [e.target.name]: e.target.value });
+            }}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            autoComplete="off"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setValues({ ...values, [e.target.name]: e.target.value });
+            }}
+          />
+          {/* <input
+            type="password"
+            placeholder="Confirm Password"
+            autoComplete="off"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setConfirmPwd(e.target.value);
+            }}
+          /> */}
+          <StyledAdminButton type="submit">Register</StyledAdminButton>
+        </StyledGreenForm>
+      </StyledFlexDiv>
     </>
   );
 }

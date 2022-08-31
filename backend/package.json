@@ -9,6 +9,7 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.2",
+    "uninstall": "^0.0.0",
     "validator": "^13.7.0"
   },
   "scripts": {
