@@ -20,44 +20,43 @@ import LayoutWithNav from './components/LayoutWithNav'
 import LayoutWithoutNav from './components/LayoutWithoutNav'
 import Login from './components/pages/Login'
 import Register from './components/pages/Register'
+import { IBooking } from './models/IBooking'
 
 function App() {
   const [bookings, setBookings] = useState<BookingInterface>(defaultValue)
 
   useEffect(() => {
     // Get all bookings and save them in Booking context
-    axios
-      .get<IReservation[]>('http://localhost:4000/bookings')
-      .then((response) => {
-        setBookings({ ...bookings, bookings: response.data })
-      })
+    axios.get<IBooking[]>('http://localhost:4000/bookings').then((response) => {
+      setBookings({ ...bookings, bookings: response.data })
+    })
   }, [bookings.bookings.length])
 
   // Add booking to context
-  bookings.addBooking = (r: IReservation) => {
+  bookings.addBooking = (b: IBooking) => {
     const newBookingsList = [...bookings.bookings]
-    newBookingsList.push(r)
+    newBookingsList.push(b)
     setBookings({ ...bookings, bookings: newBookingsList })
   }
 
   // Update Booking context
-  bookings.updateBooking = (r: IReservation) => {
+  bookings.updateBooking = (b: IBooking) => {
     const newBookingsList = [...bookings.bookings]
 
     for (let i = 0; i < newBookingsList.length; i++) {
-      if (newBookingsList[i]._id === r._id) {
-        newBookingsList.splice(i, 1, r)
+      if (newBookingsList[i]._id === b._id) {
+        newBookingsList.splice(i, 1, b)
       }
     }
     setBookings({ ...bookings, bookings: newBookingsList })
   }
 
   // Delete from Booking context
-  bookings.deleteBooking = (r: IReservation) => {
+  bookings.deleteBooking = (b: IBooking) => {
     const newBookingsList = [...bookings.bookings]
 
     for (let i = 0; i < newBookingsList.length; i++) {
-      if (newBookingsList[i]._id === r._id) {
+      if (newBookingsList[i]._id === b._id) {
         newBookingsList.splice(i, 1)
       }
     }
@@ -75,9 +74,9 @@ function App() {
             <Route path="/menu" element={<Menu />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/admin" element={<Login />} />
           </Route>
           <Route path="/" element={<LayoutWithoutNav />}>
-            <Route path="/admin" element={<Login />} />
             <Route path="/admin/start" element={<Admin />} />
             <Route path="/admin/register" element={<Register />} />
           </Route>

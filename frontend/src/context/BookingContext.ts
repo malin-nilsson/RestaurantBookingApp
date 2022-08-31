@@ -1,18 +1,23 @@
 import { createContext } from 'react'
-import { IReservation } from '../models/IReservation'
+import { IBooking } from '../models/IBooking'
+import { IGuest } from '../models/IGuest'
 
 export interface BookingInterface {
-  bookings: IReservation[]
-  addBooking(r: IReservation): void
-  updateBooking(r: IReservation): void
-  deleteBooking(r: IReservation): void
+  bookings: IBooking[]
+  guests: IGuest[]
+  addBooking(b: IBooking): void
+  updateBooking(b: IBooking): void
+  deleteBooking(b: IBooking): void
+  deleteGuest(g: IGuest): void
 }
 
 export const defaultValue: BookingInterface = {
   bookings: [],
-  addBooking: (r: IReservation) => {},
-  updateBooking: (r: IReservation) => {},
-  deleteBooking: (r: IReservation) => {},
+  guests: [],
+  addBooking: (b: IBooking) => {},
+  updateBooking: (b: IBooking) => {},
+  deleteBooking: (b: IBooking) => {},
+  deleteGuest: (g: IGuest) => {},
 }
 
 export const BookingContext = createContext(defaultValue)

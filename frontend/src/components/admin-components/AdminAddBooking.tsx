@@ -1,6 +1,7 @@
 import { FormEvent, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BookingContext } from '../../context/BookingContext'
+import { IBooking } from '../../models/IBooking'
 import { IBookingRequest } from '../../models/IBookingRequest'
 import { IReservation } from '../../models/IReservation'
 import { countTables } from '../../services/countTables'
@@ -19,7 +20,7 @@ import {
 } from '../styled-components/Wrappers/StyledFlex'
 
 interface AdminAddProps {
-  setSpecificBooking(booking: IReservation): void
+  setSpecificBooking(booking: IBooking): void
   showBookingConfirmation(): void
 }
 
@@ -39,16 +40,18 @@ export default function AdminAddBooking(props: AdminAddProps) {
   const [bookingForm, setBookingForm] = useState(true)
   const [confirmation, setConfirmation] = useState(false)
   const [notAvailable, setNotAvailable] = useState(false)
-  const [specificBooking, setSpecificBooking] = useState<IReservation>({
+  const [specificBooking, setSpecificBooking] = useState<IBooking>({
     _id: '',
     date: '',
     time: '',
     amount: 0,
     tables: 0,
     message: '',
-    guestName: '',
-    guestEmail: '',
-    guestPhone: '',
+    guest: {
+      name: '',
+      email: '',
+      phone: '',
+    },
   })
 
   const showConfirmation = () => {
@@ -110,15 +113,17 @@ export default function AdminAddBooking(props: AdminAddProps) {
       const tablesNeeded = countTables(amount) as number
       setTableAmount(tablesNeeded)
 
-      const newBooking: IReservation = {
+      const newBooking: IBooking = {
         date: date,
         time: time,
         amount: +amount,
         tables: tablesNeeded,
         message: message,
-        guestName: name,
-        guestEmail: email,
-        guestPhone: phone,
+        guest: {
+          name: name,
+          email: email,
+          phone: phone,
+        },
       }
       props.setSpecificBooking(newBooking)
       setSpecificBooking(newBooking)

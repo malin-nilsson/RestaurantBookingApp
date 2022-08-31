@@ -1,9 +1,10 @@
+import { IBooking } from '../../models/IBooking'
 import { ICancellation } from '../../models/ICancellation'
 import { IReservation } from '../../models/IReservation'
 import { StyledSmallHeading } from '../styled-components/Headings/StyledHeadings'
 
 interface AdminConfirmProps {
-  specificBooking?: IReservation
+  specificBooking?: IBooking
   cancelledBooking?: ICancellation
   message: string
 }
@@ -18,7 +19,7 @@ export default function AdminConfirmation(props: AdminConfirmProps) {
         {props.specificBooking && (
           <span>
             {props.specificBooking.date} – {props.specificBooking.time}:00 pm –
-            {props.specificBooking.guestName} –
+            {props.specificBooking.guest.name} –
             {props.specificBooking.amount === 1
               ? props.specificBooking.amount + ' guest'
               : props.specificBooking.amount + ' guests'}

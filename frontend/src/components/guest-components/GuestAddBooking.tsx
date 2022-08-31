@@ -18,6 +18,8 @@ import {
 } from '../styled-components/Wrappers/StyledFlex'
 import { StyledHeroForm } from '../styled-components/Hero/StyledHeroForm'
 import GuestConfirmation from './GuestConfirmation'
+import { IBooking } from '../../models/IBooking'
+import { IGuest } from '../../models/IGuest'
 
 export default function GuestAddBooking() {
   let bookings = useContext(BookingContext)
@@ -35,16 +37,18 @@ export default function GuestAddBooking() {
   const [bookingForm, setBookingForm] = useState(true)
   const [confirmation, setConfirmation] = useState(false)
   const [notAvailable, setNotAvailable] = useState(false)
-  const [specificBooking, setSpecificBooking] = useState<IReservation>({
+  const [specificBooking, setSpecificBooking] = useState<IBooking>({
     _id: '',
     date: '',
     time: '',
     amount: 0,
     tables: 0,
     message: '',
-    guestName: '',
-    guestEmail: '',
-    guestPhone: '',
+    guest: {
+      name: '',
+      email: '',
+      phone: '',
+    },
   })
 
   const showConfirmation = () => {
@@ -114,15 +118,19 @@ export default function GuestAddBooking() {
       const tablesNeeded = countTables(amount) as number
       setTableAmount(tablesNeeded)
 
-      const newBooking: IReservation = {
+      const guest: IGuest = {
+        name: name,
+        email: email,
+        phone: phone,
+      }
+
+      const newBooking: IBooking = {
         date: date,
         time: time,
         amount: +amount,
         tables: tablesNeeded,
         message: message,
-        guestName: name,
-        guestEmail: email,
-        guestPhone: phone,
+        guest: guest,
       }
 
       setSpecificBooking(newBooking)

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { IBooking } from '../../models/IBooking'
 import { IReservation } from '../../models/IReservation'
 import { StyledButton } from '../styled-components/Buttons/StyledButtons'
 import { StyledSmallHeading } from '../styled-components/Headings/StyledHeadings'
@@ -6,14 +7,14 @@ import { StyledConfirmationWrapper } from '../styled-components/Wrappers/StyledC
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
 
 interface GuestConfirmationProps {
-  specificBooking: IReservation
+  specificBooking: IBooking
 }
 export default function GuestConfirmation(props: GuestConfirmationProps) {
   return (
     <StyledFlexDiv padding="160px 0px">
       <StyledConfirmationWrapper width="50%">
         <StyledSmallHeading fontWeight="900" padding="0px">
-          Your reservation is confirmed, {props.specificBooking.guestName}.
+          Your reservation is confirmed, {props.specificBooking.guest.name}.
         </StyledSmallHeading>
 
         <StyledSmallHeading fontSize="1.7rem" padding="40px 0px">

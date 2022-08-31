@@ -1,6 +1,7 @@
 import { FormEvent, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BookingContext } from '../../context/BookingContext'
+import { IBooking } from '../../models/IBooking'
 import { IReservation } from '../../models/IReservation'
 import { countTables } from '../../services/countTables'
 import { getAvailability } from '../../services/getAvailability'
@@ -17,10 +18,10 @@ import { StyledHeadingWrapper } from '../styled-components/Wrappers/StyledFlex'
 import AdminConfirmation from './AdminConfirmation'
 
 interface AdminEditProps {
-  specificBooking: IReservation
+  specificBooking: IBooking
   setEditForm(show: boolean): void
   setShowBookings(show: boolean): void
-  setSpecificBooking(booking: IReservation): void
+  setSpecificBooking(booking: IBooking): void
   showBookingConfirmation(): void
 }
 
@@ -35,10 +36,7 @@ export default function AdminEditBooking(props: AdminEditProps) {
   const [error, setError] = useState(false)
   const [bookingConfirmation, setBookingConfirmation] = useState(false)
 
-  const handleEdit = (
-    e: FormEvent<HTMLFormElement>,
-    reservation: IReservation,
-  ) => {
+  const handleEdit = (e: FormEvent<HTMLFormElement>, reservation: IBooking) => {
     e.preventDefault()
 
     if (date && time && amount) {
@@ -48,16 +46,18 @@ export default function AdminEditBooking(props: AdminEditProps) {
       const tablesNeeded = countTables(amount) as number
       setTableAmount(tablesNeeded)
 
-      const editedBooking: IReservation = {
+      const editedBooking: IBooking = {
         _id: reservation._id,
         date: date,
         time: time,
         amount: amount,
         tables: tablesNeeded,
         message: message,
-        guestName: reservation.guestName,
-        guestEmail: reservation.guestEmail,
-        guestPhone: reservation.guestPhone,
+        guest: {
+          name: reservation.guest.name,
+          email: reservation.guest.email,
+          phone: reservation.guest.phone,
+        },
       }
 
       props.setSpecificBooking(editedBooking)
@@ -108,8 +108,8 @@ export default function AdminEditBooking(props: AdminEditProps) {
         <StyledSmallHeading fontSize="1.5rem" padding="10px">
           <div className="booking-details">
             <span>
-              {props.specificBooking.guestName} – {props.specificBooking.date} –{' '}
-              {props.specificBooking.time}:00 pm – Guests:{' '}
+              {props.specificBooking.guest.name} – {props.specificBooking.date}{' '}
+              – {props.specificBooking.time}:00 pm – Guests:{' '}
               {props.specificBooking.amount}
             </span>
           </div>

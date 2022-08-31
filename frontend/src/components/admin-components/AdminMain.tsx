@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useState } from 'react'
+import { FormEvent, useContext, useEffect, useState } from 'react'
 import { BookingContext } from '../../context/BookingContext'
 import { ICancellation } from '../../models/ICancellation'
 import { IReservation } from '../../models/IReservation'
@@ -17,11 +17,26 @@ import AdminEditBooking from './AdminEditBooking'
 import AdminConfirmation from './AdminConfirmation'
 import AdminAddBooking from './AdminAddBooking'
 import { StyledConfirmationWrapper } from '../styled-components/Wrappers/StyledConfirmationWrapper'
+import { IBooking } from '../../models/IBooking'
+import { IGuest } from '../../models/IGuest'
+import { GuestContext } from '../../context/GuestContext'
+import axios from 'axios'
+import { getBookingsFromGuest } from '../../services/getBookingsFromGuest'
 
 export default function AdminMain() {
   let bookings = useContext(BookingContext)
+  const [guests, setGuests] = useState<IGuest[] | undefined>()
+  const [guest, setGuest] = useState<IGuest>({
+    _id: '',
+    name: '',
+    email: '',
+    phone: '',
+  })
   const [searchInput, setSearchInput] = useState('')
-  const [filteredBookings, setFilteredBookings] = useState<IReservation[]>()
+  const [filteredGuest, setFilteredGuest] = useState<IGuest>()
+  const [filteredByGuest, setFilteredByGuest] = useState<IBooking[]>()
+  const [filteredByDate, setFilteredByDate] = useState<IBooking[]>()
+  const [bookingsByGuest, setBookingsByGuest] = useState<IBooking[]>()
   const [message, setMessage] = useState('')
   const [editForm, setEditForm] = useState(false)
   const [addForm, setAddForm] = useState(false)
@@ -35,20 +50,28 @@ export default function AdminMain() {
   const [cancelledBooking, setCancelledBooking] = useState<ICancellation>()
   const [notAvailable, setNotAvailable] = useState(false)
   const [loader, setLoader] = useState<Boolean>(false)
-  const [selectedBooking, setSelectedBooking] = useState<IReservation[]>()
+  const [selectedBooking, setSelectedBooking] = useState<IBooking[]>()
   const [noResultsMessage, setNoResultsMessage] = useState('')
   const [showBookings, setShowBookings] = useState(true)
-  const [specificBooking, setSpecificBooking] = useState<IReservation>({
+  const [specificBooking, setSpecificBooking] = useState<IBooking>({
     _id: '',
     date: '',
     time: '',
     amount: 0,
     tables: 0,
     message: '',
-    guestName: '',
-    guestEmail: '',
-    guestPhone: '',
+    guest: {
+      name: '',
+      email: '',
+      phone: '',
+    },
   })
+
+  useEffect(() => {
+    axios.get<IGuest[]>('http://localhost:4000/guests').then((response) => {
+      setGuests(response.data)
+    })
+  }, [])
 
   const stopLoader = () => {
     setLoader(false)
@@ -65,54 +88,64 @@ export default function AdminMain() {
     setEditForm(false)
     setAddForm(false)
     setBookingConfirmation(false)
-    setShowBookings(true)
+    setShowBookings(false)
     setDeleteConfirmation(false)
+    setDateSearchInput('')
     searchInput.trim()
-    setSearchInput('')
 
-    const filteredBookings: IReservation[] = bookings.bookings.filter(
-      (booking) =>
-        Object.values(booking.guestName)
-          .join('')
-          .toLowerCase()
-          .includes(searchInput.toLowerCase()) ||
-        Object.values(booking.guestEmail)
-          .join('')
-          .toLowerCase()
-          .includes(searchInput.toLowerCase()) ||
-        booking._id === searchInput,
-    )
+    if (guests && searchInput) {
+      for (let i = 0; i < guests.length; i++) {
+        if (guests[i].email === searchInput) {
+          setGuest(guests[i])
+          const requestedGuest: IGuest = {
+            name: guests[i].name,
+            email: guests[i].email,
+            phone: guests[i].phone,
+          }
+          const bookingsFromGuest = getBookingsFromGuest(requestedGuest)
 
-    if (filteredBookings.length > 0) {
-      setNoResultsMessage('')
-      setLoader(true)
-      setTimeout(stopLoader, 1000)
-      setFilteredBookings(filteredBookings)
-      setShowBookings(false)
-    } else {
-      setFilteredBookings([])
-      setNoResultsMessage("Sorry, we couldn't find any reservations.")
+          bookingsFromGuest.then(function (result: IBooking[] | []) {
+            if (result.length > 0) {
+              console.log(result)
+              setNoResultsMessage('')
+              setLoader(true)
+              setTimeout(stopLoader, 1000)
+              setFilteredByGuest(result)
+              setShowBookings(false)
+              setSearchInput('')
+              setFilteredByDate([])
+            }
+          })
+        } else {
+          setFilteredByGuest([])
+          setNoResultsMessage(
+            "Sorry, we couldn't find any reservations with that e-mail.",
+          )
+        }
+      }
     }
   }
 
   const searchByDate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setFilteredByGuest([])
     setEditForm(false)
     setBookingConfirmation(false)
     setShowBookings(true)
     setDeleteConfirmation(false)
+    setSearchInput('')
 
-    const filteredBookings: IReservation[] = bookings.bookings.filter(
+    const filteredBookings: IBooking[] = bookings.bookings.filter(
       (booking) => booking.date === dateSearchInput,
     )
     if (filteredBookings.length > 0) {
       setNoResultsMessage('')
       setLoader(true)
       setTimeout(stopLoader, 1000)
-      setFilteredBookings(filteredBookings)
+      setFilteredByDate(filteredBookings)
       setShowBookings(false)
     } else {
-      setFilteredBookings([])
+      setFilteredByDate([])
       setNoResultsMessage("Sorry, we couldn't find any reservations.")
     }
   }
@@ -127,7 +160,7 @@ export default function AdminMain() {
     setNoResultsMessage('')
   }
 
-  const showEditForm = (clickedBooking: IReservation) => {
+  const showEditForm = (clickedBooking: IBooking) => {
     setShowBookings(false)
     setEditForm(true)
     setSpecificBooking(clickedBooking)
@@ -142,13 +175,13 @@ export default function AdminMain() {
     setMessage('')
   }
 
-  const confirmDelete = (booking: IReservation) => {
+  const confirmDelete = (booking: IBooking) => {
     if (window.confirm('Are you sure you want to cancel this reservation?')) {
       const deletedBooking: ICancellation = {
         date: booking.date,
         time: booking.time,
         amount: booking.amount,
-        name: booking.guestName,
+        name: booking.guest.name,
       }
       setShowBookings(false)
       setDeleteConfirmation(true)
@@ -193,7 +226,7 @@ export default function AdminMain() {
                 <StyledTransparentForm border="none" onSubmit={searchBookings}>
                   <StyledFlexDiv justify="flex-start" align="flex-start">
                     <StyledParagraph padding="5px 0px" fontSize="1.6rem">
-                      Search by name, email or booking ID:
+                      Search booking by email:
                     </StyledParagraph>
                   </StyledFlexDiv>
                   <div className="search-box">
@@ -203,7 +236,7 @@ export default function AdminMain() {
                       required={true}
                       onChange={(e) => setSearchInput(e.target.value)}
                       value={searchInput}
-                      placeholder="Search by name, email or booking ID..."
+                      placeholder="Search booking by e-mail..."
                     />
                     <StyledButton margin="0px" padding="10px">
                       <span className="material-symbols-outlined">search</span>
@@ -250,9 +283,17 @@ export default function AdminMain() {
             showBookingConfirmation={showBookingConfirmation}
           ></AdminAddBooking>
         )}
-        {showBookings && filteredBookings && (
+        {showBookings && filteredByGuest && (
           <AdminShowBookings
-            reservations={filteredBookings}
+            filteredByGuest={filteredByGuest}
+            guest={guest}
+            showEditForm={showEditForm}
+            confirmDelete={confirmDelete}
+          ></AdminShowBookings>
+        )}
+        {showBookings && filteredByDate && (
+          <AdminShowBookings
+            filteredByDate={filteredByDate}
             showEditForm={showEditForm}
             confirmDelete={confirmDelete}
           ></AdminShowBookings>
