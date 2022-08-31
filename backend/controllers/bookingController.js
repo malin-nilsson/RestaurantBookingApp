@@ -90,14 +90,22 @@ const sendConfirmation = async (req, res) => {
     to: email,
     subject: "Your reservation at La Mère has been confirmed",
     html:
-      '<p>Click <a href="http://localhost:3000/booking_cancelation/' +
+      '<p>If you would like to cancel your reservation, you can do that <a href="http://localhost:3000/booking_cancelation/' +
       id +
-      '">here</a> to reset your password</p>',
+      '">here</a></p>',
   });
 };
 
+// CANCEL RESERVATION FROM USER //
 const userCancel = async (req, res) => {
-  res.send(200);
+  const id = req.params.id;
+  try {
+    await Reservations.findById(id).deleteOne();
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+  // res.redirect("http://localhost:3000");
+  res.sendStatus(200);
 };
 
 module.exports = {

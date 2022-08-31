@@ -19,5 +19,6 @@ router.post("/confirmation_mail", sendConfirmation);
 router.post("/:id", editBooking);
 // DELETE BOOKING
 router.delete("/:id", deleteBooking);
+router.delete("/cancel/:id", userCancel);
 
 module.exports = router;

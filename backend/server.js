@@ -55,46 +55,16 @@ app.use("/guest", guestRoutes);
 app.use("/admin", adminRoutes);
 app.use("/register", registerRoutes);
 
-// app.post("/send_mail", async (req, res) => {
-//   let { email } = req.body;
-//   const transport = nodemailer.createTransport({
-//     secure: false,
-//     host: process.env.MAIL_HOST,
-//     port: process.env.MAIL_PORT,
-//     auth: {
-//       user: process.env.MAIL_USER,
-//       pass: process.env.MAIL_PASS,
-//     },
-
-//     tls: {
-//       rejectUnauthorized: false,
-//     },
-//   });
-
-//   await transport.sendMail({
-//     from: process.env.MAIL_FROM,
-//     to: email,
-//     subject: "test email",
-//     html: "Din reservation är bekräftad",
-//   });
+// app.delete("/booking_cancelation/:id", async (req, res) => {
+//   const id = req.params.id;
+//   try {
+//     await Reservations.findById(id).deleteOne();
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+//   // res.redirect("http://localhost:3000");
+//   res.sendStatus(200);
 // });
-
-// app.get("/booking_cancelation/:id", async (req, res) => {
-//   const bookings = await Reservations.findOne({
-//     guestEmail: "greger@hotmail.com",
-//   });
-//   res.send(bookings._id);
-// });
-
-app.get("/booking_cancelation/:id", async (req, res) => {
-  const id = req.params.id;
-  try {
-    await Reservations.findById(id).deleteOne();
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-  res.redirect("http://localhost:3000");
-});
 
 // CONNECT TO DB
 mongoose
