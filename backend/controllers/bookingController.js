@@ -66,8 +66,9 @@ const deleteBooking = async (req, res) => {
 };
 
 // SEND CONFIRMATION MAIL //
-const sendConfirmation = async (req, res) => {
+const sendConfirmation = async (req, res, next) => {
   let { email } = req.body;
+
   const getId = await Reservations.findOne({ guestEmail: email });
   const id = getId.id;
 
@@ -94,6 +95,7 @@ const sendConfirmation = async (req, res) => {
       id +
       '">here</a></p>',
   });
+  next();
 };
 
 // CANCEL RESERVATION FROM USER //
