@@ -5,11 +5,15 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+// const nodemailer = require("nodemailer");
+const bodyParser = require("body-parser");
 
 const bookingRoutes = require("./routes/bookingsRoute");
 const guestRoutes = require("./routes/guestRoute");
 const adminRoutes = require("./routes/adminRoute");
 const { protect } = require("./middleware/authMiddleware");
+
+const Reservations = require("./models/reservationModel");
 
 // EXPRESS APP
 const app = express();
@@ -25,6 +29,8 @@ app.use(
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -39,6 +45,17 @@ app.get("/", (req, res) => {
 app.use("/bookings", bookingRoutes);
 app.use("/guests", guestRoutes);
 app.use("/admin", adminRoutes);
+
+// app.delete("/booking_cancelation/:id", async (req, res) => {
+//   const id = req.params.id;
+//   try {
+//     await Reservations.findById(id).deleteOne();
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+//   // res.redirect("http://localhost:3000");
+//   res.sendStatus(200);
+// });
 
 // CONNECT TO DB
 mongoose

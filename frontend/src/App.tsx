@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
 import Home from "./components/pages/Home";
 import Reservations from "./components/pages/Reservations";
 import Contact from "./components/pages/Contact";
@@ -21,11 +22,13 @@ import LayoutWithoutNav from "./components/LayoutWithoutNav";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import { IBooking } from "./models/IBooking";
+import UserCancelReservation from "./components/pages/UserCancelReservation";
 
 function App() {
   const [bookings, setBookings] = useState<BookingInterface>(defaultValue);
 
   useEffect(() => {
+    if (bookings.bookings.length !== 0) return;
     // Get all bookings and save them in Booking context
     axios.get<IBooking[]>("http://localhost:4000/bookings").then((response) => {
       setBookings({ ...bookings, bookings: response.data });
@@ -71,6 +74,10 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/gdpr" element={<GDPR />} />
             <Route path="/reservations" element={<Reservations />} />
+            <Route
+              path="/booking_cancelation/:id"
+              element={<UserCancelReservation />}
+            />
             <Route path="/menu" element={<Menu />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
