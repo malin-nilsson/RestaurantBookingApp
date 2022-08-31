@@ -28,7 +28,7 @@ const saveBooking = async (req, res) => {
       const newBooking = new Bookings({
         date: date,
         time: time,
-        guest: foundGuest._id,
+        guest: guestExists._id,
         amount: amount,
         tables: tables,
         message: message,
