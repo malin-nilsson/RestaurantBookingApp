@@ -76,11 +76,11 @@ function App() {
             <Route path="/menu" element={<Menu />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/admin" element={<Login />} />
+            <Route path="/admin/register" element={<Register />} />
           </Route>
           <Route path="/" element={<LayoutWithoutNav />}>
-            <Route path="/admin" element={<Login />} />
             <Route path="/admin/start" element={<Admin />} />
-            <Route path="/admin/register" element={<Register />} />
           </Route>
         </Routes>
       </BrowserRouter>
