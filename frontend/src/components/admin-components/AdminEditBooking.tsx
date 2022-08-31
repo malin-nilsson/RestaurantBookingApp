@@ -197,12 +197,6 @@ export default function AdminEditBooking(props: AdminEditProps) {
           </div>
         </div>
 
-        <div className="form-field gdpr">
-          <input type="checkbox" required />
-          <label>
-            I agree to the <Link to="/gdpr">terms and conditions</Link>
-          </label>
-        </div>
         <StyledButton>Edit reservation</StyledButton>
       </StyledTransparentForm>
     </div>
