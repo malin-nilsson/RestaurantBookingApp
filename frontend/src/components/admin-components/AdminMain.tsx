@@ -285,6 +285,7 @@ export default function AdminMain() {
         )}
         {showBookings && filteredByGuest && (
           <AdminShowBookings
+            noResultsMessage={noResultsMessage}
             filteredByGuest={filteredByGuest}
             guest={guest}
             showEditForm={showEditForm}
@@ -293,6 +294,7 @@ export default function AdminMain() {
         )}
         {showBookings && filteredByDate && (
           <AdminShowBookings
+            noResultsMessage={noResultsMessage}
             filteredByDate={filteredByDate}
             showEditForm={showEditForm}
             confirmDelete={confirmDelete}

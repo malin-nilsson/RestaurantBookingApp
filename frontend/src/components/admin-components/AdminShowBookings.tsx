@@ -4,11 +4,13 @@ import { IGuest } from '../../models/IGuest'
 import { IReservation } from '../../models/IReservation'
 import { StyledList } from '../styled-components/List/StyledList'
 import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
+import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
 
 interface AdminBookingProps {
   filteredByDate?: IBooking[]
   filteredByGuest?: IBooking[]
   guest?: IGuest
+  noResultsMessage?: string
   showEditForm(booking: IBooking): void
   confirmDelete(booking: IBooking): void
 }
@@ -16,36 +18,40 @@ interface AdminBookingProps {
 export default function AdminShowBookings(props: AdminBookingProps) {
   const [bookingsByGuest, setBookingsByGuest] = useState(false)
   const [bookingsByDate, setBookingsByDate] = useState(false)
-  const [noResultsMessage, setNoResultsMessage] = useState(false)
 
   useEffect(() => {
     if (props.filteredByGuest && props.filteredByGuest.length > 0) {
       setBookingsByGuest(true)
     } else if (props.filteredByGuest && props.filteredByGuest.length === 0) {
       setBookingsByGuest(false)
-      setNoResultsMessage(true)
     } else if (props.filteredByDate && props.filteredByDate.length > 0) {
       setBookingsByDate(true)
     } else if (props.filteredByDate && props.filteredByDate.length === 0) {
       setBookingsByDate(false)
-      setNoResultsMessage(true)
     }
-  }, [])
+  }, [bookingsByDate, bookingsByGuest])
 
   return (
     <>
       {bookingsByGuest && props.filteredByGuest && (
         <>
-          <StyledParagraph textAlign="left" fontSize="1.7rem" padding="5px">
-            {props.filteredByGuest.length === 1 && (
-              <>
+          {props.guest && props.filteredByGuest.length === 1 && (
+            <>
+              <StyledParagraph padding="0px 0px 10px" fontWeight="900">
+                <span className="material-symbols-outlined">person</span>
+                {props.guest.email}
+              </StyledParagraph>
+
+              <StyledParagraph fontSize="1.7rem" padding="5px">
                 <span className="material-symbols-outlined">
                   restaurant_menu
                 </span>
                 {props.filteredByGuest.length} reservation found
-              </>
-            )}
+              </StyledParagraph>
+            </>
+          )}
 
+          <StyledParagraph fontSize="1.7rem" padding="5px">
             {props.filteredByGuest.length === 0 && (
               <>
                 <span className="material-symbols-outlined">
@@ -56,18 +62,19 @@ export default function AdminShowBookings(props: AdminBookingProps) {
             )}
           </StyledParagraph>
 
-          {props.filteredByGuest.length > 0 && (
-            <StyledParagraph>
-              <span className="material-symbols-outlined">restaurant_menu</span>
-              {props.filteredByGuest.length} reservations found
-            </StyledParagraph>
-          )}
-
-          {props.guest && props.filteredByGuest.length > 0 && (
-            <StyledParagraph padding="0px 0px 10px" fontWeight="900">
-              <span className="material-symbols-outlined">person</span>
-              {props.guest.email}
-            </StyledParagraph>
+          {props.guest && props.filteredByGuest.length > 2 && (
+            <>
+              <StyledParagraph padding="0px 0px 10px" fontWeight="900">
+                <span className="material-symbols-outlined">person</span>
+                {props.guest.email}
+              </StyledParagraph>
+              <StyledParagraph textAlign="left" fontSize="1.7rem" padding="5px">
+                <span className="material-symbols-outlined">
+                  restaurant_menu
+                </span>
+                {props.filteredByGuest.length} reservations found
+              </StyledParagraph>
+            </>
           )}
 
           {props.filteredByGuest && (
@@ -232,6 +239,11 @@ export default function AdminShowBookings(props: AdminBookingProps) {
             </>
           )}
         </>
+      )}
+      {props.noResultsMessage && (
+        <StyledFlexDiv>
+          <StyledParagraph>{props.noResultsMessage}</StyledParagraph>
+        </StyledFlexDiv>
       )}
     </>
   )
