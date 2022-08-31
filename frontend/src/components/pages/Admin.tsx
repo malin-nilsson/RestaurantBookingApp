@@ -1,25 +1,30 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-import { BookingInterface, defaultValue } from '../../context/BookingContext'
-import { GuestInterface } from '../../context/GuestContext'
-import { IGuest } from '../../models/IGuest'
-import AdminMain from '../admin-components/AdminMain'
-import { StyledLoader } from '../styled-components/Loader/StyledLoader'
+import { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import { GuestInterface } from "../../context/GuestContext";
+import AdminMain from "../admin-components/AdminMain";
+import { StyledLoader } from "../styled-components/Loader/StyledLoader";
 
 export default function Admin() {
-  const [guests, setGuests] = useState<GuestInterface>(defaultValue)
-  const [loading, setLoading] = useState<Boolean>(true)
+  const [loading, setLoading] = useState<Boolean>(true);
+  const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
 
   // Loader
   useEffect(() => {
-    if (loading) {
-      setTimeout(() => {
-        setLoading(false)
-      }, 1000)
+    if (cookies["jwt"]) {
+      navigate("/admin/start");
+      if (loading) {
+        setTimeout(() => {
+          setLoading(false);
+        }, 700);
+      }
+    } else {
+      navigate("/admin");
     }
-  }, [loading])
+  }, [loading, cookies, navigate]);
 
   return (
     <>{loading ? <StyledLoader> </StyledLoader> : <AdminMain></AdminMain>}</>
-  )
+  );
 }

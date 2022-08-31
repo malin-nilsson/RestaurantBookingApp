@@ -3,21 +3,25 @@ const router = express.Router();
 const { protect } = require("../middleware/authMiddleware");
 
 const {
-  getAdminMain,
-  getRegisterAdmin,
+  // getAdminMain,
+  // getRegisterAdmin,
+  getAdminStart,
   registerAdmin,
   loginAdmin,
-  getMe,
 } = require("../controllers/adminController.js");
 
-router.get("/", getAdminMain);
+const { checkAdmin } = require("../middleware/authMiddleware");
+
+// router.get("/", getAdminMain);
+
+router.post("/admin/start", checkAdmin);
 
 router.post("/", loginAdmin);
 
-router.get("/register", getRegisterAdmin);
+// router.get("/register", getRegisterAdmin);
 
 router.post("/register", registerAdmin);
 
-router.get("/admin/start", protect, getMe);
+router.get("/start", getAdminStart);
 
 module.exports = router;

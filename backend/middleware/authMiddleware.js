@@ -5,6 +5,7 @@ const AdminModel = require("../models/adminModel");
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
+  console.log(token);
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -15,6 +16,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
       // VERIFY TOKEN
       const decoded = jwt.verify(token, process.env.SECRET);
+      console.log(token);
 
       // GET ADMIN FROM TOKEN
       req.admin = await AdminModel.findById(decoded.id).select("-password");
@@ -31,4 +33,24 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = { protect };
+const checkAdmin = (req, res, next) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, "secret", async (err, decodedToken) => {
+      if (err) {
+        res.json({ status: false });
+        next();
+      } else {
+        const admin = await AdminModel.findById(decodedToken.id);
+        if (admin) res.json({ status: true, admin: admin.email });
+        else res.json({ status: false });
+        next();
+      }
+    });
+  } else {
+    res.json({ status: false });
+    next();
+  }
+};
+
+module.exports = { protect, checkAdmin };
