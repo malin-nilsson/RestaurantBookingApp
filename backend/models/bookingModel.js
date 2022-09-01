@@ -5,7 +5,7 @@ const BookingSchema = new Schema({
   date: { type: String, required: true, default: Date.now },
   time: { type: String, required: true },
   guest: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Guests",
     required: false,
   },

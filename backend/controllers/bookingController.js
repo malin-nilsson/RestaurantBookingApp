@@ -9,6 +9,7 @@ const getBookings = async (req, res) => {
   const bookings = await Bookings.find();
   res.status(200).json(bookings);
 };
+
 //////////////////
 // SAVE BOOKING //
 //////////////////
@@ -103,13 +104,7 @@ const deleteBooking = async (req, res) => {
 //////////////////////
 // GET AVAILABILITY //
 //////////////////////
-
-const enFunktion = async () => {
-  console.log("hej");
-};
-
 const searchAvailability = async (req, res) => {
-  console.log("hello");
   const { date, time, amount, tables } = req.body;
 
   const allBookings = await Bookings.find().lean();
@@ -140,7 +135,7 @@ const searchAvailability = async (req, res) => {
             const bookedTables = sameDayAndTime.reduce(function (a, b) {
               return a + b.tables;
             }, 0);
-            // If 15 tables are already booked, delcine booking request
+            // If 15 tables are already booked, decline booking request
             if (bookedTables + tables > 15) {
               res.status(200).send(false);
             } // If there are tables available, confirm booking
@@ -160,7 +155,7 @@ const searchAvailability = async (req, res) => {
 const sendConfirmation = async (req, res, next) => {
   let { email } = req.body;
 
-  const getId = await Bookings.findOne({ guestEmail: email });
+  const getId = await Bookings.findOne({ email: email });
   const id = getId.id;
 
   const transport = nodemailer.createTransport({
@@ -190,15 +185,15 @@ const sendConfirmation = async (req, res, next) => {
 };
 
 // CANCEL RESERVATION FROM USER //
-const userCancel = async (req, res, next) => {
+const userCancel = async (req, res) => {
   const id = req.params.id;
   try {
     await Bookings.findById(id).deleteOne();
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  res.status(200);
-  next();
+  // res.redirect("http://localhost:3000");
+  res.sendStatus(200);
 };
 
 module.exports = {
@@ -207,7 +202,6 @@ module.exports = {
   editBooking,
   deleteBooking,
   searchAvailability,
-  userCancel,
   sendConfirmation,
-  enFunktion,
+  userCancel,
 };
