@@ -1,27 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const { protect } = require("../middleware/authMiddleware");
 
 const {
-  // getAdminMain,
-  // getRegisterAdmin,
-  getAdminStart,
   registerAdmin,
   loginAdmin,
 } = require("../controllers/adminController.js");
 
 const { checkAdmin } = require("../middleware/authMiddleware");
 
-// router.get("/", getAdminMain);
-
+// CHECK FOR JWT
 router.post("/admin/start", checkAdmin);
 
+// LOG IN ADMIN
 router.post("/", loginAdmin);
 
-// router.get("/register", getRegisterAdmin);
-
+// REGISTER ADMIN
 router.post("/register", registerAdmin);
-
-router.get("/start", getAdminStart);
 
 module.exports = router;

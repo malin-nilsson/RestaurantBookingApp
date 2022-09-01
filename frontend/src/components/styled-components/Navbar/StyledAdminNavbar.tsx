@@ -11,7 +11,7 @@ export default function AdminHeader() {
   const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
 
   const logOut = () => {
-    removeCookie("jwt");
+    removeCookie("jwt", { path: "/" });
     navigate("/admin");
   };
 

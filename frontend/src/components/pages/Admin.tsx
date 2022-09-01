@@ -21,8 +21,9 @@ export default function Admin() {
       }
     } else {
       navigate("/admin");
+      setLoading(false);
     }
-  }, [loading, cookies, navigate]);
+  }, [loading, cookies, navigate, removeCookie]);
 
   return (
     <>{loading ? <StyledLoader> </StyledLoader> : <AdminMain></AdminMain>}</>

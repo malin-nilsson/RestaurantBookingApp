@@ -15,9 +15,10 @@ export default function Login() {
 
   useEffect(() => {
     if (cookies["jwt"]) {
+      console.log("TEST");
       navigate("/admin/start");
     }
-  }, [cookies, navigate]);
+  }, []);
 
   const [values, setValues] = useState({ email: "", password: "" });
   const generateError = (error: string) => {

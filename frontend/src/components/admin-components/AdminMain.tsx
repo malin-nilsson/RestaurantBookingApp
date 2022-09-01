@@ -68,6 +68,7 @@ export default function AdminMain() {
   });
 
   useEffect(() => {
+    console.log("hej");
     axios.get<IGuest[]>("http://localhost:4000/guests").then((response) => {
       setGuests(response.data);
     });
