@@ -100,11 +100,67 @@ const deleteBooking = async (req, res) => {
   }
 };
 
+//////////////////////
+// GET AVAILABILITY //
+//////////////////////
+
+const enFunktion = async () => {
+  console.log("hej");
+};
+
+const searchAvailability = async (req, res) => {
+  console.log("hello");
+  const { date, time, amount, tables } = req.body;
+
+  const allBookings = await Bookings.find().lean();
+
+  try {
+    // Get all existing reservations from requested day
+    const requestedDate = allBookings.filter(
+      (booking) => booking.date === date
+    );
+    // If there are no bookings on requested date, confirm booking
+    if (requestedDate.length < 1) {
+      res.status(200).send(true);
+    } else {
+      /* If there are bookings on requested date,
+    check if there are reservations at the same time */
+      for (let i = 0; i < requestedDate.length; i++) {
+        // List of bookings on the same date and same time
+        const sameDayAndTime = requestedDate.filter(
+          (booking) => booking.time === time
+        );
+        // If there are no bookings on requested time, confirm booking
+        if (sameDayAndTime.length < 1) {
+          res.status(200).send(true);
+        } else {
+          // Get list of bookings with same date & time
+          for (let j = 0; j < sameDayAndTime.length; j++) {
+            // Get total amount of booked tables on same date & time
+            const bookedTables = sameDayAndTime.reduce(function (a, b) {
+              return a + b.tables;
+            }, 0);
+            // If 15 tables are already booked, delcine booking request
+            if (bookedTables + tables > 15) {
+              res.status(200).send(false);
+            } // If there are tables available, confirm booking
+            else {
+              res.status(200).send(true);
+            }
+          }
+        }
+      }
+    }
+  } catch (error) {
+    res.status(400);
+  }
+};
+
 // SEND CONFIRMATION MAIL //
 const sendConfirmation = async (req, res, next) => {
   let { email } = req.body;
 
-  const getId = await Reservations.findOne({ guestEmail: email });
+  const getId = await Bookings.findOne({ guestEmail: email });
   const id = getId.id;
 
   const transport = nodemailer.createTransport({
@@ -134,15 +190,24 @@ const sendConfirmation = async (req, res, next) => {
 };
 
 // CANCEL RESERVATION FROM USER //
-const userCancel = async (req, res) => {
+const userCancel = async (req, res, next) => {
   const id = req.params.id;
   try {
-    await Reservations.findById(id).deleteOne();
+    await Bookings.findById(id).deleteOne();
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  // res.redirect("http://localhost:3000");
-  res.sendStatus(200);
+  res.status(200);
+  next();
 };
 
-module.exports = { saveBooking, getBookings, editBooking, deleteBooking };
+module.exports = {
+  saveBooking,
+  getBookings,
+  editBooking,
+  deleteBooking,
+  searchAvailability,
+  userCancel,
+  sendConfirmation,
+  enFunktion,
+};
