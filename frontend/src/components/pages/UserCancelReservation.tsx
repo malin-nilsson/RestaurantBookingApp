@@ -1,10 +1,10 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { devices } from "../styled-components/breakpoints/Breakpoints";
+import { devices } from "../../components/styling-breakpoints/breakpoints/Breakpoints";
 import {
   StyledButton,
   StyledButtonGreen,
-} from "../styled-components/Button/StyledButton";
+} from "../../components/styled-components/Buttons/StyledButtons";
 import { StyledMediumHeading } from "../styled-components/Headings/StyledHeadings";
 import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
 import axios from "axios";
@@ -36,11 +36,9 @@ export default function UserCancelReservation() {
           {showConfirm ? (
             <button
               onClick={async () => {
-                axios
-                  .delete("http://localhost:4000/bookings/cancel/" + id)
-                  .then(() => {
-                    setShowConfirm(!showConfirm);
-                  });
+                console.log(showConfirm);
+                axios.delete("http://localhost:4000/bookings/cancel/" + id);
+                setShowConfirm(!showConfirm);
               }}
             >
               CONFIRM

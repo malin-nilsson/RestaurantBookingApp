@@ -1,81 +1,82 @@
-import { FormEvent, useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { BookingContext } from '../../context/BookingContext'
-import { IBookingRequest } from '../../models/IBookingRequest'
-import { IReservation } from '../../models/IReservation'
-import { countTables } from '../../services/countTables'
-import { getAvailability } from '../../services/getAvailability'
-import { limitPastDates } from '../../services/limitDate'
-import { saveBooking } from '../../services/saveBooking'
-import { StyledButton } from '../styled-components/Buttons/StyledButtons'
-import { StyledGreenForm } from '../styled-components/Forms/StyledGreenForm'
-import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
-import { StyledLoader } from '../styled-components/Loader/StyledLoader'
-import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
+import { FormEvent, useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { BookingContext } from "../../context/BookingContext";
+import { IBookingRequest } from "../../models/IBookingRequest";
+import { IReservation } from "../../models/IReservation";
+import { countTables } from "../../services/countTables";
+import { getAvailability } from "../../services/getAvailability";
+import { limitPastDates } from "../../services/limitDate";
+import { saveBooking } from "../../services/saveBooking";
+import { StyledButton } from "../styled-components/Buttons/StyledButtons";
+import { StyledGreenForm } from "../styled-components/Forms/StyledGreenForm";
+import { StyledMediumHeading } from "../styled-components/Headings/StyledHeadings";
+import { StyledLoader } from "../styled-components/Loader/StyledLoader";
+import { StyledParagraph } from "../styled-components/Text/StyledParagraph";
 import {
   StyledFlexDiv,
   StyledHeadingWrapper,
-} from '../styled-components/Wrappers/StyledFlex'
-import { StyledHeroForm } from '../styled-components/Hero/StyledHeroForm'
-import GuestConfirmation from './GuestConfirmation'
-import { IBooking } from '../../models/IBooking'
-import { IGuest } from '../../models/IGuest'
+} from "../styled-components/Wrappers/StyledFlex";
+import { StyledHeroForm } from "../styled-components/Hero/StyledHeroForm";
+import GuestConfirmation from "./GuestConfirmation";
+import { IBooking } from "../../models/IBooking";
+import { IGuest } from "../../models/IGuest";
+import axios from "axios";
 
 export default function GuestAddBooking() {
-  let bookings = useContext(BookingContext)
-  const [date, setDate] = useState('')
-  const [time, setTime] = useState('')
-  const [amount, setAmount] = useState(0)
-  const [tableAmount, setTableAmount] = useState(0)
-  const [message, setMessage] = useState('')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [error, setError] = useState(false)
-  const [loader, setLoader] = useState<Boolean>(false)
-  const [guestForm, setGuestForm] = useState(false)
-  const [bookingForm, setBookingForm] = useState(true)
-  const [confirmation, setConfirmation] = useState(false)
-  const [notAvailable, setNotAvailable] = useState(false)
+  let bookings = useContext(BookingContext);
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [tableAmount, setTableAmount] = useState(0);
+  const [message, setMessage] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [error, setError] = useState(false);
+  const [loader, setLoader] = useState<Boolean>(false);
+  const [guestForm, setGuestForm] = useState(false);
+  const [bookingForm, setBookingForm] = useState(true);
+  const [confirmation, setConfirmation] = useState(false);
+  const [notAvailable, setNotAvailable] = useState(false);
   const [specificBooking, setSpecificBooking] = useState<IBooking>({
-    _id: '',
-    date: '',
-    time: '',
+    _id: "",
+    date: "",
+    time: "",
     amount: 0,
     tables: 0,
-    message: '',
+    message: "",
     guest: {
-      name: '',
-      email: '',
-      phone: '',
+      name: "",
+      email: "",
+      phone: "",
     },
-  })
+  });
 
   const showConfirmation = () => {
-    setLoader(false)
-    setGuestForm(false)
-    setConfirmation(true)
-  }
+    setLoader(false);
+    setGuestForm(false);
+    setConfirmation(true);
+  };
 
   const showGuestForm = () => {
-    setLoader(false)
-    setBookingForm(false)
-    setGuestForm(true)
-  }
+    setLoader(false);
+    setBookingForm(false);
+    setGuestForm(true);
+  };
 
   const showBookingForm = () => {
-    setLoader(false)
-    setBookingForm(true)
-    setNotAvailable(true)
-  }
+    setLoader(false);
+    setBookingForm(true);
+    setNotAvailable(true);
+  };
 
   const checkAvailability = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (date && time && amount) {
       // Check how many tables are needed (6 guests/table)
-      const tablesNeeded = countTables(amount) as number
-      setTableAmount(tablesNeeded)
+      const tablesNeeded = countTables(amount) as number;
+      setTableAmount(tablesNeeded);
 
       // Create a request
       const newBookingRequest: IBookingRequest = {
@@ -83,46 +84,46 @@ export default function GuestAddBooking() {
         time: time,
         amount: amount,
         tables: tablesNeeded,
-      }
+      };
       // Hide form and show loader
-      setBookingForm(false)
-      setLoader(true)
-      setError(false)
+      setBookingForm(false);
+      setLoader(true);
+      setError(false);
 
       // Get availability
-      const isAvailable = getAvailability(newBookingRequest)
+      const isAvailable = getAvailability(newBookingRequest);
       isAvailable.then(function (result) {
         if (result.valueOf() === true) {
-          window.scrollTo(0, 0)
-          setTimeout(showGuestForm, 1000)
+          window.scrollTo(0, 0);
+          setTimeout(showGuestForm, 1000);
         } else {
-          setTimeout(showBookingForm, 1000)
+          setTimeout(showBookingForm, 1000);
         }
-      })
+      });
     } else {
-      setError(true)
+      setError(true);
     }
-  }
+  };
 
   // Confirm if table is available
-  const confirmBooking = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const confirmBooking = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     if (name && email && phone) {
       // Hide form and show loader
-      setGuestForm(false)
-      setLoader(true)
-      setTimeout(showConfirmation, 1000)
+      setGuestForm(false);
+      setLoader(true);
+      setTimeout(showConfirmation, 1000);
 
       // Check how many tables are needed
-      const tablesNeeded = countTables(amount) as number
-      setTableAmount(tablesNeeded)
+      const tablesNeeded = countTables(amount) as number;
+      setTableAmount(tablesNeeded);
 
       const guest: IGuest = {
         name: name,
         email: email,
         phone: phone,
-      }
+      };
 
       const newBooking: IBooking = {
         date: date,
@@ -131,31 +132,39 @@ export default function GuestAddBooking() {
         tables: tablesNeeded,
         message: message,
         guest: guest,
-      }
+      };
 
-      setSpecificBooking(newBooking)
+      setSpecificBooking(newBooking);
       // Save booking to db
-      saveBooking(newBooking)
+      await saveBooking(newBooking);
       // Update context
-      bookings.addBooking(newBooking)
+      bookings.addBooking(newBooking);
       // Clears errors and inputs
-      setError(false)
-      setName('')
-      setEmail('')
-      setPhone('')
+      setError(false);
+      setName("");
+      setEmail("");
+      setPhone("");
     } else {
-      setError(true)
+      setError(true);
     }
-  }
+    try {
+      await axios.post("http://localhost:4000/bookings/confirmation_mail", {
+        email,
+      });
+      console.log("hello");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Toggle between booking form and guest form
   const toggleForms = () => {
-    window.scrollTo(0, 0)
-    setGuestForm(false)
-    setError(false)
-    setBookingForm(true)
-    setNotAvailable(false)
-  }
+    window.scrollTo(0, 0);
+    setGuestForm(false);
+    setError(false);
+    setBookingForm(true);
+    setNotAvailable(false);
+  };
 
   return (
     <StyledHeroForm>
@@ -196,7 +205,7 @@ export default function GuestAddBooking() {
                   type="date"
                   min={limitPastDates()}
                   onChange={(e) => setDate(e.target.value)}
-                  className={error && !date ? 'error-input' : ''}
+                  className={error && !date ? "error-input" : ""}
                   value={date}
                 />
               </div>
@@ -205,10 +214,10 @@ export default function GuestAddBooking() {
                 <label>Time *</label>
                 <select
                   onChange={(e) => setTime(e.target.value)}
-                  className={error && !time ? 'error-input' : ''}
+                  className={error && !time ? "error-input" : ""}
                   value={time}
                 >
-                  <option defaultValue={''}>Choose a seating</option>
+                  <option defaultValue={""}>Choose a seating</option>
                   <option value="18">18:00 PM</option>
                   <option value="21">21:00 PM</option>
                 </select>
@@ -222,7 +231,7 @@ export default function GuestAddBooking() {
                     min={1}
                     max={90}
                     onChange={(e) => setAmount(+e.target.value)}
-                    className={error && !amount ? 'error-input' : ''}
+                    className={error && !amount ? "error-input" : ""}
                     value={amount}
                   />
                   <div className="guest-amount-btns">
@@ -280,7 +289,7 @@ export default function GuestAddBooking() {
                 {`${time}:00 pm`}
               </StyledParagraph>
               <StyledParagraph fontSize="1.6rem" padding="0px 0px 15px">
-                {amount === 1 ? amount + ' guest' : amount + ' guests'}
+                {amount === 1 ? amount + " guest" : amount + " guests"}
               </StyledParagraph>
               {error && (
                 <div className="error-generic">
@@ -293,7 +302,7 @@ export default function GuestAddBooking() {
                   <input
                     type="text"
                     onChange={(e) => setName(e.target.value)}
-                    className={error && !name ? 'error-input' : ''}
+                    className={error && !name ? "error-input" : ""}
                     value={name}
                   />
                   <span className="material-symbols-outlined">person</span>
@@ -306,7 +315,7 @@ export default function GuestAddBooking() {
                   <input
                     type="email"
                     onChange={(e) => setEmail(e.target.value)}
-                    className={error && !email ? 'error-input' : ''}
+                    className={error && !email ? "error-input" : ""}
                     value={email}
                   />
                   <span className="material-symbols-outlined">mail</span>
@@ -319,7 +328,7 @@ export default function GuestAddBooking() {
                   <input
                     type="tel"
                     onChange={(e) => setPhone(e.target.value)}
-                    className={error && !phone ? 'error-input' : ''}
+                    className={error && !phone ? "error-input" : ""}
                     value={phone}
                   />
                   <span className="material-symbols-outlined">call</span>
@@ -354,5 +363,5 @@ export default function GuestAddBooking() {
         ></GuestConfirmation>
       )}
     </StyledHeroForm>
-  )
+  );
 }
