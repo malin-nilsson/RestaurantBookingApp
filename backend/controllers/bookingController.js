@@ -5,7 +5,7 @@ const Guest = require('../models/guestModel')
 // GET ALL BOOKINGS //
 //////////////////////
 const getBookings = async (req, res) => {
-  const bookings = await Bookings.find()
+  const bookings = await Bookings.find().populate('guest')
   res.status(200).json(bookings)
 }
 //////////////////
@@ -34,7 +34,7 @@ const saveBooking = async (req, res) => {
         message: message,
       })
       await newBooking.save()
-      res.status(200).json(newBooking)
+      res.status(200).send(newBooking)
     } else {
       /* If guest doesn't exist, create one in db,
     then save booking */
@@ -55,7 +55,7 @@ const saveBooking = async (req, res) => {
         message: message,
       })
       await newBooking.save()
-      res.status(200).json(newBooking)
+      res.status(200).send(newBooking)
     }
   } catch (error) {
     res.status(400).json({ error: error.message })

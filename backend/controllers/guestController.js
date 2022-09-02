@@ -13,6 +13,7 @@ const getGuests = async (req, res) => {
 const getBookingsByGuest = async (req, res) => {
   const guest = req.body
 
+  // Get guest from req body
   const requestedGuest = {
     id: guest._id,
     name: guest.name,
@@ -21,12 +22,14 @@ const getBookingsByGuest = async (req, res) => {
   }
 
   try {
+    // Find guest from db using email admin searched for
     const guest = await Guests.findOne({ email: requestedGuest.email })
 
+    // If guest exists, get their bookings from db
     if (guest) {
       const bookingsByGuest = await Bookings.find({
         guest: guest._id,
-      }).populate('guest')
+      })
       res.status(200).send(bookingsByGuest)
     } else {
       res.status(200).send([])
