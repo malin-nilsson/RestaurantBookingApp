@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
 
-// CREATE TOKEN FOR MONGO ID i.e. _id AND CALCULATING MS
+// CREATE TOKEN FOR MONGO ID i.e. _id AND CALCULATE MS
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
   return jwt.sign({ id }, "secret", { expiresIn: maxAge });
@@ -11,7 +11,7 @@ const createToken = (id) => {
 
 // HANDLE ERRORS
 const handleErrors = (err) => {
-  let errors = { email: "", password: "" };
+  let errors = { email: "", password: "", confirmPassword: "" };
 
   console.log(err);
   if (err.message === "Incorrect email!") {
@@ -20,6 +20,10 @@ const handleErrors = (err) => {
 
   if (err.message === "Incorrect password!") {
     errors.password = "The password is incorrect!";
+  }
+
+  if (err.message === "Passwords don't match!") {
+    errors.confirmPassword = "Passwords don't match";
   }
 
   if (err.code === 11000) {
@@ -39,8 +43,9 @@ const handleErrors = (err) => {
 // REGISTER ADMIN 2.0
 const registerAdmin = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const admin = await AdminModel.create({ email, password });
+    const { email, password, confirmPassword } = req.body;
+
+    const admin = await AdminModel.create({ email, password, confirmPassword });
     const token = createToken(admin._id);
 
     res.cookie("jwt", token, {

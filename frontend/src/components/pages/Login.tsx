@@ -1,6 +1,4 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { IAdmin } from "../../models/IAdmin";
-import { loginAdmin } from "../../services/adminService";
 import { useNavigate } from "react-router-dom";
 import { StyledGreenForm } from "../styled-components/Forms/StyledGreenForm";
 import { StyledAdminButton } from "../styled-components/Buttons/StyledButtons";

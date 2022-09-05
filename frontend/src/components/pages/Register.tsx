@@ -11,40 +11,81 @@ export default function Register() {
   const [cookies] = useCookies(["jwt"]);
   const navigate = useNavigate();
 
+  const MAILERR = "Email already in use!";
+  const PASSERR = "Password need to be at least 4 characters.";
+  const CONFIRMPASS = "Password's don't match!";
+
+  const [matchPass, setMatchPass] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [validLength, setValidLength] = useState(false);
+  const [match, setMatch] = useState(false);
+  const [requiredLength, setRequiredLength] = useState(4);
+
+  const [showError, setShowError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
   useEffect(() => {
     if (cookies["jwt"]) {
       navigate("/admin/start");
     }
   }, [cookies, navigate]);
 
-  const [values, setValues] = useState({ email: "", password: "" });
   const generateError = (error: string) => {
     console.log(error);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const { data } = await axios.post(
-        "http://localhost:4000/admin/register",
-        {
-          ...values,
-        },
-        {
-          withCredentials: true,
+    if (values.password != values.confirmPassword) {
+      setShowError(true);
+      setErrorMsg(CONFIRMPASS);
+    }
+    if (values.password.length < 4) {
+      setShowError(true);
+      setErrorMsg(PASSERR);
+    } else {
+      try {
+        const { data } = await axios.post(
+          "http://localhost:4000/admin/register",
+          {
+            ...values,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+        if (data) {
+          if (data.errors) {
+            const { email, password, confirmPassword } = data.errors;
+            if (email) {
+              setErrorMsg(MAILERR);
+              generateError(email);
+              setShowError(true);
+            } else if (password) {
+              setErrorMsg(PASSERR);
+              generateError(password);
+              setShowError(true);
+            } else if (confirmPassword) {
+              setErrorMsg(CONFIRMPASS);
+              generateError(confirmPassword);
+              setShowError(true);
+            }
+          } else {
+            navigate("/admin/start");
+          }
         }
-      );
-      if (data) {
-        if (data.errors) {
-          const { email, password } = data.errors;
-          if (email) generateError(email);
-          else if (password) generateError(password);
-        } else {
-          navigate("/admin/start");
-        }
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
     }
   };
 
@@ -77,15 +118,17 @@ export default function Register() {
               setValues({ ...values, [e.target.name]: e.target.value });
             }}
           />
-          {/* <input
+          <input
             type="password"
+            name="confirmPassword"
             placeholder="Confirm Password"
             autoComplete="off"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setConfirmPwd(e.target.value);
+              setValues({ ...values, [e.target.name]: e.target.value });
             }}
-          /> */}
+          />
           <StyledAdminButton type="submit">Register</StyledAdminButton>
+          {showError && <StyledSmallHeading>{errorMsg}</StyledSmallHeading>}
         </StyledGreenForm>
       </StyledFlexDiv>
     </>
