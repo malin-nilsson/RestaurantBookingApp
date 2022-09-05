@@ -121,7 +121,7 @@ const StyledNavbar = styled.nav`
 
   // LINK HOVER EFFECT
   .hover-effect {
-    padding: 0px 0px 1px;
+    padding: 0px 0px 0.5px;
     display: inline-block;
     position: relative;
     color: var(--beige);

@@ -2,14 +2,14 @@ import styled from 'styled-components'
 import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
 
 export const StyledList = styled.ul`
-  min-width: 300px;
+  width: 95%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 40px;
-  max-width: 300px;
-  margin: 0px 0px 30px;
+
+  margin: 0px auto 30px;
   padding: 0;
 
   @media ${devices.tablet} {
@@ -17,6 +17,9 @@ export const StyledList = styled.ul`
     max-width: 600px;
   }
 
+  @media ${devices.tablet} {
+    margin: 30px 0px 30px;
+  }
   li {
     display: flex;
     flex-direction: column;
@@ -26,20 +29,20 @@ export const StyledList = styled.ul`
     list-style: none;
     font-size: 1.4rem;
     font-weight: 100;
-    border: 2px solid var(--beige);
     width: 100%;
-    padding: 15px;
+    padding: 30px;
     transition: scale 0.25s ease-in-out;
-    &:nth-child(odd) {
-      background-color: var(--beige);
-      color: var(--green);
-    }
+    background-color: var(--beige);
+    color: var(--green);
 
     &:hover {
       cursor: default;
       scale: 1.01;
     }
 
+    ////////////////////////////////////////
+    // CSS classes used inside StyledList //
+    ///////////////////////////////////////
     .booking {
       width: 100%;
       display: flex;
@@ -52,23 +55,31 @@ export const StyledList = styled.ul`
       }
     }
 
-    .title-bold {
-      font-weight: 600;
+    .booking-heading {
+      margin: 7px 0px;
+      font-size: 1.8rem;
+      font-weight: 300;
       text-transform: uppercase;
-      font-size: 1.3rem;
+      font-family: var(--headingfont);
     }
 
-    .icons {
-      width: 100%;
-      gap: 15px;
+    .button-wrapper {
       display: flex;
       flex-direction: row;
-      justify-content: flex-end;
-      align-items: center;
+      gap: 20px;
+      align-items: flex-start;
 
+      // ICONS
       .material-symbols-outlined {
         cursor: pointer;
+        font-size: 2rem;
       }
+    }
+
+    .title-bold {
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 1.4rem;
     }
   }
 `
