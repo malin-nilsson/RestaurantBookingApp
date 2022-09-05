@@ -22,6 +22,8 @@ const adminSchema = new mongoose.Schema({
   },
 });
 
+// ADD LOGIC FOR "user" & "admin", only admin shall se /admin/register
+
 adminSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   if (this.password !== this.confirmPassword) {
