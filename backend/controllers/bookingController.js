@@ -69,7 +69,7 @@ const editBooking = async (req, res) => {
   const id = req.params.id
 
   try {
-    await Bookings.findByIdAndUpdate(
+    const editedBooking = await Bookings.findByIdAndUpdate(
       {
         _id: id,
       },
@@ -81,7 +81,7 @@ const editBooking = async (req, res) => {
         message: req.body.message,
       },
     )
-    res.status(200).json
+    res.status(200).send(editedBooking)
   } catch (error) {
     res.status(400).json({ error: error.message })
   }

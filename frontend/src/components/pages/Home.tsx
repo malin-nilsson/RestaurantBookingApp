@@ -2,13 +2,11 @@ import StyledHeroVideo from '../styled-components/Hero/StyledHeroVideo'
 import styled from 'styled-components'
 import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
 import { devices } from '../styling-breakpoints/breakpoints/Breakpoints'
-import { StyledButtonGreen } from '../styled-components/Buttons/StyledButtons'
+import { StyledGreenButton } from '../styled-components/Buttons/StyledButtons'
 import { Link } from 'react-router-dom'
 import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
 
 export default function Home() {
-  window.scrollTo(0, 0)
-
   return (
     <>
       <div>
@@ -56,7 +54,7 @@ export default function Home() {
           You should probably make a reservation now.
         </StyledParagraph>
         <Link to="/reservations">
-          <StyledButtonGreen>To reservations</StyledButtonGreen>
+          <StyledGreenButton>To reservations</StyledGreenButton>
         </Link>
       </FooterWrapper>
     </>

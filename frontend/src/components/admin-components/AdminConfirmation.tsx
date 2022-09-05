@@ -2,6 +2,7 @@ import { IBooking } from '../../models/IBooking'
 import { ICancellation } from '../../models/ICancellation'
 import { IReservation } from '../../models/IReservation'
 import { StyledSmallHeading } from '../styled-components/Headings/StyledHeadings'
+import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
 
 interface AdminConfirmProps {
   specificBooking?: IBooking
@@ -15,15 +16,17 @@ export default function AdminConfirmation(props: AdminConfirmProps) {
       <StyledSmallHeading fontWeight="900" padding="0px 0px 15px">
         {props.message}
       </StyledSmallHeading>
-      <StyledSmallHeading display="flex" fontSize="1.5rem" padding="20px 0px">
+      <StyledSmallHeading display="flex" fontSize="1.6rem" padding="20px 0px">
         {props.specificBooking && (
-          <span>
-            {props.specificBooking.date} – {props.specificBooking.time}:00 pm –
-            {props.specificBooking.guest.name} –
-            {props.specificBooking.amount === 1
-              ? props.specificBooking.amount + ' guest'
-              : props.specificBooking.amount + ' guests'}
-          </span>
+          <StyledFlexDiv>
+            <span>
+              {props.specificBooking.date} – {props.specificBooking.time}:00 pm
+              – {props.specificBooking.guest.name} -{' '}
+              {props.specificBooking.amount === 1
+                ? props.specificBooking.amount + ' guest'
+                : props.specificBooking.amount + ' guests'}
+            </span>
+          </StyledFlexDiv>
         )}
         {props.cancelledBooking && (
           <span>

@@ -15,7 +15,6 @@ import {
 } from '../styled-components/Headings/StyledHeadings'
 import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
 import { StyledHeadingWrapper } from '../styled-components/Wrappers/StyledFlex'
-import AdminConfirmation from './AdminConfirmation'
 
 interface AdminEditProps {
   specificBooking: IBooking
@@ -34,7 +33,6 @@ export default function AdminEditBooking(props: AdminEditProps) {
   const [tableAmount, setTableAmount] = useState(0)
   const [notAvailable, setNotAvailable] = useState(false)
   const [error, setError] = useState(false)
-  const [bookingConfirmation, setBookingConfirmation] = useState(false)
 
   const handleEdit = (e: FormEvent<HTMLFormElement>, reservation: IBooking) => {
     e.preventDefault()
@@ -67,9 +65,9 @@ export default function AdminEditBooking(props: AdminEditProps) {
         if (result.valueOf() === true) {
           saveEditedBooking(editedBooking)
           bookings.updateBooking(editedBooking)
+          window.scrollTo(0, 0)
           props.showBookingConfirmation()
           props.setEditForm(false)
-          window.scrollTo(0, 0)
           setError(false)
         } else {
           props.setEditForm(true)
