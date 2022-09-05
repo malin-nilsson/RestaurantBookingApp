@@ -1,0 +1,24 @@
+{
+  "name": "la_mere",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/19ozman/la_mere.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/19ozman/la_mere/issues"
+  },
+  "homepage": "https://github.com/19ozman/la_mere#readme",
+  "devDependencies": {
+    "cypress": "^10.7.0",
+    "typescript": "^4.8.2"
+  },
+  "dependencies": {}
+}
