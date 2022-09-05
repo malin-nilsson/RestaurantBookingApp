@@ -1,22 +1,14 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import styled from "styled-components";
-import { devices } from "../../components/styling-breakpoints/breakpoints/Breakpoints";
-import {
-  StyledButton,
-  StyledButtonGreen,
-} from "../../components/styled-components/Buttons/StyledButtons";
-import { StyledMediumHeading } from "../styled-components/Headings/StyledHeadings";
-import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
-import axios from "axios";
-import { deleteBooking } from "../../services/deleteBooking";
-import { IReservation } from "../../models/IReservation";
-import Home from "./Home";
-import { useState } from "react";
+import { Link, useParams } from 'react-router-dom'
+import styled from 'styled-components'
+import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
+import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
+import axios from 'axios'
+import { useState } from 'react'
 
 export default function UserCancelReservation() {
-  const [showConfirm, setShowConfirm] = useState<Boolean>(true);
+  const [showConfirm, setShowConfirm] = useState<Boolean>(true)
 
-  const { id } = useParams();
+  const { id } = useParams()
 
   return (
     <div>
@@ -32,22 +24,22 @@ export default function UserCancelReservation() {
         )}
 
         <CancelWrapper>
-          <Link to="/">BACK TO HOME</Link>
+          <Link to="/">Back home</Link>
           {showConfirm ? (
             <button
               onClick={async () => {
-                console.log(showConfirm);
-                axios.delete("http://localhost:4000/bookings/cancel/" + id);
-                setShowConfirm(!showConfirm);
+                console.log(showConfirm)
+                axios.delete('http://localhost:4000/bookings/cancel/' + id)
+                setShowConfirm(!showConfirm)
               }}
             >
-              CONFIRM
+              Confirm
             </button>
           ) : null}
         </CancelWrapper>
       </StyledFlexDiv>
     </div>
-  );
+  )
 }
 
 const CancelWrapper = styled.div`
@@ -78,4 +70,4 @@ const CancelWrapper = styled.div`
     &:hover {
     }
   }
-`;
+`
