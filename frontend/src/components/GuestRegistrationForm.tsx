@@ -83,6 +83,7 @@ export default function GuestRegistrationForm(props: IGuestFormProps) {
             <div className="input-container">
               <input
                 type="text"
+                minLength={2}
                 onChange={(e) => setName(e.target.value)}
                 className={error && !name ? 'error-input' : ''}
                 value={name}
@@ -112,6 +113,7 @@ export default function GuestRegistrationForm(props: IGuestFormProps) {
                 onChange={(e) => setPhone(e.target.value)}
                 className={error && !phone ? 'error-input' : ''}
                 value={phone}
+                placeholder="070-123-45-67"
               />
               <span className="material-symbols-outlined">call</span>
             </div>
