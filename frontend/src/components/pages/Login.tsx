@@ -11,14 +11,18 @@ export default function Login() {
   const [cookies] = useCookies(["jwt"]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (cookies["jwt"]) {
-      console.log("TEST");
-      navigate("/admin/start");
-    }
-  }, []);
+  const LOGINERR = "Wrong credentials";
 
   const [values, setValues] = useState({ email: "", password: "" });
+  const [showError, setShowError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    if (cookies["jwt"]) {
+      navigate("/admin/start");
+    }
+  }, [cookies, navigate]);
+
   const generateError = (error: string) => {
     console.log(error);
   };
@@ -35,8 +39,15 @@ export default function Login() {
       if (data) {
         if (data.errors) {
           const { email, password } = data.errors;
-          if (email) generateError(email);
-          else if (password) generateError(password);
+          if (email) {
+            generateError(email);
+            setShowError(true);
+            setErrorMsg(LOGINERR);
+          } else if (password) {
+            generateError(password);
+            setShowError(true);
+            setErrorMsg(LOGINERR);
+          }
         } else {
           navigate("/admin/start");
         }
@@ -70,6 +81,7 @@ export default function Login() {
             }}
           />
           <StyledAdminButton type="submit">Log In</StyledAdminButton>
+          {showError && <StyledSmallHeading>{errorMsg}</StyledSmallHeading>}
         </StyledGreenForm>
       </StyledFlexDiv>
     </>

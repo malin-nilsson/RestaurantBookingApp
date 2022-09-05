@@ -15,15 +15,6 @@ export default function Register() {
   const PASSERR = "Password need to be at least 4 characters.";
   const CONFIRMPASS = "Password's don't match!";
 
-  const [matchPass, setMatchPass] = useState({
-    password: "",
-    confirmPassword: "",
-  });
-
-  const [validLength, setValidLength] = useState(false);
-  const [match, setMatch] = useState(false);
-  const [requiredLength, setRequiredLength] = useState(4);
-
   const [showError, setShowError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -33,11 +24,11 @@ export default function Register() {
     confirmPassword: "",
   });
 
-  useEffect(() => {
-    if (cookies["jwt"]) {
-      navigate("/admin/start");
-    }
-  }, [cookies, navigate]);
+  // useEffect(() => {
+  //   if (cookies["jwt"]) {
+  //     navigate("/admin/start");
+  //   }
+  // }, [cookies, navigate]);
 
   const generateError = (error: string) => {
     console.log(error);
