@@ -24,19 +24,7 @@ const adminAuth = async (req, res, next) => {
   }
 };
 
-const validateUser = (name) => {
-  let valid = true;
-
-  valid = valid && name.username;
-  valid = valid && name.username.length > 3;
-  valid = valid && name.username.length < 20;
-  valid = valid && name.username.indexOf(" ") < 0;
-
-  return valid;
-};
-
 module.exports = {
   comparePwd,
   adminAuth,
-  validateUser,
 };

@@ -15,6 +15,11 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: [true, "Passwords don't match!"],
   },
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
 });
 
 adminSchema.pre("save", async function (next) {

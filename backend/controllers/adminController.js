@@ -1,7 +1,5 @@
 const AdminModel = require("../models/adminModel");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const asyncHandler = require("express-async-handler");
 
 // CREATE TOKEN FOR MONGO ID i.e. _id AND CALCULATE MS
 const maxAge = 3 * 24 * 60 * 60;
@@ -40,7 +38,7 @@ const handleErrors = (err) => {
   return errors;
 };
 
-// REGISTER ADMIN 2.0
+// REGISTER ADMIN
 const registerAdmin = async (req, res, next) => {
   try {
     const { email, password, confirmPassword } = req.body;
