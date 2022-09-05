@@ -11,7 +11,7 @@ export default function Login() {
   const [cookies] = useCookies(["jwt"]);
   const navigate = useNavigate();
 
-  const LOGINERR = "Wrong credentials";
+  const LOGINERR = "Wrong credentials!";
 
   const [values, setValues] = useState({ email: "", password: "" });
   const [showError, setShowError] = useState(false);
