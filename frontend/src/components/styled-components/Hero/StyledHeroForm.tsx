@@ -1,11 +1,14 @@
 import styled from 'styled-components'
 
+// Hero background used in booking form
+interface IHeroFormProps {
+  overflow?: string
+  background?: string
+}
+
 export const StyledHeroForm = styled.div`
-  background-image: url('assets/outdoor-patio.jpg');
   background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
   height: 100vh;
-  overflow: scroll;
+  overflow: ${(props: IHeroFormProps) => props.overflow || ''};
+  background: ${(props: IHeroFormProps) => props.background || ''};
 `

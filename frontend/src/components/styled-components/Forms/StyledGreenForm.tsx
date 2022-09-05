@@ -13,7 +13,8 @@ export const StyledGreenForm = styled(StyledTransparentForm)`
   @media ${devices.tablet} {
     padding: 20px 50px;
     min-width: 550px;
-    max-width: 650px;
+
+    margin: 0 auto;
   }
 
   .input-container {

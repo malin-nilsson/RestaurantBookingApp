@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+// Icons used in /contact
 export const StyledIconWrapper = styled.div`
   width: 100%;
   display: flex;

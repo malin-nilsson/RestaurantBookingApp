@@ -10,8 +10,8 @@ interface IFormProps {
 }
 
 export const StyledTransparentForm = styled.form`
-  max-width: 320px;
-  margin: ${(props: IFormProps) => props.margin || '10px 0px'};
+  width: 95%;
+  margin: ${(props: IFormProps) => props.margin || '10px auto'};
   display: flex;
   padding: 15px;
   flex-direction: column;
@@ -26,18 +26,23 @@ export const StyledTransparentForm = styled.form`
   }
 
   @media ${devices.desktop} {
-    margin: 10px 0px;
     padding: ${(props: IFormProps) => props.padding || '25px'};
   }
 
   .form-field {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+
+    input[type='date']::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+    }
   }
+
   label {
     font-size: 1.4rem;
     font-weight: 500;
-    margin: 8px 0px;
+    margin: 10px 0px;
     text-transform: uppercase;
   }
 
@@ -142,6 +147,7 @@ export const StyledTransparentForm = styled.form`
 
   .material-symbols-outlined.arrow {
     cursor: pointer;
+    font-size: 2.5rem;
   }
 
   .gdpr {

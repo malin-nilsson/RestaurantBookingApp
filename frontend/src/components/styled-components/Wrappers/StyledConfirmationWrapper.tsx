@@ -33,10 +33,11 @@ export const StyledConfirmationWrapper = styled.div`
     align-items: center;
   }
   span {
-    background-color: var(--beige);
-    color: var(--green);
-    padding: 8px 9px;
-    font-size: 1.5rem;
-    letter-spacing: 0.15rem;
+    font-size: 1.7rem;
+  }
+
+  .material-symbols-outlined {
+    font-size: 2.5rem;
+    margin: 5px 0px;
   }
 `
