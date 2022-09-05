@@ -17,4 +17,6 @@ router.post("/", loginAdmin);
 // REGISTER ADMIN
 router.post("/register", registerAdmin);
 
+router.get("/register", checkAdmin);
+
 module.exports = router;

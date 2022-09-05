@@ -24,8 +24,10 @@ export default function Register() {
     confirmPassword: "",
   });
 
+  // USE useEffect for only logged in to visit /register
+
   // useEffect(() => {
-  //   if (cookies["jwt"]) {
+  //   if (!cookies["jwt"]) {
   //     navigate("/admin/start");
   //   }
   // }, [cookies, navigate]);
