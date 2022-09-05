@@ -130,7 +130,12 @@ export default function AdminMain() {
     setSearchInput('')
     const filteredBookings: IBooking[] = bookings.bookings.filter((booking) => {
       if (booking.guest === null) {
-        setNoResultsMessage(true)
+        booking.guest = {
+          name: 'Guest information has been removed per request',
+          email: 'Guest information has been removed per request',
+          phone: 'Guest information has been removed per request',
+        }
+        return booking.date === dateSearchInput
       } else {
         return booking.date === dateSearchInput
       }

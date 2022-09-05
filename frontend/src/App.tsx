@@ -13,7 +13,6 @@ import {
   defaultValue,
 } from './context/BookingContext'
 import axios from 'axios'
-import { IReservation } from './models/IReservation'
 import Admin from './components/pages/Admin'
 import GDPR from './components/pages/GDPR'
 import LayoutWithNav from './components/LayoutWithNav'
@@ -27,7 +26,6 @@ function App() {
   const [bookings, setBookings] = useState<BookingInterface>(defaultValue)
 
   useEffect(() => {
-    if (bookings.bookings.length !== 0) return
     // Get all bookings and save them in Booking context
     axios.get<IBooking[]>('http://localhost:4000/bookings').then((response) => {
       setBookings({ ...bookings, bookings: response.data })
