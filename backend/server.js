@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 // const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
@@ -11,7 +10,6 @@ const bodyParser = require("body-parser");
 const bookingRoutes = require("./routes/bookingsRoute");
 const guestRoutes = require("./routes/guestRoute");
 const adminRoutes = require("./routes/adminRoute");
-const { protect } = require("./middleware/authMiddleware");
 
 const Reservations = require("./models/reservationModel");
 

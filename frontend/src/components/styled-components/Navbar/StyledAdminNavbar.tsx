@@ -1,19 +1,19 @@
-import axios from 'axios'
-import { useEffect } from 'react'
-import { useCookies } from 'react-cookie'
-import { Link, useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
-import { StyledMediumHeading } from '../Headings/StyledHeadings'
-import { StyledPlantIcon } from '../Icon/StyledPlantIcon'
+import axios from "axios";
+import { useEffect } from "react";
+import { useCookies } from "react-cookie";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { StyledMediumHeading } from "../Headings/StyledHeadings";
+import { StyledPlantIcon } from "../Icon/StyledPlantIcon";
 
 export default function AdminHeader() {
-  const navigate = useNavigate()
-  const [cookies, setCookie, removeCookie] = useCookies(['jwt'])
+  const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
 
   const logOut = () => {
-    removeCookie('jwt')
-    navigate('/admin')
-  }
+    removeCookie("jwt", { path: "/" });
+    navigate("/admin");
+  };
 
   return (
     <StyledAdminNavbar>
@@ -29,7 +29,7 @@ export default function AdminHeader() {
         </span>
       </div>
     </StyledAdminNavbar>
-  )
+  );
 }
 
 export const StyledAdminNavbar = styled.nav`
@@ -47,4 +47,4 @@ export const StyledAdminNavbar = styled.nav`
       cursor: pointer;
     }
   }
-`
+`;
