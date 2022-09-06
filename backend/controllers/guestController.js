@@ -1,29 +1,29 @@
-const Guests = require('../models/guestModel')
+const Guests = require("../models/guestModel");
 
 ////////////////////
 //GET ALL GUESTS //
 ///////////////////
 const getGuests = async (req, res) => {
   try {
-    const guests = await Guests.find().lean()
-    res.status(200).json(guests)
+    const guests = await Guests.find().lean();
+    res.status(200).json(guests);
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
 /////////////////
 //DELETE GUEST //
 /////////////////
 const deleteGuest = async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
 
   try {
-    await Guests.findById(id).deleteOne()
+    await Guests.findById(id).deleteOne();
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
 // const getBookingsByGuest = async (req, res) => {
 //   const guest = req.body
@@ -60,4 +60,4 @@ const deleteGuest = async (req, res) => {
 module.exports = {
   getGuests,
   deleteGuest,
-}
+};

@@ -1,54 +1,66 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { IAdmin } from '../../models/IAdmin'
-import { loginAdmin } from '../../services/adminService'
-import { useNavigate } from 'react-router-dom'
-import { StyledGreenForm } from '../styled-components/Forms/StyledGreenForm'
-import { StyledAdminButton } from '../styled-components/Buttons/StyledButtons'
-import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
-import { useCookies } from 'react-cookie'
-import axios from 'axios'
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { IAdmin } from "../../models/IAdmin";
+import { loginAdmin } from "../../services/adminService";
+import { useNavigate } from "react-router-dom";
+import { StyledGreenForm } from "../styled-components/Forms/StyledGreenForm";
+import { StyledAdminButton } from "../styled-components/Buttons/StyledButtons";
+import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 import {
   StyledMediumHeading,
   StyledSmallHeading,
-} from '../styled-components/Headings/StyledHeadings'
+} from "../styled-components/Headings/StyledHeadings";
 
 export default function Login() {
-  const [cookies] = useCookies(['jwt'])
-  const navigate = useNavigate()
+  const [cookies] = useCookies(["jwt"]);
+  const navigate = useNavigate();
+
+  const LOGINERR = "Wrong credentials!";
+
+  const [values, setValues] = useState({ email: "", password: "" });
+  const [showError, setShowError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
-    if (cookies['jwt']) {
-      navigate('/admin/start')
+    if (cookies["jwt"]) {
+      navigate("/admin/start");
     }
-  }, [cookies, navigate])
+  }, [cookies, navigate]);
 
-  const [values, setValues] = useState({ email: '', password: '' })
   const generateError = (error: string) => {
-    console.log(error)
-  }
+    console.log(error);
+  };
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const { data } = await axios.post(
-        'http://localhost:4000/admin',
+        "http://localhost:4000/admin",
         {
           ...values,
         },
-        { withCredentials: true },
-      )
+        { withCredentials: true }
+      );
       if (data) {
         if (data.errors) {
-          const { email, password } = data.errors
-          if (email) generateError(email)
-          else if (password) generateError(password)
+          const { email, password } = data.errors;
+          if (email) {
+            generateError(email);
+            setShowError(true);
+            setErrorMsg(LOGINERR);
+          } else if (password) {
+            generateError(password);
+            setShowError(true);
+            setErrorMsg(LOGINERR);
+          }
         } else {
-          navigate('/admin/start')
+          navigate("/admin/start");
         }
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   return (
     <>
@@ -64,7 +76,7 @@ export default function Login() {
             placeholder="Email"
             autoComplete="off"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value })
+              setValues({ ...values, [e.target.name]: e.target.value });
             }}
           />
           <label>Password</label>
@@ -74,12 +86,13 @@ export default function Login() {
             placeholder="Password"
             autoComplete="off"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value })
+              setValues({ ...values, [e.target.name]: e.target.value });
             }}
           />
           <StyledAdminButton type="submit">Log In</StyledAdminButton>
+          {showError && <StyledSmallHeading>{errorMsg}</StyledSmallHeading>}
         </StyledGreenForm>
       </StyledFlexDiv>
     </>
-  )
+  );
 }
