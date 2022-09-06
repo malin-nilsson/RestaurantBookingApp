@@ -23,7 +23,7 @@ export const StyledConfirmationWrapper = styled.div`
 
   @media ${devices.desktop} {
     width: ${(props: IWrapperProps) => props.width || ''};
-    padding: 30px;
+    padding: 35px 40px;
   }
 
   .booking-details {
@@ -33,7 +33,7 @@ export const StyledConfirmationWrapper = styled.div`
     align-items: center;
   }
   span {
-    font-size: 1.7rem;
+    font-size: 1.65rem;
   }
 
   .material-symbols-outlined {

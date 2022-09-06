@@ -9,7 +9,7 @@ interface GuestConfirmationProps {
   specificBooking: IBooking
   padding: string
   width: string
-  message: string
+  message?: string | undefined
   url: string
 }
 export default function BookingConfirmation(props: GuestConfirmationProps) {
@@ -19,19 +19,26 @@ export default function BookingConfirmation(props: GuestConfirmationProps) {
         <StyledSmallHeading
           fontSize="3rem"
           fontWeight="100"
-          padding="40px 0px 20px"
+          padding="10px 0px 20px"
         >
           Confirmed
         </StyledSmallHeading>
         <span className="material-symbols-outlined">restaurant_menu</span>
-        <StyledSmallHeading fontSize="1.6rem" padding="10px 0px">
-          {props.message}
-        </StyledSmallHeading>
         <StyledSmallHeading padding="15px 0px 20px">
-          <span>
+          <span id="booking-information">
             {props.specificBooking.date}, {props.specificBooking.time}:00 pm
           </span>
         </StyledSmallHeading>
+        <StyledSmallHeading padding="10px 0px">
+          <span id="confirmation">
+            A booking confirmtion has been sent to{' '}
+            {props.specificBooking.guest.email}.
+          </span>
+        </StyledSmallHeading>
+        <StyledSmallHeading padding="10px 0px 20px">
+          <span>{props.message ? props.message : ''}</span>
+        </StyledSmallHeading>
+
         <StyledFlexDiv>
           <Link to={props.url}>
             <StyledButton margin="20px 0px 0px">Go home</StyledButton>

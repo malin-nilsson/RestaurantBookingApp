@@ -5,10 +5,10 @@ export default function Reservations() {
     <AddBooking
       overflow="scroll"
       border="none"
-      padding="160px 0px"
+      padding="130px 0px"
       width="45%"
       background='url("assets/outdoor-patio.jpg") no-repeat fixed center / cover'
-      message="You'll soon get an email along with your booking confirmation."
+      message="We look forward to seeing you soon."
       buttonURL="/"
       navigateURL="/reservations"
     ></AddBooking>

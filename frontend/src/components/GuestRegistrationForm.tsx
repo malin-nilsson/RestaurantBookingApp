@@ -1,4 +1,3 @@
-import { StringIterator } from 'cypress/types/lodash'
 import { FormEvent, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { StyledButton } from './styled-components/Buttons/StyledButtons'
@@ -73,7 +72,7 @@ export default function GuestRegistrationForm(props: IGuestFormProps) {
               ? props.requestedAmount + ' guest'
               : props.requestedAmount + ' guests'}
           </StyledParagraph>
-          {props.error && (
+          {error && (
             <div className="error-generic">
               Please fill out required fields.
             </div>
@@ -83,6 +82,7 @@ export default function GuestRegistrationForm(props: IGuestFormProps) {
             <div className="input-container">
               <input
                 type="text"
+                id="name"
                 minLength={2}
                 onChange={(e) => setName(e.target.value)}
                 className={error && !name ? 'error-input' : ''}
@@ -97,6 +97,7 @@ export default function GuestRegistrationForm(props: IGuestFormProps) {
             <div className="input-container">
               <input
                 type="email"
+                id="email"
                 onChange={(e) => setEmail(e.target.value)}
                 className={error && !email ? 'error-input' : ''}
                 value={email}
@@ -110,6 +111,7 @@ export default function GuestRegistrationForm(props: IGuestFormProps) {
             <div className="input-container">
               <input
                 type="tel"
+                id="phone"
                 onChange={(e) => setPhone(e.target.value)}
                 className={error && !phone ? 'error-input' : ''}
                 value={phone}
@@ -134,7 +136,7 @@ export default function GuestRegistrationForm(props: IGuestFormProps) {
               I agree to the <Link to="/gdpr">terms and conditions</Link>
             </label>
           </div>
-          <StyledButton>Confirm booking</StyledButton>
+          <StyledButton id="confirm-booking">Confirm booking</StyledButton>
         </StyledGreenForm>
       </section>
     </>

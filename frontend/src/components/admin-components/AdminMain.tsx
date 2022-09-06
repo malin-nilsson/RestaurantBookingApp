@@ -315,7 +315,6 @@ export default function AdminMain() {
             padding="0px"
             width="100%"
             background="unset"
-            message="A confirmation e-mail has been sent to guest."
             buttonURL="/admin/start"
             navigateURL="/admin/start"
           ></AddBooking>

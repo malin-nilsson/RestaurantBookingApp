@@ -103,7 +103,7 @@ export default function BookingForm(props: IBookingFormProps) {
                   type="button"
                   disabled={amount < 1}
                   onClick={() => setAmount(amount - 1)}
-                  className="material-symbols-outlined"
+                  className="material-symbols-outlined decrease"
                 >
                   remove
                 </button>
@@ -111,14 +111,14 @@ export default function BookingForm(props: IBookingFormProps) {
                   type="button"
                   disabled={amount > 89}
                   onClick={() => setAmount(amount + 1)}
-                  className="material-symbols-outlined"
+                  className="material-symbols-outlined increase"
                 >
                   add
                 </button>
               </div>
             </div>
           </div>
-          <StyledButton>Find a table</StyledButton>
+          <StyledButton id="request-booking">Find a table</StyledButton>
         </StyledGreenForm>
       </section>
     </>

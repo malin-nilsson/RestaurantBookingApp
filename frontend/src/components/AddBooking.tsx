@@ -20,7 +20,7 @@ interface IAddBookingProps {
   padding: string
   width: string
   background?: string
-  message: string
+  message?: string | undefined
   buttonURL: string
   navigateURL: string
 }
