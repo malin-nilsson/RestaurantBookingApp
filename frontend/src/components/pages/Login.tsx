@@ -28,7 +28,6 @@ export default function Login() {
     }
   }, [cookies, navigate]);
 
-  const [values, setValues] = useState({ email: "", password: "" });
   const generateError = (error: string) => {
     console.log(error);
   };
