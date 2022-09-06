@@ -87,6 +87,7 @@ export default function GuestRegistrationForm(props: IGuestFormProps) {
                 onChange={(e) => setName(e.target.value)}
                 className={error && !name ? 'error-input' : ''}
                 value={name}
+                placeholder="Name"
               />
               <span className="material-symbols-outlined">person</span>
             </div>
@@ -101,6 +102,7 @@ export default function GuestRegistrationForm(props: IGuestFormProps) {
                 onChange={(e) => setEmail(e.target.value)}
                 className={error && !email ? 'error-input' : ''}
                 value={email}
+                placeholder="Email"
               />
               <span className="material-symbols-outlined">mail</span>
             </div>
@@ -115,6 +117,7 @@ export default function GuestRegistrationForm(props: IGuestFormProps) {
                 onChange={(e) => setPhone(e.target.value)}
                 className={error && !phone ? 'error-input' : ''}
                 value={phone}
+                placeholder="Phone"
               />
               <span className="material-symbols-outlined">call</span>
             </div>
