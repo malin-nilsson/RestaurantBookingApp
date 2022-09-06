@@ -37,6 +37,27 @@ export const StyledFlexDiv = styled.div`
     }
   }
 
+  .image-container {
+    padding: 50px 0px;
+    width: 90%;
+    margin: 0 auto;
+
+    @media ${devices.tablet} {
+      padding: 120px 0px;
+      width: 80%;
+    }
+
+    @media ${devices.desktop} {
+      padding: 160px 0px;
+      width: 60%;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
   ///////////////////////////////////////
   // CSS classes used inside StyledFlex//
   ///////////////////////////////////////
