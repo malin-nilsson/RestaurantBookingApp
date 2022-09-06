@@ -113,6 +113,7 @@ export default function AdminMain() {
 
       if (filteredData.length > 0) {
         clearPage()
+        setSearchInput('')
         setLoader(true)
         setSearchResults(filteredData)
         setTimeout(stopLoader, 1000)
