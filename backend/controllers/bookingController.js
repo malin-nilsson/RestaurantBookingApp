@@ -188,55 +188,55 @@ const sendConfirmation = async (req, res, next) => {
   next();
 };
 
-// CANCEL RESERVATION FROM USER //
-const userCancel = async (req, res) => {
-  const id = req.params.id;
+// // CANCEL RESERVATION FROM USER //
+// const userCancel = async (req, res) => {
+//   const id = req.params.id;
 
-  try {
-    const booking = await Bookings.findOne({ id: id }).deleteOne();
-    // const booking = await Bookings.findOne({ guest: id });
-    console.log(booking);
-  } catch (error) {
-    res.status(400);
-  }
-};
+//   try {
+//     const booking = await Bookings.findOne({ id: id }).deleteOne();
+//     // const booking = await Bookings.findOne({ guest: id });
+//     console.log(booking);
+//   } catch (error) {
+//     res.status(400);
+//   }
+// };
 
-// SEND CONFIRMATION MAIL //
-const sendConfirmation = async (req, res, next) => {
-  let { email } = req.body;
-  console.log(email);
+// // SEND CONFIRMATION MAIL //
+// const sendConfirmation = async (req, res, next) => {
+//   let { email } = req.body;
+//   console.log(email);
 
-  const getBooking = await Bookings.findOne({ email: email });
-  console.log(getBooking);
-  if (getBooking) {
-    const id = getBooking.id;
+//   const getBooking = await Bookings.findOne({ email: email });
+//   console.log(getBooking);
+//   if (getBooking) {
+//     const id = getBooking.id;
 
-    const transport = nodemailer.createTransport({
-      secure: false,
-      host: process.env.MAIL_HOST,
-      port: process.env.MAIL_PORT,
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
-      },
+//     const transport = nodemailer.createTransport({
+//       secure: false,
+//       host: process.env.MAIL_HOST,
+//       port: process.env.MAIL_PORT,
+//       auth: {
+//         user: process.env.MAIL_USER,
+//         pass: process.env.MAIL_PASS,
+//       },
 
-      tls: {
-        rejectUnauthorized: false,
-      },
-    });
+//       tls: {
+//         rejectUnauthorized: false,
+//       },
+//     });
 
-    await transport.sendMail({
-      from: process.env.MAIL_FROM,
-      to: email,
-      subject: "Your reservation at La Mère has been confirmed",
-      html:
-        '<p>If you would like to cancel your reservation, you can do that <a href="http://localhost:3000/booking_cancelation/' +
-        id +
-        '">here</a></p>',
-    });
-  }
-  next();
-};
+//     await transport.sendMail({
+//       from: process.env.MAIL_FROM,
+//       to: email,
+//       subject: "Your reservation at La Mère has been confirmed",
+//       html:
+//         '<p>If you would like to cancel your reservation, you can do that <a href="http://localhost:3000/booking_cancelation/' +
+//         id +
+//         '">here</a></p>',
+//     });
+//   }
+//   next();
+// };
 
 // CANCEL RESERVATION FROM USER //
 const userCancel = async (req, res) => {
