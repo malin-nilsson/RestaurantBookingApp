@@ -3,11 +3,13 @@ import styled from 'styled-components'
 import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
 import axios from 'axios'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { StyledButton } from '../styled-components/Buttons/StyledButtons'
+import AdminShowBookings from '../admin-components/AdminShowBookings'
+import { BookingContext } from '../../context/BookingContext'
 
 export default function UserCancelReservation() {
   const [showConfirm, setShowConfirm] = useState<Boolean>(true)
-
   const { id } = useParams()
 
   return (
@@ -18,23 +20,28 @@ export default function UserCancelReservation() {
             Are you sure you want to cancel your reservation?
           </StyledMediumHeading>
         ) : (
-          <StyledMediumHeading>
-            Your reservation has been cancelled.
-          </StyledMediumHeading>
+          <>
+            <StyledMediumHeading padding="0px 0px 20px">
+              Your reservation has been cancelled.
+            </StyledMediumHeading>
+            <Link to="/">
+              {' '}
+              <StyledButton>Go back</StyledButton>
+            </Link>
+          </>
         )}
 
         <CancelWrapper>
-          <Link to="/">Back home</Link>
           {showConfirm ? (
-            <button
+            <StyledButton
               onClick={async () => {
-                console.log(showConfirm)
                 axios.delete('http://localhost:4000/bookings/cancel/' + id)
                 setShowConfirm(!showConfirm)
               }}
             >
-              Confirm
-            </button>
+              {' '}
+              Yes, cancel my reservation
+            </StyledButton>
           ) : null}
         </CancelWrapper>
       </StyledFlexDiv>
@@ -50,24 +57,4 @@ const CancelWrapper = styled.div`
   font-size: 1.8rem;
   font-family: var(--headingfont);
   color: var(--beige);
-  a {
-    text-decoration: none;
-    outline: none;
-    color: var(--beige);
-    border: 1px solid var(--beige);
-    background-color: var(--green);
-    padding: 10px 20px 10px 20px;
-    transition: all 0.25s ease-in-out;
-    &:hover {
-      background-color: var(--beige);
-      color: var(--green);
-    }
-  }
-  button {
-    background-color: var(--green);
-    color: var(--beige);
-    border: none;
-    &:hover {
-    }
-  }
 `
