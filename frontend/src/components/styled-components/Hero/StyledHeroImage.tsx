@@ -2,10 +2,13 @@ import styled from 'styled-components'
 import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
 
 export const StyledHeroImage = styled.div`
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  @media ${devices.desktop} {
+    height: 100vh;
+  }
 
   .hero-image-container {
     position: relative;

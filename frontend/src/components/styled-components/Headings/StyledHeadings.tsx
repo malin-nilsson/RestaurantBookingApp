@@ -17,7 +17,7 @@ export const StyledMediumHeading = styled.h2`
   font-weight: 100;
   font-family: var(--headingfont);
   padding: ${(props: IHeadingProps) => props.padding || ''};
-  margin: ${(props: IHeadingProps) => props.margin || '5px'};
+  margin: ${(props: IHeadingProps) => props.margin || '0px'};
   display: flex;
   justify-content: space-between;
 `

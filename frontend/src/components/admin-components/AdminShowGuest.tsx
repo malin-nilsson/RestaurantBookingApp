@@ -1,4 +1,6 @@
+// MODELS //
 import { IGuest } from '../../models/IGuest'
+// STYLED COMPONENTS //
 import { StyledButton } from '../styled-components/Buttons/StyledButtons'
 import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
 import {

@@ -1,3 +1,4 @@
+// STYLED COMPONENTS //
 import styled from 'styled-components'
 import { devices } from '../styling-breakpoints/breakpoints/Breakpoints'
 import {

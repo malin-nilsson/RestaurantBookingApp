@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+// MODELS //
 import { IBooking } from '../../models/IBooking'
 import { IGuest } from '../../models/IGuest'
+// STYLED COMPONENTS //
 import {
   StyledButton,
   StyledGreenButton,

@@ -20,7 +20,7 @@ export const StyledContactWrapper = styled.div`
   }
 
   @media ${devices.desktop} {
-    padding: 35px 0px;
+    padding: 70px 0px;
     width: 30%;
   }
 

@@ -1,10 +1,15 @@
-import StyledHeroVideo from '../styled-components/Hero/StyledHeroVideo'
+// STYLED COMPONENTS //
 import styled from 'styled-components'
+import StyledHeroVideo from '../styled-components/Hero/StyledHeroVideo'
 import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
 import { devices } from '../styling-breakpoints/breakpoints/Breakpoints'
-import { StyledGreenButton } from '../styled-components/Buttons/StyledButtons'
-import { Link } from 'react-router-dom'
+import {
+  StyledButton,
+  StyledGreenButton,
+} from '../styled-components/Buttons/StyledButtons'
 import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
+// REACT ROUTER
+import { Link } from 'react-router-dom'
 
 export default function Home() {
   return (
@@ -17,45 +22,31 @@ export default function Home() {
         <div className="textWrapper">
           <StyledMediumHeading
             padding="0px 0px 10px"
-            fontSize="4.7rem"
+            fontSize="3.6rem"
             textAlign="left"
           >
-            A restaurant for all...
+            Modern French cuisine in the heart of Stockholm
           </StyledMediumHeading>
           <StyledParagraph textAlign="left" padding="10px 0px">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
             aspernatur nisi sunt eius dolorem libero fugiat, repellat officia
             eos doloribus ducimus at laudantium soluta illo impedit architecto
-            consequuntur reprehenderit ipsum.
+            consequuntur ipsum.
           </StyledParagraph>
           <StyledParagraph textAlign="left" padding="10px 0px">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum quo
-            aspernatur aliquid ullam eaque ratione.
-          </StyledParagraph>
-          <StyledParagraph textAlign="left" padding="10px 0px">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis vitae
-            harum amet sunt! Aliquam ex, nostrum ratione placeat similique
-            earum? Laudantium maiores cum delectus quo ex distinctio.
+            aspernatur aliquid ullam eaque ratione. Saepe aspernatur nisi sunt
+            eius dolorem libero.
           </StyledParagraph>
         </div>
         <div className="imageWrapper">
-          <img
-            src="assets/wine-food.jpg"
-            alt="Glass of wine and a plate of food in restaurant setting"
-            className="wineAndFood"
-          />
+          <video poster="" autoPlay loop muted>
+            <source src="assets/restaurant-interior.mp4" />
+          </video>
         </div>
       </HomeContentWrapper>
       <FooterWrapper>
-        <StyledParagraph color="var(--green)" padding="0px 7px">
-          We are usually fully booked months in advance.
-        </StyledParagraph>
-        <StyledParagraph color="var(--green)" padding="0px 7px 20px">
-          You should probably make a reservation now.
-        </StyledParagraph>
-        <Link to="/reservations">
-          <StyledGreenButton>To reservations</StyledGreenButton>
-        </Link>
+        <Link to="/reservations">Make a reservation</Link>
       </FooterWrapper>
     </>
   )
@@ -74,16 +65,20 @@ const HomeContentWrapper = styled.div`
   }
 
   @media ${devices.desktop} {
-    padding: 100px 30px 100px;
+    padding: 120px 30px;
     flex-direction: row;
   }
 
-  .imageWrapper,
-  .textWrapper {
+  .imageWrapper {
     width: 100%;
+    margin: 0 auto;
 
-    @media ${devices.tablet} {
-      text-align: center;
+    @media ${devices.desktop} {
+      width: 55%;
+    }
+
+    video {
+      width: 100%;
     }
   }
 
@@ -91,19 +86,17 @@ const HomeContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
     padding: 0px 20px;
+    margin: 0 auto;
+    width: 100%;
 
     @media ${devices.tablet} {
       padding: 0px 50px;
-      margin: 0 auto;
     }
 
     @media ${devices.desktop} {
-      padding: 0px 50px 0px 30px;
+      padding: 0px 40px 0px 30px;
+      width: 45%;
     }
-  }
-
-  .wineAndFood {
-    width: 100%;
   }
 `
 
@@ -116,8 +109,22 @@ const FooterWrapper = styled.div`
   background-color: var(--beige);
 
   a {
-    color: var(--beige);
+    text-transform: uppercase;
+    text-align: center;
+    font-family: var(--headingfont);
+    border: 1px solid var(--green);
+    padding: 20px 30px;
+    color: var(--green);
+    text-decoration: none;
+    font-size: 1.8rem;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      color: var(--beige);
+      background-color: var(--green);
+    }
   }
+
   @media ${devices.tablet} {
     padding: 80px 0px 80px 0px;
   }

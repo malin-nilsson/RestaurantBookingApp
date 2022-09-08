@@ -1,5 +1,7 @@
 import { FormEvent, useState } from 'react'
+// REACT ROUTER //
 import { Link } from 'react-router-dom'
+// STYLED COMPONENTS //
 import { StyledButton } from './styled-components/Buttons/StyledButtons'
 import { StyledGreenForm } from './styled-components/Forms/StyledGreenForm'
 import { StyledMediumHeading } from './styled-components/Headings/StyledHeadings'

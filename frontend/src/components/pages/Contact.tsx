@@ -1,3 +1,4 @@
+// STYLED COMPONENTS //
 import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
 import { StyledContactWrapper } from '../styled-components/Wrappers/StyledContactWrapper'
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'

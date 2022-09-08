@@ -1,5 +1,8 @@
+// REACT ROUTER //
 import { Link } from 'react-router-dom'
+// MODELS //
 import { IBooking } from '../models/IBooking'
+// STYLED COMPONENTS //
 import { StyledButton } from './styled-components/Buttons/StyledButtons'
 import { StyledSmallHeading } from './styled-components/Headings/StyledHeadings'
 import { StyledConfirmationWrapper } from './styled-components/Wrappers/StyledConfirmationWrapper'
@@ -10,7 +13,8 @@ interface GuestConfirmationProps {
   padding: string
   width: string
   message?: string | undefined
-  url: string
+  buttonURL: string
+  navigateURL: string
 }
 export default function BookingConfirmation(props: GuestConfirmationProps) {
   return (
@@ -31,7 +35,7 @@ export default function BookingConfirmation(props: GuestConfirmationProps) {
         </StyledSmallHeading>
         <StyledSmallHeading padding="10px 0px">
           <span id="confirmation">
-            A booking confirmtion has been sent to{' '}
+            A booking confirmation has been sent to{' '}
             {props.specificBooking.guest.email}.
           </span>
         </StyledSmallHeading>
@@ -40,7 +44,7 @@ export default function BookingConfirmation(props: GuestConfirmationProps) {
         </StyledSmallHeading>
 
         <StyledFlexDiv>
-          <Link to={props.url}>
+          <Link to={props.buttonURL}>
             <StyledButton margin="20px 0px 0px">Go home</StyledButton>
           </Link>
         </StyledFlexDiv>

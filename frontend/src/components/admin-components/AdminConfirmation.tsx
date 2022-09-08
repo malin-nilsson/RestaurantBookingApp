@@ -1,6 +1,7 @@
+// MODELS //
 import { IBooking } from '../../models/IBooking'
 import { ICancellation } from '../../models/ICancellation'
-import { IReservation } from '../../models/IReservation'
+// STYLED COMPONENTS //
 import { StyledSmallHeading } from '../styled-components/Headings/StyledHeadings'
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
 

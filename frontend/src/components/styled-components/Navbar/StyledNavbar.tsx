@@ -4,7 +4,11 @@ import styled from 'styled-components'
 import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
 import { StyledPlantIcon } from '../Icon/StyledPlantIcon'
 
-export default function Navbar() {
+interface INavbarProps {
+  navBackground: boolean
+}
+
+export default function Navbar(props: INavbarProps) {
   const [isActive, setIsActive] = useState<Boolean>(false)
 
   const toggleMobileMenu = () => {
@@ -19,7 +23,13 @@ export default function Navbar() {
         </Link>
       </StyledPlantIcon>
 
-      <StyledNavbar className={isActive ? 'mobile-menu' : ''}>
+      <StyledNavbar
+        className={isActive ? 'mobile-menu' : ''}
+        style={{
+          backgroundColor: props.navBackground ? 'var(--green)' : 'transparent',
+          transition: props.navBackground ? 'background-color 0.3s linear' : '',
+        }}
+      >
         <div className="mobile-menu-icon" onClick={toggleMobileMenu}>
           {isActive ? (
             <span className="material-symbols-outlined">close</span>
@@ -71,7 +81,7 @@ export default function Navbar() {
 }
 
 const StyledNavbar = styled.nav`
-  padding: 20px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,15 +89,17 @@ const StyledNavbar = styled.nav`
   font-family: var(--headingfont);
   position: relative;
   z-index: 3;
-  background-color: var(--green);
   border-bottom: 1px solid var(--beige);
 
   @media ${devices.desktop} {
     flex-direction: row;
     position: fixed;
     width: 100%;
-    background-color: unset;
     border-bottom: unset;
+  }
+
+  &:hover {
+    background-color: var(--green);
   }
 
   ul {

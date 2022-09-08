@@ -1,12 +1,14 @@
 import { FormEvent, useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+// CONTEXT //
 import { BookingContext } from '../../context/BookingContext'
+// MODELS //
 import { IBooking } from '../../models/IBooking'
-import { IReservation } from '../../models/IReservation'
+// SERVICES //
 import { countTables } from '../../services/countTables'
 import { getAvailability } from '../../services/getAvailability'
 import { limitPastDates } from '../../services/limitDate'
 import { saveEditedBooking } from '../../services/saveEditedBooking'
+// STYLED COMPONENTS //
 import { StyledButton } from '../styled-components/Buttons/StyledButtons'
 import { StyledTransparentForm } from '../styled-components/Forms/StyledTransparentForm'
 import {

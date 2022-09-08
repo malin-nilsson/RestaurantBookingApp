@@ -1,5 +1,3 @@
-import React from 'react'
-import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
 
 export default function Menu() {

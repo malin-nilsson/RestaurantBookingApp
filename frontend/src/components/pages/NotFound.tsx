@@ -1,5 +1,6 @@
-import React from 'react'
+// REACT ROUTER //
 import { Link } from 'react-router-dom'
+// STYLED COMPONENTS //
 import { StyledButton } from '../styled-components/Buttons/StyledButtons'
 import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'

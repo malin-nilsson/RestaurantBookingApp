@@ -136,7 +136,7 @@ export const StyledFlexDiv = styled.div`
   }
 
   span {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   .guest-info {

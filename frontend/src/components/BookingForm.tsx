@@ -1,5 +1,7 @@
-import React, { Dispatch, FormEvent, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
+// SERVICES //
 import { limitPastDates } from '../services/limitDate'
+// STYLED COMPONENTS //
 import { StyledButton } from './styled-components/Buttons/StyledButtons'
 import { StyledGreenForm } from './styled-components/Forms/StyledGreenForm'
 import { StyledMediumHeading } from './styled-components/Headings/StyledHeadings'

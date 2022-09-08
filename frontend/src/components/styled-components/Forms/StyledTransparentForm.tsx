@@ -167,4 +167,13 @@ export const StyledTransparentForm = styled.form`
     justify-content: center;
     align-items: stretch;
   }
+
+  .increase,
+  .decrese {
+    transition: scale 0.2s ease-in-out;
+
+    &:hover {
+      scale: 1.02;
+    }
+  }
 `

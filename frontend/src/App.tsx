@@ -1,26 +1,30 @@
 import './App.css'
+import { useEffect, useState } from 'react'
+// REACT ROUTER //
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+// COMPONENTS //
 import Home from './components/pages/Home'
 import Reservations from './components/pages/Reservations'
 import Contact from './components/pages/Contact'
 import Menu from './components/pages/Menu'
 import NotFound from './components/pages/NotFound'
-import { useEffect, useState } from 'react'
-// Context
-import {
-  BookingContext,
-  BookingInterface,
-  defaultValue,
-} from './context/BookingContext'
-import axios from 'axios'
 import Admin from './components/pages/Admin'
 import GDPR from './components/pages/GDPR'
 import LayoutWithNav from './components/LayoutWithNav'
 import LayoutWithoutNav from './components/LayoutWithoutNav'
 import Login from './components/pages/Login'
 import Register from './components/pages/Register'
-import { IBooking } from './models/IBooking'
 import UserCancelReservation from './components/pages/UserCancelReservation'
+// CONTEXT //
+import {
+  BookingContext,
+  BookingInterface,
+  defaultValue,
+} from './context/BookingContext'
+// AXIOS //
+import axios from 'axios'
+// MODELS //
+import { IBooking } from './models/IBooking'
 
 function App() {
   const [bookings, setBookings] = useState<BookingInterface>(defaultValue)

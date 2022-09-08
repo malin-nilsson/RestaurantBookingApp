@@ -16,9 +16,9 @@ export const StyledParagraph = styled.p`
   gap: 15px;
   margin: 0;
   padding: ${(props: ITextProps) => props.padding || '15px'};
-  font-size: ${(props: ITextProps) => props.fontSize || '1.6rem'};
+  font-size: ${(props: ITextProps) => props.fontSize || '1.8rem'};
   font-weight: ${(props: ITextProps) => props.fontWeight || '100'};
-  line-height: 2.8rem;
+  line-height: 2.9rem;
   text-transform: ${(props: ITextProps) => props.textTransform || ''};
   font-family: var(--headingfont);
   text-align: ${(props: ITextProps) => props.textAlign || 'center'};

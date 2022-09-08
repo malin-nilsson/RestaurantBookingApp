@@ -33,4 +33,12 @@ export const StyledGreenForm = styled(StyledTransparentForm)`
       padding: 13px;
     }
   }
+
+  button {
+    transition: scale 0.2s ease-in-out;
+
+    &:hover {
+      scale: 1.02;
+    }
+  }
 `

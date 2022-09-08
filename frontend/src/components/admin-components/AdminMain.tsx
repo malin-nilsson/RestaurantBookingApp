@@ -1,7 +1,15 @@
-import { FormEvent, useContext, useEffect, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
+// CONTEXT //
 import { BookingContext } from '../../context/BookingContext'
+import { GuestContext } from '../../context/GuestContext'
+// MODELS //
+import { IBooking } from '../../models/IBooking'
+import { IGuest } from '../../models/IGuest'
 import { ICancellation } from '../../models/ICancellation'
+// SERVICES //
 import { deleteBooking } from '../../services/deleteBooking'
+import { deleteGuest } from '../../services/deleteGuest'
+// STYLED COMPONENTS //
 import {
   StyledAdminButton,
   StyledButton,
@@ -11,15 +19,12 @@ import { StyledLoader } from '../styled-components/Loader/StyledLoader'
 import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
 import { StyledLinkWrapper } from '../styled-components/Wrappers/StyledLinkWrapper'
+import { StyledConfirmationWrapper } from '../styled-components/Wrappers/StyledConfirmationWrapper'
+// COMPONENTS //
 import AdminShowBookings from './AdminShowBookings'
 import AdminEditBooking from './AdminEditBooking'
 import AdminConfirmation from './AdminConfirmation'
-import { StyledConfirmationWrapper } from '../styled-components/Wrappers/StyledConfirmationWrapper'
-import { IBooking } from '../../models/IBooking'
-import { IGuest } from '../../models/IGuest'
 import AdminShowGuest from './AdminShowGuest'
-import { GuestContext } from '../../context/GuestContext'
-import { deleteGuest } from '../../services/deleteGuest'
 import AddBooking from '../AddBooking'
 
 export default function AdminMain() {
@@ -316,8 +321,8 @@ export default function AdminMain() {
             padding="0px"
             width="100%"
             background="unset"
-            buttonURL="/admin/start"
-            navigateURL="/admin/start"
+            buttonURL="/admin"
+            navigateURL="/admin"
           ></AddBooking>
         )}
         {showBookings && searchResults && (

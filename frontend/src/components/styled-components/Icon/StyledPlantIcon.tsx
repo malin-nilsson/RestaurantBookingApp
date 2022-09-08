@@ -7,24 +7,25 @@ interface IPlantProps {
 
 export const StyledPlantIcon = styled.div`
   position: ${(props: IPlantProps) => props.position || 'absolute'};
-  margin: 15px 20px;
+  padding: 2rem;
   z-index: 100;
-  font-size: 1.8rem;
   font-weight: 900;
   font-family: var(--headingfont);
   text-transform: uppercase;
   cursor: pointer;
 
   @media ${devices.desktop} {
+    padding: 1.2rem 2rem;
+    position: ${(props: IPlantProps) => props.position || 'fixed'};
   }
 
   img {
-    height: 35px;
-    width: 35px;
+    height: 2.7rem;
+    width: 2.7rem;
     transition: scale 0.15s ease-in-out;
 
     &:hover {
-      scale: 1.15;
+      scale: 1.1;
     }
   }
 `

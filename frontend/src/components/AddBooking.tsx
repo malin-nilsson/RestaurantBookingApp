@@ -1,18 +1,23 @@
 import { FormEvent, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+// CONTEXT //
 import { BookingContext } from '../context/BookingContext'
+// MODELS //
+import { IBooking } from '../models/IBooking'
+import { IGuest } from '../models/IGuest'
 import { IBookingRequest } from '../models/IBookingRequest'
+// SERVICES //
 import { countTables } from '../services/countTables'
 import { getAvailability } from '../services/getAvailability'
 import { saveBooking } from '../services/saveBooking'
-import { StyledLoader } from './styled-components/Loader/StyledLoader'
-import { StyledFlexDiv } from './styled-components/Wrappers/StyledFlex'
-import { StyledHeroForm } from './styled-components/Hero/StyledHeroForm'
-import { IBooking } from '../models/IBooking'
-import { IGuest } from '../models/IGuest'
+// COMPONENTS //
 import BookingConfirmation from './BookingConfirmation'
 import BookingForm from './BookingForm'
 import GuestRegistrationForm from './GuestRegistrationForm'
+// STYLED COMPONENTS //
+import { StyledLoader } from './styled-components/Loader/StyledLoader'
+import { StyledFlexDiv } from './styled-components/Wrappers/StyledFlex'
+import { StyledHeroForm } from './styled-components/Hero/StyledHeroForm'
 
 interface IAddBookingProps {
   overflow: string
@@ -117,7 +122,7 @@ export default function AddBooking(props: IAddBookingProps) {
   }
 
   // Confirm if table is available
-  const confirmBooking = (
+  const confirmBooking = async (
     e: FormEvent<HTMLFormElement>,
     guestName: string,
     guestEmail: string,
@@ -153,6 +158,7 @@ export default function AddBooking(props: IAddBookingProps) {
     setSpecificBooking(newBooking)
     // Save booking to db
     saveBooking(newBooking)
+
     // Update context
     bookings.addBooking(newBooking)
 
@@ -203,7 +209,8 @@ export default function AddBooking(props: IAddBookingProps) {
           width={props.width}
           specificBooking={specificBooking}
           message={props.message}
-          url={props.buttonURL}
+          buttonURL={props.buttonURL}
+          navigateURL={props.navigateURL}
         ></BookingConfirmation>
       )}
     </StyledHeroForm>
