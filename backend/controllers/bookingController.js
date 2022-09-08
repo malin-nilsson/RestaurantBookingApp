@@ -188,6 +188,14 @@ const emailCancellation = async (req, res) => {
   }
 }
 
+//////////////////////////////////
+// CLEAR BOOKINGS //
+//////////////////////////////////
+const clearBookings = async (req, res) => {
+  await Bookings.deleteMany({})
+  res.sendStatus(200)
+}
+
 module.exports = {
   saveBooking,
   getBookings,
@@ -195,4 +203,5 @@ module.exports = {
   deleteBooking,
   searchAvailability,
   emailCancellation,
+  clearBookings,
 }

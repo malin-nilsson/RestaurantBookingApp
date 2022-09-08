@@ -6,6 +6,7 @@ const {
   deleteBooking,
   searchAvailability,
   emailCancellation,
+  clearBookings,
 } = require('../controllers/bookingController.js')
 const router = express.Router()
 
@@ -13,9 +14,10 @@ const router = express.Router()
 router.post('/search', searchAvailability)
 // GET BOOKING
 router.get('/', getBookings)
-// router.get("/:id", userCancel);
 // SAVE BOOKING
 router.post('/', saveBooking)
+// CLEAR DB
+router.delete('/clear-bookings', clearBookings)
 // EDIT BOOKING
 router.post('/:id', editBooking)
 // DELETE BOOKING

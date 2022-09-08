@@ -1,3 +1,12 @@
+// Clear bookings before test
+beforeEach(() => {
+  cy.request('DELETE', 'http://localhost:4000/bookings/clear-bookings').then(
+    (response) => {
+      expect(response.status).to.eq(200)
+    },
+  )
+})
+
 describe('booking test', () => {
   ///////////////////////////
   // TEST: BOOKING AS GUEST //
