@@ -3,10 +3,6 @@ import styled from 'styled-components'
 import StyledHeroVideo from '../styled-components/Hero/StyledHeroVideo'
 import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
 import { devices } from '../styling-breakpoints/breakpoints/Breakpoints'
-import {
-  StyledButton,
-  StyledGreenButton,
-} from '../styled-components/Buttons/StyledButtons'
 import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
 // REACT ROUTER
 import { Link } from 'react-router-dom'
@@ -19,7 +15,7 @@ export default function Home() {
       </div>
 
       <HomeContentWrapper>
-        <div className="textWrapper">
+        <div className="text-wrapper">
           <StyledMediumHeading
             padding="0px 0px 10px"
             fontSize="3.6rem"
@@ -39,7 +35,7 @@ export default function Home() {
             eius dolorem libero.
           </StyledParagraph>
         </div>
-        <div className="imageWrapper">
+        <div className="video-wrapper">
           <video poster="" autoPlay loop muted>
             <source src="assets/restaurant-interior.mp4" />
           </video>
@@ -69,7 +65,7 @@ const HomeContentWrapper = styled.div`
     flex-direction: row;
   }
 
-  .imageWrapper {
+  .video-wrapper {
     width: 100%;
     margin: 0 auto;
 
@@ -82,15 +78,15 @@ const HomeContentWrapper = styled.div`
     }
   }
 
-  .textWrapper {
+  .text-wrapper {
     display: flex;
     flex-direction: column;
-    padding: 0px 20px;
+    padding: 10px 20px;
     margin: 0 auto;
     width: 100%;
 
     @media ${devices.tablet} {
-      padding: 0px 50px;
+      padding: 30px 50px;
     }
 
     @media ${devices.desktop} {

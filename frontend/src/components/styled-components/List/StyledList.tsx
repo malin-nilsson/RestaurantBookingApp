@@ -8,17 +8,18 @@ export const StyledList = styled.ul`
   align-items: center;
   flex-direction: column;
   gap: 40px;
-
   margin: 0px auto 30px;
   padding: 0;
 
   @media ${devices.tablet} {
     min-width: 450px;
     max-width: 600px;
+    margin: 30px auto;
   }
 
-  @media ${devices.tablet} {
-    margin: 30px 0px 30px;
+  @media ${devices.desktop} {
+    min-width: 500px;
+    max-width: 550px;
   }
   li {
     display: flex;
