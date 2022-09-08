@@ -210,7 +210,6 @@ export default function AddBooking(props: IAddBookingProps) {
           specificBooking={specificBooking}
           message={props.message}
           buttonURL={props.buttonURL}
-          navigateURL={props.navigateURL}
         ></BookingConfirmation>
       )}
     </StyledHeroForm>

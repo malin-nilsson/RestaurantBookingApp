@@ -322,7 +322,7 @@ export default function AdminMain() {
             width="100%"
             background="unset"
             buttonURL="/admin"
-            navigateURL="/admin"
+            navigateURL="/admin/start"
           ></AddBooking>
         )}
         {showBookings && searchResults && (

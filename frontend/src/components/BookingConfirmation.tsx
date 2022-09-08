@@ -8,15 +8,14 @@ import { StyledSmallHeading } from './styled-components/Headings/StyledHeadings'
 import { StyledConfirmationWrapper } from './styled-components/Wrappers/StyledConfirmationWrapper'
 import { StyledFlexDiv } from './styled-components/Wrappers/StyledFlex'
 
-interface GuestConfirmationProps {
+interface IConfirmationProps {
   specificBooking: IBooking
   padding: string
   width: string
   message?: string | undefined
   buttonURL: string
-  navigateURL: string
 }
-export default function BookingConfirmation(props: GuestConfirmationProps) {
+export default function BookingConfirmation(props: IConfirmationProps) {
   return (
     <StyledFlexDiv padding={props.padding}>
       <StyledConfirmationWrapper width={props.width}>

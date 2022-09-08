@@ -17,7 +17,7 @@ const transport = async (email, date, id) => {
   })
 
   await confirmation.sendMail({
-    from: process.env.MAIL_FROM,
+    from: 'reservations@lamere.com',
     to: email,
     subject: 'Your reservation at La Mère is confirmed',
     html:
