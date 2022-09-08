@@ -36,7 +36,7 @@ const saveBooking = async (req, res) => {
       })
       await newBooking.save()
 
-      // Send confirmation email to guest
+      // Send email confirmation
       transport(email, newBooking.date, newBooking.id)
 
       // Set 200 status and send response
@@ -99,7 +99,7 @@ const editBooking = async (req, res) => {
     const guestID = getBooking.guest
     const foundGuest = await Guest.findById(guestID)
     console.log(foundGuest)
-    // Send confirmation email to guest
+    // Send confirmation about updated reservation to guest
     transport(foundGuest.email, req.body.date, id)
 
     // Set 200 status and send response
@@ -118,6 +118,7 @@ const deleteBooking = async (req, res) => {
   try {
     // Find booking by ID and delete
     await Bookings.findById(id).deleteOne()
+    res.status(200)
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
@@ -181,6 +182,7 @@ const emailCancellation = async (req, res) => {
   try {
     // Find booking in db and delete
     await Bookings.findById(id).deleteOne()
+    res.status(200)
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
