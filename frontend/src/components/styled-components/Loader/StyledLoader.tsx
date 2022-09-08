@@ -1,8 +1,5 @@
 import styled, { keyframes } from 'styled-components'
-
-interface ILoaderProps {
-  margin?: string
-}
+import { IStylingProps } from '../models/IStylingProps'
 
 const loader = keyframes`
   0% {
@@ -20,7 +17,7 @@ export const StyledLoader = styled.span`
   border: 8px solid var(--beige);
   border-bottom-color: transparent;
   border-radius: 50%;
-  margin: ${(props: ILoaderProps) => props.margin || '200px auto 0px'};
+  margin: ${(props: IStylingProps) => props.margin || '200px auto 0px'};
   display: inline-block;
   box-sizing: border-box;
   display: flex;

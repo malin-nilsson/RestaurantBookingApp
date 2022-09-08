@@ -1,13 +1,5 @@
 import styled from 'styled-components'
-
-interface ITextProps {
-  fontSize?: string
-  fontWeight?: string
-  padding?: string
-  color?: string
-  textAlign?: string
-  textTransform?: string
-}
+import { IStylingProps } from '../models/IStylingProps'
 
 export const StyledParagraph = styled.p`
   display: flex;
@@ -15,14 +7,14 @@ export const StyledParagraph = styled.p`
   justify-content: center;
   gap: 15px;
   margin: 0;
-  padding: ${(props: ITextProps) => props.padding || '15px'};
-  font-size: ${(props: ITextProps) => props.fontSize || '1.8rem'};
-  font-weight: ${(props: ITextProps) => props.fontWeight || '100'};
+  padding: ${(props: IStylingProps) => props.padding || '15px'};
+  font-size: ${(props: IStylingProps) => props.fontSize || '1.8rem'};
+  font-weight: ${(props: IStylingProps) => props.fontWeight || '100'};
   line-height: 2.9rem;
-  text-transform: ${(props: ITextProps) => props.textTransform || ''};
+  text-transform: ${(props: IStylingProps) => props.textTransform || ''};
   font-family: var(--headingfont);
-  text-align: ${(props: ITextProps) => props.textAlign || 'center'};
-  color: ${(props: ITextProps) => props.color || 'var(--beige)'};
+  text-align: ${(props: IStylingProps) => props.textAlign || 'center'};
+  color: ${(props: IStylingProps) => props.color || 'var(--beige)'};
 
   .title-bold {
     font-size: 1.5rem;

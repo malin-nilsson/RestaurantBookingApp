@@ -1,18 +1,15 @@
 import styled from 'styled-components'
 import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
+import { IStylingProps } from '../models/IStylingProps'
 
 // Admin link styling - "Find reservation" and "Add new reservation"
-
-interface ILinkWrapperProps {
-  margin?: string
-}
 export const StyledLinkWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin: ${(props: ILinkWrapperProps) => props.margin || ''};
+  margin: ${(props: IStylingProps) => props.margin || ''};
 
   @media ${devices.tablet} {
     flex-direction: row;

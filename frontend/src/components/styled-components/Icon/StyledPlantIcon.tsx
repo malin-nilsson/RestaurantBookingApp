@@ -1,12 +1,9 @@
 import styled from 'styled-components'
 import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
-
-interface IPlantProps {
-  position?: string
-}
+import { IStylingProps } from '../models/IStylingProps'
 
 export const StyledPlantIcon = styled.div`
-  position: ${(props: IPlantProps) => props.position || 'absolute'};
+  position: ${(props: IStylingProps) => props.position || 'absolute'};
   padding: 2rem;
   z-index: 100;
   font-weight: 900;
@@ -16,7 +13,7 @@ export const StyledPlantIcon = styled.div`
 
   @media ${devices.desktop} {
     padding: 1.2rem 2rem;
-    position: ${(props: IPlantProps) => props.position || 'fixed'};
+    position: ${(props: IStylingProps) => props.position || 'fixed'};
   }
 
   img {

@@ -1,14 +1,10 @@
 import styled from 'styled-components'
+import { IStylingProps } from '../models/IStylingProps'
 
-// Hero background used in booking form
-interface IHeroFormProps {
-  overflow?: string
-  background?: string
-}
-
+// Hero background used for booking form
 export const StyledHeroForm = styled.div`
   background-size: cover;
   height: 100vh;
-  overflow: ${(props: IHeroFormProps) => props.overflow || ''};
-  background: ${(props: IHeroFormProps) => props.background || ''};
+  overflow: ${(props: IStylingProps) => props.overflow || ''};
+  background: ${(props: IStylingProps) => props.background || ''};
 `

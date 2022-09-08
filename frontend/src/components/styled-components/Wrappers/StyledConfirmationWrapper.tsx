@@ -1,9 +1,6 @@
 import styled from 'styled-components'
 import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
-
-interface IWrapperProps {
-  width?: string
-}
+import { IStylingProps } from '../models/IStylingProps'
 
 export const StyledConfirmationWrapper = styled.div`
   width: 95%;
@@ -22,7 +19,7 @@ export const StyledConfirmationWrapper = styled.div`
   }
 
   @media ${devices.desktop} {
-    width: ${(props: IWrapperProps) => props.width || ''};
+    width: ${(props: IStylingProps) => props.width || ''};
     padding: 35px 40px;
   }
 

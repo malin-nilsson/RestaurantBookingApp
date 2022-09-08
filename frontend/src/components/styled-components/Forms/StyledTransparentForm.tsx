@@ -1,17 +1,10 @@
 import styled from 'styled-components'
 import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
-
-interface IFormProps {
-  border?: string
-  padding?: string
-  margin?: string
-  bgColor?: string
-  color?: string
-}
+import { IStylingProps } from '../models/IStylingProps'
 
 export const StyledTransparentForm = styled.form`
   width: 95%;
-  margin: ${(props: IFormProps) => props.margin || '10px auto'};
+  margin: ${(props: IStylingProps) => props.margin || '10px auto'};
   display: flex;
   padding: 15px;
   flex-direction: column;
@@ -22,11 +15,12 @@ export const StyledTransparentForm = styled.form`
     min-width: 500px;
     max-width: 550px;
     padding: 20px 40px;
-    border: ${(props: IFormProps) => props.border || '1px solid var(--beige)'};
+    border: ${(props: IStylingProps) =>
+      props.border || '1px solid var(--beige)'};
   }
 
   @media ${devices.desktop} {
-    padding: ${(props: IFormProps) => props.padding || '25px'};
+    padding: ${(props: IStylingProps) => props.padding || '25px'};
   }
 
   .form-field {
