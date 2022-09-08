@@ -3,10 +3,7 @@ import { useEffect, useState } from 'react'
 import { IBooking } from '../../models/IBooking'
 import { IGuest } from '../../models/IGuest'
 // STYLED COMPONENTS //
-import {
-  StyledButton,
-  StyledGreenButton,
-} from '../styled-components/Buttons/StyledButtons'
+import { StyledGreenButton } from '../styled-components/Buttons/StyledButtons'
 import { StyledList } from '../styled-components/List/StyledList'
 import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'

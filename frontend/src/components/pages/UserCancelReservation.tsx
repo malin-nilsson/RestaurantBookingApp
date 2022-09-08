@@ -1,12 +1,13 @@
+import { useState } from 'react'
+// AXIOS //
+import axios from 'axios'
+// REACT ROUTER //
 import { Link, useParams } from 'react-router-dom'
+// STYLED COMPONENTS //
 import styled from 'styled-components'
 import { StyledMediumHeading } from '../styled-components/Headings/StyledHeadings'
 import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
-import axios from 'axios'
-import { useContext, useEffect, useState } from 'react'
 import { StyledButton } from '../styled-components/Buttons/StyledButtons'
-import AdminShowBookings from '../admin-components/AdminShowBookings'
-import { BookingContext } from '../../context/BookingContext'
 
 export default function UserCancelReservation() {
   const [showConfirm, setShowConfirm] = useState<Boolean>(true)

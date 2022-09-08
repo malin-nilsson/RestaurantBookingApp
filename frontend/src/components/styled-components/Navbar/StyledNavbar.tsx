@@ -19,7 +19,7 @@ export default function Navbar(props: INavbarProps) {
     <>
       <StyledPlantIcon>
         <Link to="/">
-          <img src="/assets/logo.png"></img>
+          <img src="/assets/logo.png" alt="La Mére logo"></img>
         </Link>
       </StyledPlantIcon>
 
