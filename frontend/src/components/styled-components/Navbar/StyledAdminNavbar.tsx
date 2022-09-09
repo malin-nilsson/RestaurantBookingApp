@@ -34,7 +34,7 @@ export default function AdminHeader() {
           }
         );
         if (!data.status) {
-          navigate("/admin");
+          navigate("/admin/start");
         } else {
           if (data.role === "user") {
             setIsAdmin(false);
