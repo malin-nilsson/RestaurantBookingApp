@@ -34,13 +34,11 @@ export default function AdminHeader() {
           }
         );
         if (!data.status) {
-          console.log(data.status);
           removeCookie("jwt");
           navigate("/admin");
         } else {
           if (data.role === "user") {
             setIsAdmin(false);
-            navigate("/admin/start");
           } else {
             if (data.role === "admin") {
               setIsAdmin(true);
