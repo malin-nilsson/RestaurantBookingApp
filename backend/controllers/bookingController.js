@@ -173,9 +173,9 @@ const searchAvailability = async (req, res) => {
   }
 }
 
-//////////////////////////////////
-// CANCEL RESERVATION FROM USER //
-//////////////////////////////////
+////////////////////////
+// EMAIL CANCELLATION //
+////////////////////////
 const emailCancellation = async (req, res) => {
   const id = req.params.id
 
@@ -188,9 +188,9 @@ const emailCancellation = async (req, res) => {
   }
 }
 
-//////////////////////////////////
-// CLEAR BOOKINGS //
-//////////////////////////////////
+//////////////////////////////////////
+// CLEAR BOOKINGS IN DB for Cypress //
+//////////////////////////////////////
 const clearBookings = async (req, res) => {
   await Bookings.deleteMany({})
   res.sendStatus(200)

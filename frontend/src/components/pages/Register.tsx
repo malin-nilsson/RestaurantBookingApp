@@ -116,6 +116,7 @@ export default function Register() {
               setValues({ ...values, [e.target.name]: e.target.value })
             }}
           />
+          <label>Confirm password</label>
           <input
             type="password"
             name="confirmPassword"

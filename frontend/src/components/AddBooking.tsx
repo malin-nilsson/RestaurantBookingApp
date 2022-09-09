@@ -57,28 +57,6 @@ export default function AddBooking(props: IAddBookingProps) {
     },
   })
 
-  // Show booking confirmation and stop loader
-  const showConfirmation = () => {
-    window.scrollTo(0, 0)
-    setLoader(false)
-    setGuestForm(false)
-    setConfirmation(true)
-  }
-
-  // Show guest details form and stop loader
-  const showGuestForm = () => {
-    setLoader(false)
-    setBookingForm(false)
-    setGuestForm(true)
-  }
-
-  // Show booking form and stop loader
-  const showBookingForm = () => {
-    setLoader(false)
-    setBookingForm(true)
-    setNotAvailable(true)
-  }
-
   // Check restaurant's availability
   const checkAvailability = async (
     e: FormEvent<HTMLFormElement>,
@@ -88,6 +66,7 @@ export default function AddBooking(props: IAddBookingProps) {
   ) => {
     e.preventDefault()
 
+    // Set state for date, time and amount
     setRequestedDate(requestDate)
     setRequestedTime(requestTime)
     setRequestedAmount(requestAmount)
@@ -167,7 +146,30 @@ export default function AddBooking(props: IAddBookingProps) {
     navigate(props.navigateURL)
   }
 
-  // Toggle between booking form and guest form
+  // LOADER FUNCTIONS //
+  // Stop loader and show booking confirmation
+  const showConfirmation = () => {
+    window.scrollTo(0, 0)
+    setLoader(false)
+    setGuestForm(false)
+    setConfirmation(true)
+  }
+
+  // Stop loader and show guest details form
+  const showGuestForm = () => {
+    setLoader(false)
+    setBookingForm(false)
+    setGuestForm(true)
+  }
+
+  // Stop loader and show booking form
+  const showBookingForm = () => {
+    setLoader(false)
+    setBookingForm(true)
+    setNotAvailable(true)
+  }
+
+  // Goes back to booking form
   const toggleForms = () => {
     window.scrollTo(0, 0)
     setGuestForm(false)

@@ -6,7 +6,7 @@ export default function LayoutWithNav() {
   const [navBackground, setNavBackground] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
 
-  // Set green background on navbar when scrolling down
+  // Give navbar a green background when scrolling down
   const handleScroll = () => {
     const position = window.pageYOffset
     setScrollPosition(position)
