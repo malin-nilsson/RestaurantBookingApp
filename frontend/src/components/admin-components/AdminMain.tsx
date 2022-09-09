@@ -120,7 +120,16 @@ export default function AdminMain() {
         clearPage()
         setSearchInput('')
         setLoader(true)
-        setSearchResults(filteredData)
+
+        // Sort bookings (closest to current date first)
+        const sortedByDate = filteredData.sort(function (
+          a: IBooking,
+          b: IBooking,
+        ) {
+          return a.date.localeCompare(b.date)
+        })
+
+        setSearchResults(sortedByDate)
         setTimeout(stopLoader, 1000)
       } else {
         setNoResultsMessage(true)
