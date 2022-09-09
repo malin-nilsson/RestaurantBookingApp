@@ -15,7 +15,7 @@ End-to-end tests were implemented using Cypress.
 1. Clone the repo\
 `git clone https://github.com/19ozman/la_mere`
 
-2. CD into repo
+2. CD into repo\
 `cd la_mere`
 
 3. Create a .env file\
@@ -33,7 +33,7 @@ Open a new terminal\
 `cd frontend`\
 `npm start`
 
-## Testing with Cypress:\
+## Testing with Cypress:
 1. Open terminal and cd into root directory\
 `cd ..`
 
@@ -43,7 +43,7 @@ Open a new terminal\
 3. Start Cypress\
 `npx cypress open`
 
-## Email confirmation\
+## Email confirmation
 1. Sign in or create a free Gmail account. In the Security tab, activate 2 step verification and create an app password:\
 https://myaccount.google.com/security
 
