@@ -34,7 +34,6 @@ export default function AdminHeader() {
           }
         );
         if (!data.status) {
-          removeCookie("jwt");
           navigate("/admin");
         } else {
           if (data.role === "user") {
