@@ -20,5 +20,7 @@
     "cypress": "^10.7.0",
     "typescript": "^4.8.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "mongoose": "^6.5.4"
+  }
 }

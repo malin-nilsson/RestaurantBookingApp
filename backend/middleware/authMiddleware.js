@@ -10,8 +10,8 @@ const checkAdmin = (req, res, next) => {
         next();
       } else {
         const admin = await AdminModel.findById(decodedToken.id);
-        if ((admin.role = "admin"))
-          res.json({ status: true, admin: admin.email });
+        if (admin.role === "admin" || "user")
+          res.json({ status: true, admin: admin.email, role: admin.role });
         else res.json({ status: false });
         next();
       }

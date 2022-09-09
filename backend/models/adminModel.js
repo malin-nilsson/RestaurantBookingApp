@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const adminSchema = new mongoose.Schema({
+  id: { type: String, required: false },
   email: {
     type: String,
     required: [true, "Email is required!"],
@@ -26,13 +27,17 @@ const adminSchema = new mongoose.Schema({
 
 adminSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
-  if (this.password !== this.confirmPassword) {
-    throw Error("Passwords don't match");
+  if (this.password && this.password.length < 4) {
+    throw Error("Password must be at least 4 characters!");
   } else {
-    this.password = await bcrypt.hash(this.password, salt);
-    this.confirmPassword = await bcrypt.hash(this.confirmPassword, salt);
+    if (this.password !== this.confirmPassword) {
+      throw Error("Passwords don't match");
+    } else {
+      this.password = await bcrypt.hash(this.password, salt);
+      this.confirmPassword = await bcrypt.hash(this.confirmPassword, salt);
+    }
+    next();
   }
-  next();
 });
 
 adminSchema.statics.login = async function (email, password) {
