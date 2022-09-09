@@ -74,9 +74,12 @@ Login at - `"http://localhost:3000/admin".`
 
 `"admins.json"`
 
-## LOGIN CREDENTIALS
+## Login Credentials
 `EMAIL: admin@admin.io` - `PASS: admin`
+
 `EMAIL: user@user.io` - `PASS: user`
+
+`DS`- `localhost:4000/admin/manage` is `NOT` fully functional yet.
 
 ## Screenshots
 ![](./public/images/screenshot-landingpage.jpg)
