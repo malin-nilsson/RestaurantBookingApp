@@ -1,221 +1,231 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useState } from 'react'
 // CONTEXT //
-import { BookingContext } from "../../context/BookingContext";
-import { GuestContext } from "../../context/GuestContext";
+import { BookingContext } from '../../context/BookingContext'
+import { GuestContext } from '../../context/GuestContext'
 // MODELS //
-import { IBooking } from "../../models/IBooking";
-import { IGuest } from "../../models/IGuest";
-import { ICancellation } from "../../models/ICancellation";
+import { IBooking } from '../../models/IBooking'
+import { IGuest } from '../../models/IGuest'
+import { ICancellation } from '../../models/ICancellation'
 // SERVICES //
-import { deleteBooking } from "../../services/deleteBooking";
-import { deleteGuest } from "../../services/deleteGuest";
+import { deleteBooking } from '../../services/deleteBooking'
+import { deleteGuest } from '../../services/deleteGuest'
 // STYLED COMPONENTS //
 import {
   StyledAdminButton,
   StyledButton,
-} from "../styled-components/Buttons/StyledButtons";
-import { StyledTransparentForm } from "../styled-components/Forms/StyledTransparentForm";
-import { StyledLoader } from "../styled-components/Loader/StyledLoader";
-import { StyledParagraph } from "../styled-components/Text/StyledParagraph";
-import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
-import { StyledLinkWrapper } from "../styled-components/Wrappers/StyledLinkWrapper";
-import { StyledConfirmationWrapper } from "../styled-components/Wrappers/StyledConfirmationWrapper";
+} from '../styled-components/Buttons/StyledButtons'
+import { StyledTransparentForm } from '../styled-components/Forms/StyledTransparentForm'
+import { StyledLoader } from '../styled-components/Loader/StyledLoader'
+import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
+import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
+import { StyledLinkWrapper } from '../styled-components/Wrappers/StyledLinkWrapper'
+import { StyledConfirmationWrapper } from '../styled-components/Wrappers/StyledConfirmationWrapper'
 // COMPONENTS //
-import AdminShowBookings from "./AdminShowBookings";
-import AdminEditBooking from "./AdminEditBooking";
-import AdminConfirmation from "./AdminConfirmation";
-import AdminShowGuest from "./AdminShowGuest";
-import AddBooking from "../AddBooking";
+import AdminShowBookings from './AdminShowBookings'
+import AdminEditBooking from './AdminEditBooking'
+import AdminConfirmation from './AdminConfirmation'
+import AdminShowGuest from './AdminShowGuest'
+import AddBooking from '../AddBooking'
 
 export default function AdminMain() {
-  let bookings = useContext(BookingContext);
-  let guests = useContext(GuestContext);
+  let bookings = useContext(BookingContext)
+  let guests = useContext(GuestContext)
   const [guest, setGuest] = useState<IGuest>({
-    _id: "",
-    name: "",
-    email: "",
-    phone: "",
-  });
-  const [searchInput, setSearchInput] = useState("");
-  const [showGuest, setShowGuest] = useState(false);
-  const [filteredByDate, setFilteredByDate] = useState<IBooking[]>();
-  const [searchResults, setSearchResults] = useState<IBooking[]>();
-  const [message, setMessage] = useState("");
-  const [editForm, setEditForm] = useState(false);
-  const [addForm, setAddForm] = useState(false);
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [search, setSearch] = useState(false);
-  const [dateSearchInput, setDateSearchInput] = useState("");
-  const [adminBookingConfirmation, setAdminBookingConfirmation] =
-    useState(false);
-  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
-  const [deleteGuestConfirmation, setDeleteGuestConfirmation] = useState(false);
-  const [cancelledBooking, setCancelledBooking] = useState<ICancellation>();
-  const [notAvailable, setNotAvailable] = useState(false);
-  const [loader, setLoader] = useState<Boolean>(false);
-  const [selectedBooking, setSelectedBooking] = useState<IBooking[]>();
-  const [noResultsMessage, setNoResultsMessage] = useState(false);
-  const [showBookings, setShowBookings] = useState(true);
+    _id: '',
+    name: '',
+    email: '',
+    phone: '',
+  })
+  const [searchInput, setSearchInput] = useState('')
+  const [showGuest, setShowGuest] = useState(false)
+  const [filteredByDate, setFilteredByDate] = useState<IBooking[]>()
+  const [searchResults, setSearchResults] = useState<IBooking[]>()
+  const [message, setMessage] = useState('')
+  const [editForm, setEditForm] = useState(false)
+  const [addForm, setAddForm] = useState(false)
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
+  const [amount, setAmount] = useState(0)
+  const [search, setSearch] = useState(false)
+  const [dateSearchInput, setDateSearchInput] = useState('')
+  const [adminBookingConfirmation, setAdminBookingConfirmation] = useState(
+    false,
+  )
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false)
+  const [deleteGuestConfirmation, setDeleteGuestConfirmation] = useState(false)
+  const [cancelledBooking, setCancelledBooking] = useState<ICancellation>()
+  const [notAvailable, setNotAvailable] = useState(false)
+  const [loader, setLoader] = useState<Boolean>(false)
+  const [selectedBooking, setSelectedBooking] = useState<IBooking[]>()
+  const [noResultsMessage, setNoResultsMessage] = useState(false)
+  const [showBookings, setShowBookings] = useState(true)
   const [specificBooking, setSpecificBooking] = useState<IBooking>({
-    _id: "",
-    date: "",
-    time: "",
+    _id: '',
+    date: '',
+    time: '',
     amount: 0,
     tables: 0,
-    message: "",
+    message: '',
     guest: {
-      name: "",
-      email: "",
-      phone: "",
+      name: '',
+      email: '',
+      phone: '',
     },
-  });
+  })
 
   // Stop loader and show bookings
   const stopLoader = () => {
-    setLoader(false);
-    setShowBookings(true);
-  };
+    setLoader(false)
+    setShowBookings(true)
+  }
 
   // Show confirmation when adding new booking as admin
   const showBookingConfirmation = () => {
-    setSearch(false);
-    setAdminBookingConfirmation(true);
-  };
+    setSearch(false)
+    setAdminBookingConfirmation(true)
+  }
 
   // Clear components
   const clearPage = () => {
-    setEditForm(false);
-    setAddForm(false);
-    setShowGuest(false);
-    setDeleteGuestConfirmation(false);
-    setAdminBookingConfirmation(false);
-    setShowBookings(false);
-    setDeleteConfirmation(false);
-    setNoResultsMessage(false);
-    setSearchResults([]);
-    setFilteredByDate([]);
-  };
+    setEditForm(false)
+    setAddForm(false)
+    setShowGuest(false)
+    setDeleteGuestConfirmation(false)
+    setAdminBookingConfirmation(false)
+    setShowBookings(false)
+    setDeleteConfirmation(false)
+    setNoResultsMessage(false)
+    setSearchResults([])
+    setFilteredByDate([])
+  }
 
   // Search bookings based on text input
-  const searchBookings = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    clearPage();
+  const searchByName = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    clearPage()
 
     if (searchInput) {
       const filteredData = bookings.bookings.filter((booking) => {
         if (booking.guest === null) {
-          setNoResultsMessage(true);
+          setNoResultsMessage(true)
         } else {
           return Object.values(booking.guest.name)
-            .join("")
+            .join('')
             .toLowerCase()
-            .includes(searchInput.toLowerCase());
+            .includes(searchInput.toLowerCase())
         }
-      });
+      })
 
       if (filteredData.length > 0) {
-        clearPage();
-        setSearchInput("");
-        setLoader(true);
-        setSearchResults(filteredData);
-        setTimeout(stopLoader, 1000);
+        clearPage()
+        setSearchInput('')
+        setLoader(true)
+
+        // Sort bookings (closest to current date first)
+        const sortedByDate = filteredData.sort(function (
+          a: IBooking,
+          b: IBooking,
+        ) {
+          return a.date.localeCompare(b.date)
+        })
+
+        setSearchResults(sortedByDate)
+        setTimeout(stopLoader, 1000)
       } else {
-        setNoResultsMessage(true);
+        setNoResultsMessage(true)
       }
     }
-  };
+  }
 
   // Search bookings based on date input
   const searchByDate = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setShowBookings(true);
-    clearPage();
-    setSearchInput("");
+    e.preventDefault()
+    setShowBookings(true)
+    clearPage()
+    setSearchInput('')
     const filteredBookings: IBooking[] = bookings.bookings.filter((booking) => {
       if (booking.guest === null) {
         booking.guest = {
-          name: "Guest information has been removed per request",
-          email: "Guest information has been removed per request",
-          phone: "Guest information has been removed per request",
-        };
-        return booking.date === dateSearchInput;
+          name: 'Guest information has been removed per request',
+          email: 'Guest information has been removed per request',
+          phone: 'Guest information has been removed per request',
+        }
+        return booking.date === dateSearchInput
       } else {
-        return booking.date === dateSearchInput;
+        return booking.date === dateSearchInput
       }
-    });
+    })
 
     if (filteredBookings.length > 0) {
-      clearPage();
-      setDateSearchInput("");
-      setLoader(true);
-      setTimeout(stopLoader, 1000);
-      setSearchResults(filteredBookings);
-      setShowBookings(false);
+      clearPage()
+      setDateSearchInput('')
+      setLoader(true)
+      setTimeout(stopLoader, 1000)
+      setSearchResults(filteredBookings)
+      setShowBookings(false)
     } else {
-      setFilteredByDate([]);
-      setNoResultsMessage(true);
+      setFilteredByDate([])
+      setNoResultsMessage(true)
     }
-  };
+  }
 
   // Show guest form and hide everything else
   const showAddForm = () => {
-    clearPage();
-    setAddForm(true);
-  };
+    clearPage()
+    setAddForm(true)
+  }
 
   // Show edit form
   const showEditForm = (clickedBooking: IBooking) => {
-    setShowBookings(false);
-    setEditForm(true);
-    setSpecificBooking(clickedBooking);
+    setShowBookings(false)
+    setEditForm(true)
+    setSpecificBooking(clickedBooking)
     const bookingToEdit = bookings.bookings.filter(
-      (booking) => booking._id === clickedBooking._id
-    );
-    setSelectedBooking(bookingToEdit);
-    setNotAvailable(false);
-    setDate("");
-    setTime("");
-    setAmount(0);
-    setMessage("");
-  };
+      (booking) => booking._id === clickedBooking._id,
+    )
+    setSelectedBooking(bookingToEdit)
+    setNotAvailable(false)
+    setDate('')
+    setTime('')
+    setAmount(0)
+    setMessage('')
+  }
 
   const showGuestAccount = (guest: IGuest) => {
-    setGuest(guest);
-    setShowBookings(false);
-    setShowGuest(true);
-  };
+    setGuest(guest)
+    setShowBookings(false)
+    setShowGuest(true)
+  }
   // Confirm delete for booking
   const confirmDelete = (booking: IBooking) => {
-    if (window.confirm("Are you sure you want to cancel this reservation?")) {
+    if (window.confirm('Are you sure you want to cancel this reservation?')) {
       const deletedBooking: ICancellation = {
         date: booking.date,
         time: booking.time,
         amount: booking.amount,
         name: booking.guest.name,
-      };
-      setShowBookings(false);
-      setDeleteConfirmation(true);
-      deleteBooking(booking);
-      bookings.deleteBooking(booking);
-      setCancelledBooking(deletedBooking);
+      }
+      setShowBookings(false)
+      setDeleteConfirmation(true)
+      deleteBooking(booking)
+      bookings.deleteBooking(booking)
+      setCancelledBooking(deletedBooking)
     } else {
-      return;
+      return
     }
-  };
+  }
 
   // Confirm delete for guest account
   const confirmGuestDelete = (guest: IGuest) => {
-    if (window.confirm("Are you sure you want to delete this guest account?")) {
-      setShowGuest(false);
-      setDeleteGuestConfirmation(true);
-      deleteGuest(guest);
-      guests.deleteGuest(guest);
+    if (window.confirm('Are you sure you want to delete this guest account?')) {
+      setShowGuest(false)
+      setDeleteGuestConfirmation(true)
+      deleteGuest(guest)
+      guests.deleteGuest(guest)
     } else {
-      return;
+      return
     }
-  };
+  }
   return (
     <>
       <StyledFlexDiv>
@@ -224,9 +234,9 @@ export default function AdminMain() {
             <StyledAdminButton
               type="button"
               onClick={() => {
-                setSearch(true);
-                setAddForm(false);
-                setAdminBookingConfirmation(false);
+                setSearch(true)
+                setAddForm(false)
+                setAdminBookingConfirmation(false)
               }}
             >
               Find reservation
@@ -234,7 +244,7 @@ export default function AdminMain() {
             <StyledAdminButton
               type="button"
               onClick={() => {
-                showAddForm();
+                showAddForm()
               }}
               padding="20px 15px"
               fontSize="1.6rem"
@@ -246,7 +256,7 @@ export default function AdminMain() {
           {search && (
             <StyledFlexDiv>
               <div className="search-forms">
-                <StyledTransparentForm border="none" onSubmit={searchBookings}>
+                <StyledTransparentForm border="none" onSubmit={searchByName}>
                   <StyledFlexDiv justify="flex-start" align="flex-start">
                     <StyledParagraph
                       padding="5px 0px"
@@ -262,8 +272,8 @@ export default function AdminMain() {
                       className="search-input"
                       required={true}
                       onChange={(e) => {
-                        setNoResultsMessage(false);
-                        setSearchInput(e.target.value);
+                        setNoResultsMessage(false)
+                        setSearchInput(e.target.value)
                       }}
                       value={searchInput}
                       placeholder="Find booking by name..."
@@ -290,8 +300,8 @@ export default function AdminMain() {
                       className="search-input"
                       required={true}
                       onChange={(e) => {
-                        setNoResultsMessage(false);
-                        setDateSearchInput(e.target.value);
+                        setNoResultsMessage(false)
+                        setDateSearchInput(e.target.value)
                       }}
                       value={dateSearchInput}
                     />
@@ -315,14 +325,14 @@ export default function AdminMain() {
       <StyledFlexDiv>
         {addForm && (
           <AddBooking
-            overflow={"unset"}
+            overflow={'unset'}
             border="1px solid var(--beige)"
             padding="0px"
             width="100%"
             background="unset"
             buttonURL="/admin"
             navigateURL="/admin/start"
-            message={""}
+            message={''}
           ></AddBooking>
         )}
         {showBookings && searchResults && (
@@ -386,5 +396,5 @@ export default function AdminMain() {
         </StyledConfirmationWrapper>
       )}
     </>
-  );
+  )
 }

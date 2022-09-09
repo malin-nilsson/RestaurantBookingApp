@@ -12,7 +12,7 @@ export const StyledGreenForm = styled(StyledTransparentForm)`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
   @media ${devices.tablet} {
-    padding: 30px 50px;
+    padding: 20px 50px;
     margin: 0px auto 50px;
     width: 70%;
   }

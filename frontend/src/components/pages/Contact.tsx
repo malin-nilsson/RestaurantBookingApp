@@ -13,7 +13,7 @@ export default function Contact() {
       <StyledHeroImage>
         <div className="hero-image-container">
           <img
-            src="assets/hero-image.jpg"
+            src="assets/table-setting.jpg"
             alt="Table setting in a warmly lit restaurant"
           />
         </div>
