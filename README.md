@@ -84,8 +84,8 @@ Login at - `"http://localhost:3000/admin".`
 `DS`- `localhost:4000/admin/manage` is `NOT` fully functional yet.
 
 ## Screenshots
-![](./public/images/screenshot-landingpage.jpg)
-![](./public/images/screenshot-reservations.jpg)
-![](./public/images/screenshot-admin.jpg)
-![](./public/images/screenshot-admin-search.jpg)
+![](./frontend/public/images/screenshot-landingpage.jpg)
+![](./frontend/public/images/screenshot-reservations.jpg)
+![](./frontend/public/images/screenshot-admin.jpg)
+![](./frontend/public/images/screenshot-admin-search.jpg)
 
