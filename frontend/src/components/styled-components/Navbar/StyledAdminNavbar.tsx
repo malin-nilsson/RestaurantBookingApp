@@ -39,6 +39,7 @@ export default function AdminHeader() {
         } else {
           if (data.role === "user") {
             setIsAdmin(false);
+            navigate("/admin/start");
           } else {
             if (data.role === "admin") {
               setIsAdmin(true);
@@ -64,40 +65,35 @@ export default function AdminHeader() {
         </Link>
       </StyledPlantIcon>
       <StyledAdminHeading>ADMIN</StyledAdminHeading>
-      {isAdmin ? (
-        <StyledFlexDiv direction="row" justify="flex-end">
-          <StyledLinkWrapper>
-            <li className="hover-effect">
-              <NavLink
-                to="/admin/manage"
-                className={({ isActive }) => (isActive ? "active-link" : "")}
-              >
-                Manage Users
-              </NavLink>
-            </li>
-          </StyledLinkWrapper>
-          <StyledLinkWrapper>
-            <li className="hover-effect">
-              <NavLink
-                to="/admin/register"
-                className={({ isActive }) => (isActive ? "active-link" : "")}
-              >
-                Register User
-              </NavLink>
-            </li>
-          </StyledLinkWrapper>
-
-          <span onClick={logOut} className="material-symbols-outlined">
-            logout
-          </span>
-        </StyledFlexDiv>
-      ) : (
-        <StyledFlexDiv direction="row" justify="flex-end">
-          <span onClick={logOut} className="material-symbols-outlined">
-            logout
-          </span>
-        </StyledFlexDiv>
-      )}
+      <StyledFlexDiv direction="row" justify="flex-end">
+        {isAdmin ? (
+          <>
+            <StyledLinkWrapper>
+              <li className="hover-effect">
+                <NavLink
+                  to="/admin/manage"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
+                  Manage Users
+                </NavLink>
+              </li>
+            </StyledLinkWrapper>
+            <StyledLinkWrapper>
+              <li className="hover-effect">
+                <NavLink
+                  to="/admin/register"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
+                  Register User
+                </NavLink>
+              </li>
+            </StyledLinkWrapper>
+          </>
+        ) : null}
+        <span onClick={logOut} className="material-symbols-outlined">
+          logout
+        </span>
+      </StyledFlexDiv>
     </StyledAdminNavbar>
   );
 }
