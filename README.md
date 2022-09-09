@@ -85,7 +85,7 @@ Login at - `"http://localhost:3000/admin".`
 
 ## Screenshots
 ![](./frontend/public/assets/screenshot-landingpage.jpg)
-![](./frontend/public/assets/screenshot-reservations.jpg)
+![](./frontend/public/assets/screenshot-reservation.jpg)
 ![](./frontend/public/assets/screenshot-admin.jpg)
 ![](./frontend/public/assets/screenshot-admin-search.jpg)
 
