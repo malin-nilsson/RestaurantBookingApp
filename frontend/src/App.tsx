@@ -25,26 +25,30 @@ import {
 import axios from "axios";
 // MODELS //
 import { IBooking } from "./models/IBooking";
-import { AdminContext, IAdminContext } from "./context/AdminContext";
+import {
+  AdminContext,
+  AdminInterface,
+  startValue,
+} from "./context/AdminContext";
 import AdminManage from "./components/pages/AdminManage";
+import { IAdmin } from "./models/IAdmin";
 
 function App() {
   const [bookings, setBookings] = useState<BookingInterface>(defaultValue);
-  const [adminData, setAdminData] = useState<IAdminContext>({
-    admin: [],
-    updateContext: updateContext,
-  });
-
-  function updateContext(updatedContext: IAdminContext): void {
-    setAdminData({ ...updatedContext });
-  }
+  const [admins, setAdmins] = useState<AdminInterface>(startValue);
 
   useEffect(() => {
     // Get all bookings and save them in Booking context
     axios.get<IBooking[]>("http://localhost:4000/bookings").then((response) => {
       setBookings({ ...bookings, bookings: response.data });
     });
-  }, [bookings.bookings.length]);
+
+    axios
+      .get<IAdmin[]>("http://localhost:4000/admin/manage")
+      .then((response) => {
+        setAdmins({ ...admins, adminDb: response.data });
+      });
+  }, [bookings.bookings.length, admins.adminDb.length]);
 
   // Add new booking to context
   bookings.addBooking = (b: IBooking) => {
@@ -78,7 +82,7 @@ function App() {
   };
 
   return (
-    <AdminContext.Provider value={adminData}>
+    <AdminContext.Provider value={startValue}>
       <BookingContext.Provider value={bookings}>
         <BrowserRouter>
           <Routes>

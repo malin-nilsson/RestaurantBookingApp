@@ -1,10 +1,14 @@
 import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
+import { error } from "console";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { AdminContext } from "../../context/AdminContext";
 import { IAdmin } from "../../models/IAdmin";
+import { deleteAdmins } from "../../services/adminService";
 
 import AdminPermission from "../admin-components/AdminPermission";
+import AdminShowBookings from "../admin-components/AdminShowBookings";
 import { StyledAdminButton } from "../styled-components/Buttons/StyledButtons";
 import {
   StyledMediumHeading,
@@ -14,6 +18,8 @@ import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
 
 export default function AdminManage() {
   const navigate = useNavigate();
+
+  let adminDb = useContext(AdminContext);
 
   const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -46,7 +52,7 @@ export default function AdminManage() {
 
               // { withCredentials: false }
             );
-            console.log(data);
+
             setUsersDb(data.data);
           }
         }
@@ -58,6 +64,19 @@ export default function AdminManage() {
 
   const handleChange = async (e: ChangeEvent<HTMLButtonElement>) => {
     e.preventDefault();
+  };
+
+  const deleteFromList = async (admin: IAdmin) => {
+    try {
+      const res = await axios.delete(
+        "http://localhost:4000/admins/manage/" + admin._id
+      );
+      if (res.data.success) {
+        alert(res.data.msg);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -72,7 +91,9 @@ export default function AdminManage() {
                   User: {admins.email} - Role: {admins.role}
                 </StyledSmallHeading>
                 <StyledFlexDiv direction="row">
-                  <StyledAdminButton>Delete User</StyledAdminButton>
+                  <StyledAdminButton onClick={(e) => deleteFromList(admins)}>
+                    Delete User
+                  </StyledAdminButton>
                   <StyledAdminButton
                     onSubmit={(e: ChangeEvent<HTMLButtonElement>) => {
                       setChangeRole({

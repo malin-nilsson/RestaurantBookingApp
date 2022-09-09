@@ -3,12 +3,14 @@ import { IAdmin } from "../models/IAdmin";
 
 // const admin = JSON.parse(localStorage.getItem("admin"))
 
-export interface IAdminContext {
-  admin: IAdmin[];
-  updateContext(updatedContext: IAdminContext): void;
+export interface AdminInterface {
+  adminDb: IAdmin[];
+  deleteUser(d: IAdmin): void;
 }
 
-export const AdminContext = createContext<IAdminContext>({
-  admin: [],
-  updateContext: () => {},
-});
+export const startValue = {
+  adminDb: [],
+  deleteUser: (d: IAdmin) => {},
+};
+
+export const AdminContext = createContext(startValue);

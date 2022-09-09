@@ -95,18 +95,38 @@ const getRegister = async (req, res) => {
   res.status(200).send(admins);
 };
 
+const getNewRoute = async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  try {
+    await AdminModel.findById({ success: true, msg: "ID found" });
+    res.status(200).json(id);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 // DELETE ADMIN
-// const deleteAdmin = async (req, res) => {
-//   const {email} = req.body
-//   try {
-//     const user = await AdminModel.find()
-//   }
-// }
+const deleteAdmin = async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  try {
+    await AdminModel.findById(id).deleteOne;
+    res.status(200).json({ success: true, msg: "User Deleted" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// CHANGE ROLE
+const changeRole = async (req, res) => {};
 
 module.exports = {
   loginAdmin,
   getRegister,
   registerAdmin,
   getManage,
-  // deleteAdmin
+  deleteAdmin,
+  changeRole,
+  getNewRoute,
 };

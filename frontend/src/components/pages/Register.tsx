@@ -119,7 +119,7 @@ export default function Register() {
       }
     }
     setTimeout(stopLoader, 8000);
-    setErrorMsg("");
+    // setErrorMsg("");
   };
 
   return (
