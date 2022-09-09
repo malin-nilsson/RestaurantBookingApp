@@ -48,7 +48,6 @@ export default function Register() {
           { withCredentials: true }
         );
         if (!data.status) {
-          removeCookie("jwt");
           navigate("/admin");
         } else {
           if (data.role === "user") {

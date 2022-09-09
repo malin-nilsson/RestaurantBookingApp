@@ -13,9 +13,6 @@ const { checkAdmin } = require("../middleware/authMiddleware");
 // CHECK FOR JWT
 router.post("/", checkAdmin);
 
-// // GET ADMINS
-// router.get("/start", getManage);
-
 // LOG IN ADMIN
 router.post("/login", loginAdmin);
 
