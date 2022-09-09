@@ -1,17 +1,38 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
-const bookingRoutes = require("./routes/bookings");
-const guestRoutes = require("./routes/guest");
+const cookieParser = require("cookie-parser");
+// const nodemailer = require("nodemailer");
+const bodyParser = require("body-parser");
+
+const bookingRoutes = require("./routes/bookingsRoute");
+const guestRoutes = require("./routes/guestRoute");
+const adminRoutes = require("./routes/adminRoute");
+
+const Reservations = require("./models/reservationModel");
+
 // EXPRESS APP
 const app = express();
 
 // MIDDLEWARE
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    credentials: true,
+  })
+);
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
+
   next();
 });
 
@@ -19,8 +40,21 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.send("200");
 });
-app.use("/api/booking", bookingRoutes);
-app.use("/api/guest", guestRoutes);
+
+app.use("/bookings", bookingRoutes);
+app.use("/guests", guestRoutes);
+app.use("/admin", adminRoutes);
+
+// app.delete("/booking_cancelation/:id", async (req, res) => {
+//   const id = req.params.id;
+//   try {
+//     await Reservations.findById(id).deleteOne();
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+//   // res.redirect("http://localhost:3000");
+//   res.sendStatus(200);
+// });
 
 // CONNECT TO DB
 mongoose
