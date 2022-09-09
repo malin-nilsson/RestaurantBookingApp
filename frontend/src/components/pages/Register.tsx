@@ -55,7 +55,7 @@ export default function Register() {
             setIsAdmin(false);
             return <AdminPermission />;
           } else {
-            // ADD TO README.MD
+            // ADD TO README.MD change to "user" to create first user/admin then change in mongoDB
             if (data.role === "admin") {
               setIsAdmin(true);
             }

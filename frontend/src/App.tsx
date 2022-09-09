@@ -25,6 +25,8 @@ import {
 import axios from "axios";
 // MODELS //
 import { IBooking } from "./models/IBooking";
+import { AdminContext, IAdminContext } from "./context/AdminContext";
+import AdminManage from "./components/pages/AdminManage";
 
 function App() {
   const [bookings, setBookings] = useState<BookingInterface>(defaultValue);
