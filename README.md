@@ -58,19 +58,21 @@ Login at - "http://localhost:3000/admin".
 
 2. File is located in - "backend/db/admins.json"\
 
-3. Connect `MONGO_URI=”your MongoDB connection string/LA_MERE” =>`\
+3. Connect to your `MongoDB` 
 
- `LA_MERE =>`\
+`MONGO_URI=”your MongoDB connection string/LA_MERE” =>`
 
-`Create collection =>`\ 
+`LA_MERE =>`
 
-`"admins" =>`\
+`Create collection =>`
 
-`"ADD DATA" =>`\
+`"admins" =>`
 
-`"Import File" =>`\
+`"ADD DATA" =>`
 
-`"admins.json"`\
+`"Import File" =>`
+
+`"admins.json"`
 
 LOGIN CREDENTIALS\
 EMAIL: admin@admin.io - PASS: admin
