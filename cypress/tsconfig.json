@@ -4,5 +4,5 @@
     "lib": ["es5", "dom"],
     "types": ["cypress"]
   },
-  "include": ["**/*.ts", "e2e/booking.cy.js"]
+  "include": ["**/*.ts", "e2e/booking.cy.js", "e2e/admin.cy.js"]
 }

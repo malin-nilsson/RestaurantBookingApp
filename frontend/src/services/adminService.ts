@@ -1,8 +1,9 @@
 import axios from "axios";
+import { isJSDocUnknownTag } from "typescript";
 import { IAdmin } from "../models/IAdmin";
 
-export async function getAdmin(): Promise<IAdmin[]> {
-  const API = "http://localhost:4000/admin";
+export async function getAdmins(): Promise<IAdmin[]> {
+  const API = "http://localhost:4000/admin/start";
 
   return await (
     await axios.get(API)
@@ -45,4 +46,12 @@ export async function loginAdmin(admin: IAdmin): Promise<IAdmin[]> {
   const API = "http://localhost:4000/admin";
 
   return await axios.post(API, admin);
+}
+
+export async function getDeleteAdmin(admin: IAdmin): Promise<IAdmin[]> {
+  const API = "http://localhost:4000/admin/delete";
+
+  return await (
+    await axios.get(API)
+  ).data;
 }

@@ -1,9 +1,10 @@
 const { defineConfig } = require("cypress");
+import clearAdmins from "./cypress/plugins/index";
 
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      on("task", { clearAdmins });
     },
   },
 });
