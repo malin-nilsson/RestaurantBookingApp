@@ -60,7 +60,7 @@ Login at - `"http://localhost:3000/admin".`
 
 3. Connect to your `MongoDB`
 
-`MONGO_URI=”your MongoDB connection string/LA_MERE” =>`
+`.env` `MONGO_URI=”your MongoDB connection string/LA_MERE” =>`
 
 `In MongoDB client when connected =>`
 
