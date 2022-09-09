@@ -51,18 +51,24 @@ MAIL_USER=”Your email address”\
 MAIL_PASS=”Your app password”
 
 ## Access admin page
-////////////////////////////////////////
-Login @ - "http://localhost:3000/admin".
-////////////////////////////////////////
-1. Make sure to use the file - "admins.json" - and import to MongoDB.
 
-2. File is located in - "backend/db/admins.json"
+Login at - "http://localhost:3000/admin".
 
-3. Connect to Mongo_URI="mongodb://localhost:27017/LA_MERE" => LA_MERE => add collection => "admins" => "ADD DATA" => Import File => admins.json
+1. Make sure to use the file - "admins.json" - and import to MongoDB.\
 
+2. File is located in - "backend/db/admins.json"\
 
-admin@admin.io // pass: admin
-user@user.io // pass: user
+3. Connect MONGO_URI=”your MongoDB connection string/LA_MERE” => 
+LA_MERE => 
+Create collection => 
+"admins" => 
+"ADD DATA" => 
+"Import File" => 
+"admins.json"
+
+LOGIN CREDENTIALS\
+EMAIL: admin@admin.io - PASS: admin
+EMAIL: user@user.io - PASS: user
 
 ## Screenshots
 ![](./public/images/screenshot-landingpage.jpg)
