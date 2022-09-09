@@ -9,8 +9,6 @@ import {
   StyledMediumHeading,
   StyledSmallHeading,
 } from "../styled-components/Headings/StyledHeadings";
-import { getAdmins } from "../../services/adminService";
-import { IAdmin } from "../../models/IAdmin";
 import AdminPermission from "../admin-components/AdminPermission";
 import AdminComplete from "../admin-components/AdminComplete";
 import { StyledLoader } from "../styled-components/Loader/StyledLoader";
@@ -19,20 +17,24 @@ export default function Register() {
   const navigate = useNavigate();
 
   const MAILERR = "Email already in use!";
-  const PASSERR = "Password need to be at least 4 characters.";
-  const CONFIRMPASS = "Password's don't match!";
+  const PASSERR = "Password must be at least 4 characters!";
+  const CONFIRMERR = "Password's don't match!";
+  const SHORTERR = "Password must be at least 4 characters!";
 
-  const [loading, setLoading] = useState(true);
+  const [inProgress, setInProgress] = useState(true);
+  const [loader, setLoader] = useState(false);
+  const [showComplete, setShowComplete] = useState(true);
+
   const [showError, setShowError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const [isComplete, setIsComplete] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [values, setValues] = useState({
     email: "",
     password: "",
     confirmPassword: "",
+    tooShort: "",
   });
 
   useEffect(() => {
@@ -65,72 +67,70 @@ export default function Register() {
   }, [cookies, navigate, removeCookie]);
 
   const generateError = (error: string) => {
-    console.log(error);
+    console.log(errorMsg);
+  };
+
+  const stopLoader = () => {
+    setLoader(false);
+    setShowComplete(true);
+    setInProgress(true);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (values.password !== values.confirmPassword) {
-      setShowError(true);
-      setErrorMsg(CONFIRMPASS);
-      setIsComplete(false);
-      setLoading(false);
-    }
-    if (values.password.length < 4) {
-      setShowError(true);
-      setErrorMsg(PASSERR);
-      setIsComplete(false);
-      setLoading(false);
-    } else {
-      try {
-        setIsComplete(false);
-        setTimeout(() => {
-          setIsComplete(true);
-          setLoading(false);
-        }, 1500);
-        const { data } = await axios.post(
-          "http://localhost:4000/admin/register",
-          {
-            ...values,
-          },
-          {
-            withCredentials: false,
-          }
-        );
 
-        if (data) {
-          if (data.errors) {
-            const { email, password, confirmPassword } = data.errors;
-            if (email) {
-              setErrorMsg(MAILERR);
-              generateError(email);
-              setShowError(true);
-              setIsComplete(false);
-              setLoading(false);
-            } else if (password) {
-              setErrorMsg(PASSERR);
-              generateError(password);
-              setShowError(true);
-              setIsComplete(false);
-              setLoading(false);
-            } else if (confirmPassword) {
-              setErrorMsg(CONFIRMPASS);
-              generateError(confirmPassword);
-              setShowError(true);
-              setIsComplete(false);
-              setLoading(false);
-            }
+    try {
+      const { data } = await axios.post(
+        "http://localhost:4000/admin/register",
+        {
+          ...values,
+        },
+        {
+          withCredentials: false,
+        }
+      );
+      setLoader(true);
+      if (data) {
+        if (data.errors) {
+          setLoader(false);
+          console.log(data.errors);
+          const { email, password, confirmPassword, tooShort } = data.errors;
+          if (email) {
+            setErrorMsg(MAILERR);
+            generateError(email);
+            setShowError(true);
+            setLoader(false);
+          } else if (password !== tooShort) {
+            generateError(password);
+            setErrorMsg(SHORTERR);
+            setShowError(true);
+            setLoader(false);
+          } else if (confirmPassword !== values.confirmPassword) {
+            generateError(confirmPassword);
+            setErrorMsg(CONFIRMERR);
+            setShowError(true);
+            setLoader(false);
           }
         }
-      } catch (err) {
+      }
+    } catch (err) {
+      if (err) {
+        setLoader(false);
         console.log(err);
       }
     }
+    setTimeout(stopLoader, 8000);
+    setErrorMsg("");
   };
 
   return (
     <>
-      {isComplete ? (
+      {loader ? (
+        <>
+          <AdminComplete />
+          <StyledLoader />
+        </>
+      ) : (
         <>
           {isAdmin ? (
             <StyledFlexDiv padding="7rem 0.5rem 1rem">
@@ -180,11 +180,6 @@ export default function Register() {
           ) : (
             <AdminPermission></AdminPermission>
           )}
-        </>
-      ) : (
-        <>
-          <AdminComplete />
-          <StyledLoader />
         </>
       )}
     </>

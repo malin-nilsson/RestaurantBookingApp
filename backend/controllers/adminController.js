@@ -9,11 +9,15 @@ const createToken = (id) => {
 
 // HANDLE ERRORS
 const handleErrors = (err) => {
-  let errors = { email: "", password: "", confirmPassword: "" };
+  let errors = { email: "", password: "", confirmPassword: "", tooShort: "" };
 
   console.log(err);
   if (err.message === "Incorrect email!") {
     errors.email = "Email is not registered!";
+  }
+
+  if (err.message === "Password must be at least 4 characters!") {
+    errors.tooShort = "Password must be at least 4 characters!";
   }
 
   if (err.message === "Incorrect password!") {

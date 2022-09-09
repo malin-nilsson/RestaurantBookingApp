@@ -48,7 +48,7 @@ export default function AdminManage() {
             if (data.role === "admin") {
               setIsAdmin(true);
               const data = await axios.get(
-                "http://localhost:4000/admin/manage"
+                "http://localhost:4000/admin/register"
 
                 // { withCredentials: false }
               );

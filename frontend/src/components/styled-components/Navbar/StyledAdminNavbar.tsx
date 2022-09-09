@@ -76,6 +76,16 @@ export default function AdminHeader() {
               </NavLink>
             </li>
           </StyledLinkWrapper>
+          <StyledLinkWrapper>
+            <li className="hover-effect">
+              <NavLink
+                to="/admin/register"
+                className={({ isActive }) => (isActive ? "active-link" : "")}
+              >
+                Register User
+              </NavLink>
+            </li>
+          </StyledLinkWrapper>
 
           <span onClick={logOut} className="material-symbols-outlined">
             logout

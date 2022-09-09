@@ -18,7 +18,7 @@ export default function AdminComplete() {
       <StyledCompleteDiv>
         <StyledMediumHeading>Registration Complete!</StyledMediumHeading>
         <StyledSmallHeading>
-          Wait 15 seconds to register a new user.
+          Please wait a few seconds before registering a new user.
         </StyledSmallHeading>
         <StyledLinkWrapper>
           <li className="hover-effect">
@@ -29,14 +29,6 @@ export default function AdminComplete() {
               Back to Start
             </NavLink>
           </li>
-          {/* <li className="hover-effect">
-            <NavLink
-              to="/admin/register"
-              className={({ isActive }) => (isActive ? "active-link" : "")}
-            >
-              Register New User
-            </NavLink>
-          </li> */}
         </StyledLinkWrapper>
       </StyledCompleteDiv>
     </>
