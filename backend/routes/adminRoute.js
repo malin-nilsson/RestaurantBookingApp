@@ -10,7 +10,7 @@ const {
 
 const { checkAdmin } = require("../middleware/authMiddleware");
 
-// CHECK FOR JWT
+// DECODE JWT
 router.post("/", checkAdmin);
 
 // LOG IN ADMIN

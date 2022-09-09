@@ -54,7 +54,6 @@ export default function Register() {
             setIsAdmin(false);
             return <AdminPermission />;
           } else {
-            // ADD TO README.MD
             if (data.role === "admin") {
               setIsAdmin(true);
             }
