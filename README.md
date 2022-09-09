@@ -48,7 +48,7 @@ Open a new terminal\
 https://myaccount.google.com/security
 
 2. Add the credentials (your email address and app password) to variables in your .env file:\
-MAIL_USER=”yourgmailaddress@gmail.com”\
+MAIL_USER=”Your email address”\
 MAIL_PASS=”Your app password”
 
 ## Access admin page
