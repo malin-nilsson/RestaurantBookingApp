@@ -52,7 +52,11 @@ MAIL_USER=”Your email address”\
 MAIL_PASS=”Your app password”
 
 ## Access admin page
-To access admin page, create an admin account at /admin/register
+Login @ "localhost:3000/admin"
+Make sure to use "admins.json" and import to MongoDB.
+
+admin@admin.io // pass: admin
+user@user.io // pass: user
 
 ## Screenshots
 ![](./public/images/screenshot-landingpage.jpg)
