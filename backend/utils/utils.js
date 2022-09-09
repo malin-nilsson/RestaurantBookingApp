@@ -3,16 +3,10 @@ const nodemailer = require('nodemailer')
 // SEND CONFIRMATION EMAIL
 const transport = async (email, date, id) => {
   const confirmation = nodemailer.createTransport({
-    secure: false,
-    host: process.env.MAIL_HOST,
-    port: process.env.MAIL_PORT,
+    service: 'gmail',
     auth: {
       user: process.env.MAIL_USER,
       pass: process.env.MAIL_PASS,
-    },
-
-    tls: {
-      rejectUnauthorized: false,
     },
   })
 
