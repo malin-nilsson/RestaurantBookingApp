@@ -22,7 +22,6 @@ End-to-end tests were implemented using Cypress.
 To run this application you'll need the following three environment variables in a .env file in the backend folder:\
 PORT=4000\
 MONGO_URI=”your MongoDB connection string”\
-SECRET=”your JWT secret”
 
 4. Start server\
 `cd backend`\
