@@ -9,11 +9,15 @@ const createToken = (id) => {
 
 // HANDLE ERRORS
 const handleErrors = (err) => {
-  let errors = { email: "", password: "", confirmPassword: "" };
+  let errors = { email: "", password: "", confirmPassword: "", tooShort: "" };
 
   console.log(err);
   if (err.message === "Incorrect email!") {
     errors.email = "Email is not registered!";
+  }
+
+  if (err.message === "Password must be at least 4 characters!") {
+    errors.tooShort = "Password must be at least 4 characters!";
   }
 
   if (err.message === "Incorrect password!") {
@@ -60,13 +64,18 @@ const registerAdmin = async (req, res, next) => {
   }
 };
 
-// LOGIN ADMIN 2.0
+// LOGIN ADMIN
 const loginAdmin = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
   try {
-    const user = await AdminModel.login(email, password);
+    const user = await AdminModel.login(email, password, role);
     const token = createToken(user._id);
-    res.cookie("jwt", token, { httpOnly: false, maxAge: maxAge * 1000 });
+
+    res.cookie("jwt", token, {
+      httpOnly: false,
+      maxAge: maxAge * 1000,
+    });
+
     res.status(200).json({ user: user._id, status: true });
   } catch (err) {
     const errors = handleErrors(err);
@@ -74,21 +83,30 @@ const loginAdmin = async (req, res) => {
   }
 };
 
-// GET /ADMIN
-const getAdminMain = async (req, res) => {
+// GET /ADMINS/MANAGE
+const getManage = async (req, res) => {
   const admins = await AdminModel.find();
   res.status(200).json(admins);
 };
 
-// GET /AMIN/REGISTER
-const getRegisterAdmin = async (req, res) => {
+// GET /ADMIN/REGISTER
+const getRegister = async (req, res) => {
   const admins = await AdminModel.find();
-  res.status(200).json(admins);
+  res.status(200).send(admins);
 };
+
+// DELETE ADMIN
+// const deleteAdmin = async (req, res) => {
+//   const {email} = req.body
+//   try {
+//     const user = await AdminModel.find()
+//   }
+// }
 
 module.exports = {
-  getAdminMain,
   loginAdmin,
-  getRegisterAdmin,
+  getRegister,
   registerAdmin,
+  getManage,
+  // deleteAdmin
 };
