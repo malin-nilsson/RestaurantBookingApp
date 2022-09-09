@@ -1,4 +1,4 @@
-# Restaurant Booking App 🍽️📅
+# Restaurant Booking App 📅 🍽️
 Fullstack MERN app using TypeScript, Styled components, authentication, React Router and React Context.
 
 This is a school project where we were tasked to create a booking system for a restaurant. 
@@ -49,7 +49,7 @@ https://myaccount.google.com/security
 
 2. Add the credentials (your email address and app password) to variables in your .env file:\
 MAIL_USER=”yourgmailaddress@gmail.com”\
-MAIL_PASS=”Your app password”\
+MAIL_PASS=”Your app password”
 
 ## Access admin page
 To access admin page, create an admin account at /admin/register
