@@ -1,15 +1,15 @@
 // STYLED COMPONENTS //
-import styled from 'styled-components'
-import { devices } from '../styling-breakpoints/breakpoints/Breakpoints'
+import styled from "styled-components";
+import { devices } from "../styling-breakpoints/breakpoints/Breakpoints";
 import {
   StyledMediumHeading,
   StyledSmallHeading,
-} from '../styled-components/Headings/StyledHeadings'
-import { StyledParagraph } from '../styled-components/Text/StyledParagraph'
-import { StyledFlexDiv } from '../styled-components/Wrappers/StyledFlex'
+} from "../styled-components/Headings/StyledHeadings";
+import { StyledParagraph } from "../styled-components/Text/StyledParagraph";
+import { StyledFlexDiv } from "../styled-components/Wrappers/StyledFlex";
 
 export default function GDPR() {
-  window.scrollTo(0, 0)
+  window.scrollTo(0, 0);
 
   return (
     <GDPRWrapper>
@@ -19,7 +19,7 @@ export default function GDPR() {
           Handling of personal data
         </StyledSmallHeading>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
-          At La Mére we treat Personal data for users and guests using La Mere's
+          At La Mère we treat Personal data for users and guests using La Mere's
           online booking system.. We safeguard your privacy and follow the
           applicable legislation at any time, which aims to protect you as a
           private person. The restaurant is the personal data controller for the
@@ -31,10 +31,10 @@ export default function GDPR() {
           directly or indirectly to a live person today.
         </StyledParagraph>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
-          This Privacy Policy applies only to users of La Mére's website.
+          This Privacy Policy applies only to users of La Mère's website.
         </StyledParagraph>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
-          La Mére uses Personal Information primarily to administer, provide,
+          La Mère uses Personal Information primarily to administer, provide,
           develop and maintain the Services, process your bookings, optimize
           your experience of the Services and personalize the communication with
           you. Please read this Privacy Policy carefully to understand how and
@@ -46,30 +46,30 @@ export default function GDPR() {
           one.
         </StyledParagraph>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
-          This Privacy Policy and La Mére's Terms of Use and any other terms
-          that govern the La Mére's processing of Personal Information indicate
+          This Privacy Policy and La Mère's Terms of Use and any other terms
+          that govern the La Mère's processing of Personal Information indicate
           the basis for how we treat Personal Information that you provide to us
           when you use our services or that we collect about you.
         </StyledParagraph>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
           Changes to these now mentioned conditions are announced by the new
-          conditions being published on the La Mére website and we therefore
+          conditions being published on the La Mère website and we therefore
           recommend that you regularly take part of these. If you add Personal
           Information about other persons, you are responsible for ensuring that
-          La Mére may also treat the Personal Data in accordance with applicable
+          La Mère may also treat the Personal Data in accordance with applicable
           conditions.
         </StyledParagraph>
         <StyledSmallHeading padding="10px 0px">
-          Use of La Mére's website
+          Use of La Mère's website
         </StyledSmallHeading>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
-          By booking via La Mére's website you agree that La Mére actively
+          By booking via La Mère's website you agree that La Mère actively
           collects, manages, stores and uses, and in other ways treats, your
-          personal data in order for La Mére to be able to provide the services
+          personal data in order for La Mère to be able to provide the services
           provided via the website.
         </StyledParagraph>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
-          La Mére can disclose Personal Information to third parties, such as
+          La Mère can disclose Personal Information to third parties, such as
           police or other authority, whether it concerns investigation of crimes
           or whether the Theater Hotel is otherwise obliged to disclose such
           task with the support of law or authority decisions.
@@ -80,7 +80,7 @@ export default function GDPR() {
           for marketing purposes. You also agree that such information may be
           disclosed to third parties for marketing purposes. Such disclosure of
           information will always be anonymous. You have the right, after a
-          written application at La Mére, to receive information about which
+          written application at La Mère, to receive information about which
           personal data are registered about you. Any inaccurate personal data
           you may ask to be corrected. You can also apply to have personal data
           deleted. Such an application is submitted by sending an e-mail to
@@ -90,7 +90,7 @@ export default function GDPR() {
           Objectives for which we treat your personal data
         </StyledSmallHeading>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
-          La Mére uses Personal Information to administer, provide, develop and
+          La Mère uses Personal Information to administer, provide, develop and
           maintain the Services, process your bookings, contact you via eg. SMS
           or email or to notify your booking status or information that connects
           to your booking before, during and after your reservation, diagnose
@@ -104,9 +104,9 @@ export default function GDPR() {
         </StyledParagraph>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
           You are entitled at any time and without charge to request that La
-          Mére not process your Personal Information for marketing purposes or
+          Mère not process your Personal Information for marketing purposes or
           withdraw your consent to this. You can use this right by contacting La
-          Mére at the following address: info@lamere.com.
+          Mère at the following address: info@lamere.com.
         </StyledParagraph>
         <StyledSmallHeading padding="10px 0px">Disclaimer</StyledSmallHeading>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
@@ -119,7 +119,7 @@ export default function GDPR() {
           Storage times
         </StyledSmallHeading>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
-          La Mére follows good practice in the restaurant industry.
+          La Mère follows good practice in the restaurant industry.
         </StyledParagraph>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
           The restaurant saves all the personal data we collect in our customer
@@ -133,8 +133,8 @@ export default function GDPR() {
           purpose where the personal data is still needed.
         </StyledParagraph>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
-          La Mére requires Personal Data in accordance with applicable law at
-          any given time. This means, for example, that La Mére deletes or
+          La Mère requires Personal Data in accordance with applicable law at
+          any given time. This means, for example, that La Mère deletes or
           un-identifies Personal Data when the purpose of the processing of the
           Personal Data no longer exists.
         </StyledParagraph>
@@ -143,19 +143,19 @@ export default function GDPR() {
           data
         </StyledSmallHeading>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
-          La Mére takes ongoing measures to comply with the principles of
-          “built-in data protection and data protection as standard”. La Mére
+          La Mère takes ongoing measures to comply with the principles of
+          “built-in data protection and data protection as standard”. La Mère
           continuously evaluates the risks associated with the personal data
           processing that takes place and takes the necessary security measures
           to reduce the risks.
         </StyledParagraph>
         <StyledParagraph textAlign="left" padding="10px 0px" fontSize="1.6rem">
-          Do you have direct questions about how La Mére works with the data
-          protection regulation (GDPR), please contact La Mére.
+          Do you have direct questions about how La Mère works with the data
+          protection regulation (GDPR), please contact La Mère.
         </StyledParagraph>
       </StyledFlexDiv>
     </GDPRWrapper>
-  )
+  );
 }
 
 export const GDPRWrapper = styled.div`
@@ -168,4 +168,4 @@ export const GDPRWrapper = styled.div`
   @media ${devices.desktop} {
     padding: 100px 200px;
   }
-`
+`;

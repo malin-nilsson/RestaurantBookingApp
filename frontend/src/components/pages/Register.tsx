@@ -73,6 +73,7 @@ export default function Register() {
     setLoader(false);
     setShowComplete(true);
     setInProgress(true);
+    setErrorMsg("");
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -119,7 +120,6 @@ export default function Register() {
       }
     }
     setTimeout(stopLoader, 8000);
-    // setErrorMsg("");
   };
 
   return (

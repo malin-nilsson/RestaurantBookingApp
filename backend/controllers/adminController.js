@@ -95,17 +95,6 @@ const getRegister = async (req, res) => {
   res.status(200).send(admins);
 };
 
-const getNewRoute = async (req, res) => {
-  const id = req.params.id;
-  console.log(id);
-  try {
-    await AdminModel.findById({ success: true, msg: "ID found" });
-    res.status(200).json(id);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
 // DELETE ADMIN
 const deleteAdmin = async (req, res) => {
   const id = req.params.id;
@@ -128,5 +117,4 @@ module.exports = {
   getManage,
   deleteAdmin,
   changeRole,
-  getNewRoute,
 };

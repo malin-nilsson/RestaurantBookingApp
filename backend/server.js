@@ -33,20 +33,6 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   console.log(req.path, req.method);
 
-  // const { token } = req.cookies;
-
-  // if (token && jwt.verify(token, "jwt")) {
-  //   const tokenData = jwt.decode(token, "secret");
-  //   res.locals.loginInfo =
-  //     tokenData.username + " " + tokenData.userId + " " + tokenData.type;
-  //   res.locals.loginUser = tokenData.username;
-  //   res.locals.loginId = tokenData.userId;
-  //   res.locals.isLoggedIn = true;
-  //   res.locals.loginType = tokenData.type;
-  // } else {
-  //   res.locals.loginInfo = "Not logged in";
-  //   res.locals.isLoggedIn = false;
-  // }
   next();
 });
 

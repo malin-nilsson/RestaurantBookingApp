@@ -8,7 +8,6 @@ import { IAdmin } from "../../models/IAdmin";
 import { deleteAdmins } from "../../services/adminService";
 
 import AdminPermission from "../admin-components/AdminPermission";
-import AdminShowBookings from "../admin-components/AdminShowBookings";
 import { StyledAdminButton } from "../styled-components/Buttons/StyledButtons";
 import {
   StyledMediumHeading,
@@ -44,14 +43,9 @@ export default function AdminManage() {
         if (data.role === "user") {
           console.log(data.user);
         } else {
-          // LOGIC FOR SHOW & CHANGE USERS / ADMINS
           if (data.role === "admin") {
             setIsAdmin(true);
-            const data = await axios.get(
-              "http://localhost:4000/admin/manage"
-
-              // { withCredentials: false }
-            );
+            const data = await axios.get("http://localhost:4000/admin/manage");
 
             setUsersDb(data.data);
           }
@@ -72,6 +66,7 @@ export default function AdminManage() {
         "http://localhost:4000/admins/manage/" + admin._id
       );
       if (res.data.success) {
+        deleteAdmins(admin);
         alert(res.data.msg);
       }
     } catch (err) {

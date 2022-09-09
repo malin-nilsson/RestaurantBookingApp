@@ -8,14 +8,10 @@ const {
   getRegister,
   deleteAdmin,
   changeRole,
-  getNewRoute,
 } = require("../controllers/adminController.js");
 
 const { checkAdmin } = require("../middleware/authMiddleware");
 const adminModel = require("../models/adminModel.js");
-
-// GET ADMIN
-// router.get("/start", getNewRoute);
 
 // DECODE JWT
 router.post("/", checkAdmin);
@@ -31,8 +27,6 @@ router.get("/register", getRegister);
 
 // GET ALL ADMINS
 router.get("/manage", getManage);
-
-router.get("/manage/:id", getNewRoute);
 
 // DELETE A ADMIN
 router.delete("/manage", deleteAdmin);

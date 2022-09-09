@@ -1,15 +1,13 @@
 /// <reference types="cypress" />
 
 describe("ADMIN functions i.e. duplicates, wrong password, login etc.", () => {
-  // before(() => {
-  //   cy.task("clearAdmins");
-  // });
+  // MAKE SURE USER DON'T EXIST FIRST IN DATABASE
   it("Test REGISTER ADMIN post", () => {
     cy.request({
       method: "POST",
       url: "http:localhost:4000/admin/register",
       body: {
-        email: "oskar@oskar.se",
+        email: "random@random.se",
         password: "rakso",
         confirmPassword: "rakso",
       },
@@ -56,19 +54,6 @@ describe("ADMIN functions i.e. duplicates, wrong password, login etc.", () => {
       },
     }).then((response) => {
       expect(response.body).has.property("status", false);
-    });
-  });
-
-  it("TEST LOGIN USER EXIST", () => {
-    cy.request({
-      method: "POST",
-      url: "http://localhost:4000/admin",
-      body: {
-        emaiL: "oskar@oskar.se",
-        password: "rakso",
-      },
-    }).then((response) => {
-      expect(response.body).has.property("status", 200);
     });
   });
 });
