@@ -6,15 +6,15 @@ export const StyledGreenForm = styled(StyledTransparentForm)`
   background-color: var(--green);
   color: var(--beige);
   overflow: scroll;
-  margin: 0px 10px 50px;
+  margin: 0px auto 20px;
+  width: 95%;
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
   @media ${devices.tablet} {
-    padding: 20px 50px;
-    min-width: 550px;
-
-    margin: 0 auto;
+    padding: 30px 50px;
+    margin: 0px auto 50px;
+    width: 70%;
   }
 
   .input-container {

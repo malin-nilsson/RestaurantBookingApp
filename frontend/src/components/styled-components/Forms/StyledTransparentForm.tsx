@@ -3,8 +3,7 @@ import { devices } from '../../styling-breakpoints/breakpoints/Breakpoints'
 import { IStylingProps } from '../models/IStylingProps'
 
 export const StyledTransparentForm = styled.form`
-  width: 95%;
-  margin: ${(props: IStylingProps) => props.margin || '10px auto'};
+  margin: ${(props: IStylingProps) => props.margin || '20px auto'};
   display: flex;
   padding: 15px;
   flex-direction: column;
