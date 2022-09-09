@@ -74,9 +74,9 @@ Login at - "http://localhost:3000/admin".
 
 `"admins.json"`
 
-LOGIN CREDENTIALS\
-EMAIL: admin@admin.io - PASS: admin
-EMAIL: user@user.io - PASS: user
+##LOGIN CREDENTIALS\
+`EMAIL: admin@admin.io` - `PASS: admin`
+`EMAIL: user@user.io` - `PASS: user`
 
 ## Screenshots
 ![](./public/images/screenshot-landingpage.jpg)
