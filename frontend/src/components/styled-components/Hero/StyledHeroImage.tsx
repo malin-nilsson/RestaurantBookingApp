@@ -6,10 +6,6 @@ export const StyledHeroImage = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media ${devices.desktop} {
-    height: 100vh;
-  }
-
   .hero-image-container {
     position: relative;
     top: 0;
