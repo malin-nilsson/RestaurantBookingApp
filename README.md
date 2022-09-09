@@ -52,11 +52,11 @@ MAIL_PASS=”Your app password”
 
 ## Access admin page
 
-Login at - "http://localhost:3000/admin".
+Login at - `"http://localhost:3000/admin".`
 
-1. Make sure to use the file - "admins.json" - and import to MongoDB.\
+1. Make sure to use the file - `"admins.json"` - and import to `MongoDB.`
 
-2. File is located in - "backend/db/admins.json"\
+2. File is located in - `"backend/db/admins.json`
 
 3. Connect to your `MongoDB` 
 
@@ -74,7 +74,7 @@ Login at - "http://localhost:3000/admin".
 
 `"admins.json"`
 
-##LOGIN CREDENTIALS\
+## LOGIN CREDENTIALS
 `EMAIL: admin@admin.io` - `PASS: admin`
 `EMAIL: user@user.io` - `PASS: user`
 
