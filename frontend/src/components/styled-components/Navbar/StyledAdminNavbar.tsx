@@ -34,6 +34,7 @@ export default function AdminHeader() {
           }
         );
         if (!data.status) {
+          console.log(data.status);
           removeCookie("jwt");
           navigate("/admin");
         } else {
