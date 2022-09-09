@@ -1,59 +1,59 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { StyledAdminHeading } from "../Headings/StyledHeadings";
-import { StyledPlantIcon } from "../Icon/StyledPlantIcon";
-import { StyledFlexDiv } from "../Wrappers/StyledFlex";
-import { StyledLinkWrapper } from "../Wrappers/StyledLinkWrapper";
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
+import { StyledAdminHeading } from '../Headings/StyledHeadings'
+import { StyledPlantIcon } from '../Icon/StyledPlantIcon'
+import { StyledFlexDiv } from '../Wrappers/StyledFlex'
+import { StyledLinkWrapper } from '../Wrappers/StyledLinkWrapper'
 
 export default function AdminHeader() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['jwt'])
+  const [isAdmin, setIsAdmin] = useState(false)
 
   const [titles, setTitles] = useState({
-    home: "Back Home",
-    manage: "Manage Users",
-  });
+    home: 'Back Home',
+    manage: 'Manage Users',
+  })
 
-  const [isActive, setIsActive] = useState<Boolean>(false);
+  const [isActive, setIsActive] = useState<Boolean>(false)
 
   useEffect(() => {
     const verifyUser = async () => {
       if (!cookies.jwt) {
-        navigate("/admin");
+        navigate('/admin')
       } else {
         const { data } = await axios.post(
-          "http://localhost:4000/admin",
+          'http://localhost:4000/admin',
           {},
           {
             withCredentials: true,
-          }
-        );
+          },
+        )
         if (!data.status) {
-          navigate("/admin/start");
+          navigate('/admin/start')
         } else {
-          if (data.role === "user") {
-            setIsAdmin(false);
+          if (data.role === 'user') {
+            setIsAdmin(false)
           } else {
-            if (data.role === "admin") {
-              setIsAdmin(true);
+            if (data.role === 'admin') {
+              setIsAdmin(true)
             }
           }
         }
       }
-    };
+    }
 
-    verifyUser();
-  }, [cookies, navigate, removeCookie]);
+    verifyUser()
+  }, [cookies, navigate, removeCookie])
 
   const logOut = () => {
-    removeCookie("jwt", { path: "/" });
-    navigate("/admin");
-  };
+    removeCookie('jwt', { path: '/' })
+    navigate('/admin')
+  }
 
   return (
     <StyledAdminNavbar>
@@ -62,15 +62,27 @@ export default function AdminHeader() {
           <img src="/assets/logo.png" alt="La Mère logo"></img>
         </Link>
       </StyledPlantIcon>
-      <StyledAdminHeading>ADMIN</StyledAdminHeading>
-      <StyledFlexDiv direction="row" justify="flex-end">
+      <div>
+        <StyledAdminHeading>ADMIN</StyledAdminHeading>
+      </div>
+      <StyledFlexDiv direction="row" justify="flex-end" gap="40px">
         {isAdmin ? (
           <>
             <StyledLinkWrapper>
               <li className="hover-effect">
                 <NavLink
+                  to="/admin/start"
+                  className={({ isActive }) => (isActive ? 'active-link' : '')}
+                >
+                  Reservations
+                </NavLink>
+              </li>
+            </StyledLinkWrapper>
+            <StyledLinkWrapper>
+              <li className="hover-effect">
+                <NavLink
                   to="/admin/manage"
-                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                  className={({ isActive }) => (isActive ? 'active-link' : '')}
                 >
                   Manage Users
                 </NavLink>
@@ -80,7 +92,7 @@ export default function AdminHeader() {
               <li className="hover-effect">
                 <NavLink
                   to="/admin/register"
-                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                  className={({ isActive }) => (isActive ? 'active-link' : '')}
                 >
                   Register User
                 </NavLink>
@@ -93,7 +105,7 @@ export default function AdminHeader() {
         </span>
       </StyledFlexDiv>
     </StyledAdminNavbar>
-  );
+  )
 }
 
 export const StyledAdminNavbar = styled.nav`
@@ -127,7 +139,7 @@ export const StyledAdminNavbar = styled.nav`
     text-decoration: none;
 
     &:after {
-      content: "";
+      content: '';
       position: absolute;
       width: 100%;
       transform: scaleX(0);
@@ -144,4 +156,4 @@ export const StyledAdminNavbar = styled.nav`
       transform-origin: bottom left;
     }
   }
-`;
+`
