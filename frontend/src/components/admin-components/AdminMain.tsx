@@ -100,7 +100,7 @@ export default function AdminMain() {
   }
 
   // Search bookings based on text input
-  const searchBookings = async (e: FormEvent<HTMLFormElement>) => {
+  const searchByName = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     clearPage()
 
@@ -247,7 +247,7 @@ export default function AdminMain() {
           {search && (
             <StyledFlexDiv>
               <div className="search-forms">
-                <StyledTransparentForm border="none" onSubmit={searchBookings}>
+                <StyledTransparentForm border="none" onSubmit={searchByName}>
                   <StyledFlexDiv justify="flex-start" align="flex-start">
                     <StyledParagraph
                       padding="5px 0px"
