@@ -21,7 +21,7 @@ End-to-end tests were implemented using Cypress.
 3. Create a .env file\
 To run this application you'll need the following environment variables in a .env file in the backend folder:\
 PORT=4000\
-MONGO_URI=”your MongoDB connection string”\
+MONGO_URI=”your MongoDB connection string/LA_MERE”\
 
 4. Start server\
 `cd backend`\
@@ -52,9 +52,9 @@ MAIL_PASS=”Your app password”
 
 ## Access admin page
 
-1. Make sure to use the file - `"admins.json"` - and import to `MongoDB.`
+1. Make sure to use the file - `"admins.json"` - and import to `MongoDB`.
 
-2. File is located in - `"backend/db/admins.json`
+2. File is located in - `backend/db/admins.json`
 
 3. Connect to your `MongoDB`
 
