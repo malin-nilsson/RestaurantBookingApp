@@ -19,7 +19,7 @@ End-to-end tests were implemented using Cypress.
 `cd la_mere`
 
 3. Create a .env file\
-To run this application you'll need the following three environment variables in a .env file in the backend folder:\
+To run this application you'll need the following environment variables in a .env file in the backend folder:\
 PORT=4000\
 MONGO_URI=”your MongoDB connection string”\
 
@@ -52,17 +52,13 @@ MAIL_PASS=”Your app password”
 
 ## Access admin page
 
-Login at - `"http://localhost:3000/admin".`
-
 1. Make sure to use the file - `"admins.json"` - and import to `MongoDB.`
 
 2. File is located in - `"backend/db/admins.json`
 
 3. Connect to your `MongoDB`
 
-`.env` `MONGO_URI=”your MongoDB connection string/LA_MERE” =>`
-
-`In MongoDB client when connected =>`
+5. In MongoDB client when connected:
 
 `LA_MERE =>`
 
@@ -77,11 +73,14 @@ Login at - `"http://localhost:3000/admin".`
 `"admins.json"`
 
 ## Login Credentials
-`EMAIL: admin@admin.io` - `PASS: admin`
 
-`EMAIL: user@user.io` - `PASS: user`
+Login at `"http://localhost:3000/admin"`
 
-`DS`- `localhost:4000/admin/manage` is `NOT` fully functional yet.
+Admin: `EMAIL: admin@admin.io` - `PASS: admin`
+
+Employee: `EMAIL: user@user.io` - `PASS: user`
+
+`localhost:4000/admin/manage` is `NOT` fully functional yet.
 
 ## Screenshots
 ![](./frontend/public/assets/screenshot-landingpage.jpg)
