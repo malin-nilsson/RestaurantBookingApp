@@ -88,3 +88,11 @@ Employee: `EMAIL: user@user.io` - `PASS: user`
 ![](./frontend/public/assets/screenshot-admin.jpg)
 ![](./frontend/public/assets/screenshot-admin-search.jpg)
 
+##Tools used in this project
+React\
+TypeScript\
+MongoDb\
+Node\
+Mongoose\
+Nodemailer\
+Cypress
