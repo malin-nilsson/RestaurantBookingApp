@@ -5,7 +5,7 @@ Fullstack MERN app using TypeScript, Styled components, authentication, React Ro
 - [Overview](#overview)
 - [Installation](#installation)
 - [Testing with Cypress](#cypress)
-- [Email confirmation setup](#nodemailer)
+- [Email confirmation setup](#email-confirmation)
 - [Access admin](#admin)
 - [Login credentials](#login-credentials)
 - [Screenshots](#screenshots)
@@ -102,6 +102,7 @@ Employee: `EMAIL: user@user.io` - `PASS: user`
 ## Tools
 React\
 TypeScript\
+Sass\
 MongoDb\
 Node\
 Mongoose\
