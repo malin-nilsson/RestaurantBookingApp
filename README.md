@@ -4,7 +4,7 @@ Fullstack MERN app using TypeScript, Styled components, authentication, React Ro
 ## Table of contents
 - [Overview](#overview)
 - [Installation](#installation)
-- [Testing with Cypress](#cypress)
+- [Testing with Cypress](#testing)
 - [Email confirmation setup](#email-confirmation)
 - [Access admin](#access-admin)
 - [Login credentials](#login-credentials)
