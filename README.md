@@ -1,6 +1,17 @@
 # Restaurant Booking App 📅 🍽️
 Fullstack MERN app using TypeScript, Styled components, authentication, React Router and React Context.
 
+## Table of contents
+- [Overview](#overview)
+- [Installation](#installation)
+- [Testing with Cypress](#cypress)
+- [Email confirmation setup](#nodemailer)
+- [Access admin](#admin)
+- [Login credentials](#login-credentials)
+- [Screenshots](#screenshots)
+- [Tools](#tools)
+
+## Overview
 This is a school project where we were tasked to create a booking system for a restaurant. 
 
 Guests can make online reservations and receive an email confirmation along with a cancellation link. 
@@ -50,7 +61,7 @@ https://myaccount.google.com/security
 MAIL_USER=”Your email address”\
 MAIL_PASS=”Your app password”
 
-## Access admin page
+## Access admin
 
 1. Make sure to use the file - `"admins.json"` - and import it to `MongoDB`.
 
@@ -88,7 +99,7 @@ Employee: `EMAIL: user@user.io` - `PASS: user`
 ![](./frontend/public/assets/screenshot-admin.jpg)
 ![](./frontend/public/assets/screenshot-admin-search.jpg)
 
-## Tools used in this project
+## Tools
 React\
 TypeScript\
 MongoDb\
