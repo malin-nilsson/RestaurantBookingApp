@@ -26,15 +26,18 @@ End-to-end tests were implemented using Cypress.
 1. Clone the repo\
 `git clone https://github.com/19ozman/la_mere`
 
-2. CD into repo\
+2. Install npm packages\
+`npm i`
+
+3. CD into repo\
 `cd la_mere`
 
-3. Create a .env file\
+4. Create a .env file\
 To run this application you'll need the following environment variables in a .env file in the backend folder:\
 PORT=4000\
 MONGO_URI=”your MongoDB connection string/LA_MERE”
 
-4. Start server\
+5. Start server\
 `cd backend`\
 `npm run dev`
 
