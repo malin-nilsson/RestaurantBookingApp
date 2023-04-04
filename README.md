@@ -1,5 +1,5 @@
 # Restaurant Booking App 📅 🍽️
-Fullstack MERN app using TypeScript, Styled components, authentication, React Router and React Context.
+Fullstack app using React, TypeScript and Styled components on the frontend and NodeJS, Express and MongoDB on the backend.
 
 ## Table of contents
 - [Overview](#overview)
