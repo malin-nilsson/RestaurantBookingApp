@@ -12,13 +12,13 @@ Fullstack MERN app using TypeScript, Styled components, authentication, React Ro
 - [Tools](#tools)
 
 ## Overview
-This is a school project where we were tasked to create a booking system for a restaurant. 
+This is a school project where we were tasked to create a restaurant website and booking system using React and TypeScript on the frontend and NodeJS, Express and MongoDB on the backend. 
 
-Guests can make online reservations and receive an email confirmation along with a cancellation link. 
-
-The restaurant has 15 tables, each seating up to 6 guests. We’ve added functionality to accommodate larger groups as well, in that case the system will reserve the right amount of tables needed.
+The restaurant has 15 tables in total, each table seating up to 6 guests. We created functionality to accommodate larger groups as well, so the booking system reserves the amount of tables needed. 
 
 The project features full authentication for admin/staff who can log in and perform CRUD operations (access all bookings, add, edit and remove bookings). 
+
+After you make an online reservations, you will receive an email confirmation along with a cancellation link. 
 
 End-to-end tests were implemented using Cypress.
 
