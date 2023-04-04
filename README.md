@@ -1,5 +1,5 @@
 # Restaurant Booking App 📅 🍽️
-Fullstack app using React, TypeScript and Styled components on the frontend and NodeJS, Express and MongoDB on the backend.
+Fullstack app using React, TypeScript and Styled components on the frontend and Node.js, Express and MongoDB on the backend.
 
 ## Table of contents
 - [Overview](#overview)
@@ -12,13 +12,13 @@ Fullstack app using React, TypeScript and Styled components on the frontend and 
 - [Tools](#tools)
 
 ## Overview
-This is a school project where we were tasked to create a restaurant website and booking system using React and TypeScript on the frontend and NodeJS, Express and MongoDB on the backend. 
+This is a school project where we were tasked to create a restaurant website and booking system using React and TypeScript on the frontend and Node.js, Express and MongoDB on the backend. 
 
 The restaurant has 15 tables in total, each table seating up to 6 guests. We created functionality to accommodate larger groups as well, so the booking system reserves the amount of tables needed. 
 
 The project features full authentication for admin/staff who can log in and perform CRUD operations (access all bookings, add, edit and remove bookings). 
 
-After you make an online reservations, you will receive an email confirmation along with a cancellation link. 
+After you make an online reservation, you will receive an email confirmation along with a cancellation link. 
 
 End-to-end tests were implemented using Cypress.
 
