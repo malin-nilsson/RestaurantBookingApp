@@ -22,6 +22,22 @@ After you make an online reservation, you will receive an email confirmation alo
 
 End-to-end tests were implemented using Cypress.
 
+## Screenshots
+![](./frontend/public/assets/screenshot-landingpage.jpg)
+![](./frontend/public/assets/screenshot-reservation.jpg)
+![](./frontend/public/assets/screenshot-admin.jpg)
+![](./frontend/public/assets/screenshot-admin-search.jpg)
+
+## Tools
+React\
+TypeScript\
+Sass\
+MongoDb\
+Node\
+Mongoose\
+Nodemailer\
+Cypress
+
 ## Installation
 1. Clone the repo\
 `git clone https://github.com/19ozman/la_mere`
@@ -96,18 +112,8 @@ Employee: `EMAIL: user@user.io` - `PASS: user`
 
 `localhost:4000/admin/manage` is `NOT` fully functional yet.
 
-## Screenshots
-![](./frontend/public/assets/screenshot-landingpage.jpg)
-![](./frontend/public/assets/screenshot-reservation.jpg)
-![](./frontend/public/assets/screenshot-admin.jpg)
-![](./frontend/public/assets/screenshot-admin-search.jpg)
 
-## Tools
-React\
-TypeScript\
-Sass\
-MongoDb\
-Node\
-Mongoose\
-Nodemailer\
-Cypress
+## Authors
+[Malin Nilsson](https://github.com/malin-nilsson)\
+[Oscar Welen](https://github.com/19ozman)\
+[Michael Miikkulainen](https://github.com/michael-cwm)
