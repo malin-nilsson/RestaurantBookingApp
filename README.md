@@ -14,7 +14,7 @@ Fullstack app using React, TypeScript and Styled components on the frontend and 
 ## Overview
 This is a school project where we were tasked to create a restaurant website and booking system using React and TypeScript on the frontend and Node.js, Express and MongoDB on the backend. 
 
-The restaurant has 15 tables in total, each table seating up to 6 guests. We created functionality to accommodate larger groups as well, so the booking system reserves the amount of tables needed. 
+The restaurant has 3 seating each day and 15 tables in total. Each table can seat up to 6 guests. We created functionality to also accommodate larger groups, so the booking system reserves the amount of tables needed. 
 
 The project features full authentication for admin/staff who can log in and perform CRUD operations (access all bookings, add, edit and remove bookings). 
 
